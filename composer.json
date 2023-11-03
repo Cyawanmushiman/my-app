@@ -9,6 +9,7 @@
         "arcanedev/log-viewer": "^10.0",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel-lang/lang": "^13.3",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
