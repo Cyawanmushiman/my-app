@@ -1,0 +1,63 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use {{ mailNamespace }} as {{ aliasMailClassName }};
+
+class {{ className }} extends Notification implements ShouldQueue
+{
+    use Queueable;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * 通知を指定.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        $channels = ['mail', 'database'];
+
+        return $channels;
+    }
+
+    /**
+     * メール送信.
+     *
+     * @param  mixed  $notifiable
+     * @return {{ aliasMailClassName }}
+     */
+    public function toMail($notifiable)
+    {
+        return (new {{ aliasMailClassName }}($notifiable))
+            ->to($notifiable->email);
+    }
+
+    /**
+     * データベース通知
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'message' => '',
+            'url'     => '',
+        ];
+    }
+}
