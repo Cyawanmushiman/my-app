@@ -11,22 +11,26 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to your application's "home" route.
+     * The path to the "home" route for your application.
      *
      * Typically, users are redirected here after authentication.
      *
      * @var string
      */
-    public const HOME = '/home';
+    // Userのリダイレクト先
+    public const HOME = '/user/home';
+
+    // Adminのリダイレクト先
+    public const ADMIN_HOME = '/admin/home';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function boot()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
+        $this->configureRateLimiting();
 
         $this->routes(function () {
             Route::middleware('api')
@@ -35,6 +39,28 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware('web')
+                ->prefix('user')
+                ->name('user.')
+                ->group(base_path('routes/web_user.php'));
+
+            Route::middleware('web')
+                ->prefix('admin')
+                ->name('admin.')
+                ->group(base_path('routes/web_admin.php'));
+        });
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     *
+     * @return void
+     */
+    protected function configureRateLimiting()
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
 }

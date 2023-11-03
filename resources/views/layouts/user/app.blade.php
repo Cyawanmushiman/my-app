@@ -69,7 +69,7 @@
     
     <main class="row mt-5">
         <div class="col-3">
-            @include('components.parts.admin_sidebar')
+            @include('components.parts.user_sidebar')
         </div>
         <div class="col-9">
             @yield('content')
