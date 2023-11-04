@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
+use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
 
@@ -25,4 +26,7 @@ Route::middleware('auth:user')->group(function () {
 
     // 中期目標
     Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show']);
+
+    // 短期目標
+    Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
 });

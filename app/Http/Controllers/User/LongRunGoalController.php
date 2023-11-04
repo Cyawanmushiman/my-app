@@ -42,7 +42,7 @@ class LongRunGoalController extends Controller
     public function store(StoreRequest $request)
     {
         $params = array_merge($request->substitutable(), [
-            'user_id' => auth()->guard('user')->id(),
+            'user_id' => auth()->id(),
         ]);
         LongRunGoal::create($params);
 

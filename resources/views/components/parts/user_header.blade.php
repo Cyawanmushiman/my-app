@@ -17,7 +17,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
-                @if (auth()->guard('user')->check() && auth()->guard('user')->user()->email_verified_at !== null)
+                @if (auth()->check() && auth()->user()->email_verified_at !== null)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.home') }}">
                             <i class="fas fa-home me-1"></i>{{ __('トップ') }}

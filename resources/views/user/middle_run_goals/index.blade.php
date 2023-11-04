@@ -8,12 +8,9 @@
             <a href="{{ route('user.middle_run_goals.create') }}" class="btn btn-primary">作成する</a>
         </x-slot>
         <x-slot name="cardBody">
-            @foreach ($groupedMiddleRunGoals as $longRunGoalId => $middleRunGoals)
-                @php
-                    $longRunGoal = $allLongRunGoals->firstWhere('id', $longRunGoalId);
-                @endphp
+            @foreach ($groupedMiddleRunGoals as $longRunGoalTitle => $middleRunGoals)
                 <div class="mb-4">
-                    <h5 class="my-2">{{ $longRunGoal->title }}</h5>
+                    <h5 class="my-2">{{ $longRunGoalTitle }}</h5>
                     <x-parts.basic_table_layout>
                         <x-slot name="thead">
                             <tr>
