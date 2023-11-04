@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ShortRunGoalController\StoreRequest;
 use App\Http\Requests\User\ShortRunGoalController\UpdateRequest;
+use App\Models\MiddleRunGoal;
 use App\Models\ShortRunGoal;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,17 @@ class ShortRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
+        $shortRunGoals = auth()->user()->shortRunGoals()->get();
+        // 中期目標でグループ化
+        $groupedShortRunGoals = $shortRunGoals->groupBy(function ($shortRunGoal) {
+            /** @var \App\Models\ShortRunGoal $shortRunGoal */
+            return $shortRunGoal->middleRunGoal->title;
+        });
+        
         return view('user.short_run_goals.index', [
-            'shortRunGoals' => ShortRunGoal::latest()->paginate(12),
+            'groupedShortRunGoals' => $groupedShortRunGoals,
         ]);
     }
 
@@ -32,19 +40,14 @@ class ShortRunGoalController extends Controller
      * @return \Illuminate\View\View
      */
     public function create()
-    {        
-        return view('user.short_run_goals.create');
-    }
+    {   
+        $allLongRunGoals = auth()->user()->longRunGoals()->get();
 
-    /**
-     * 詳細表示
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show(ShortRunGoal $shortRunGoal)
-    {        
-        return view('user.short_run_goals.show', [
-            'shortRunGoal' => $shortRunGoal,
+        $allMiddleRunGoals = auth()->user()->middleRunGoals()->get();
+        
+        return view('user.short_run_goals.create', [
+            'allLongRunGoals' => $allLongRunGoals,
+            'allMiddleRunGoals' => $allMiddleRunGoals,
         ]);
     }
 
@@ -69,7 +72,13 @@ class ShortRunGoalController extends Controller
      */
     public function edit(ShortRunGoal $shortRunGoal)
     {
+        $allLongRunGoals = auth()->user()->longRunGoals()->get();
+
+        $allMiddleRunGoals = auth()->user()->middleRunGoals()->get();
+
         return view('user.short_run_goals.edit', [
+            'allLongRunGoals' => $allLongRunGoals,
+            'allMiddleRunGoals' => $allMiddleRunGoals,
             'shortRunGoal' => $shortRunGoal,
         ]);
     }

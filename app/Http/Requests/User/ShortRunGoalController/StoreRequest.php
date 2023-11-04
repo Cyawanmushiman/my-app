@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User\ShortRunGoalController;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -23,9 +24,9 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // TODO
         return [
-            'title' => ['required'],
+            'middle_run_goal_id' => ['required', 'exists:middle_run_goals,id'],
+            'title' => ['required', 'string', 'max:255'],
         ];
     }
 
@@ -35,6 +36,7 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
+            'middle_run_goal_id',
             'title',
         ]);
     }
