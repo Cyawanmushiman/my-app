@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('daily_run_goals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('short_run_goal_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->timestamps();
         });

@@ -24,8 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'short_run_goal_id' => ['required', 'exists:short_run_goals,id'],
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255', 'unique:daily_run_goals'],
         ];
     }
 
@@ -35,7 +34,6 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
-            'short_run_goal_id',
             'title',
         ]);
     }

@@ -11,9 +11,4 @@ class DailyRunGoal extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public function shortRunGoal(): BelongsTo
-    {
-        return $this->belongsTo(ShortRunGoal::class);
-    }
 }

@@ -10,10 +10,6 @@ use Illuminate\Http\Request;
 
 class DailyRunGoalController extends Controller
 {
-    public function __construct(private DailyRunGoal $dailyRunGoal)
-    {
-    }
-
     /**
      * 一覧
      *
@@ -21,14 +17,8 @@ class DailyRunGoalController extends Controller
      */
     public function index()
     {
-        $dailyRunGoals = auth()->user()->dailyRunGoals()->get();
-        $groupedDailyRunGoals = $dailyRunGoals->groupBy(function ($dailyRunGoal) {
-            /** @var \App\Models\DailyRunGoal $dailyRunGoal */
-            return $dailyRunGoal->shortRunGoal->title;
-        });
-        
         return view('user.daily_run_goals.index', [
-            'groupedDailyRunGoals' => $groupedDailyRunGoals,
+            'allDailyRunGoals' => DailyRunGoal::all(),
         ]);
     }
 
@@ -39,11 +29,7 @@ class DailyRunGoalController extends Controller
      */
     public function create()
     {        
-        return view('user.daily_run_goals.create',[
-            'allLongRunGoals' => auth()->user()->longRunGoals()->get(),
-            'allMiddleRunGoals' => auth()->user()->middleRunGoals()->get(),
-            'allShortRunGoals' => auth()->user()->shortRunGoals()->get(),
-        ]);
+        return view('user.daily_run_goals.create');
     }
 
     /**
@@ -55,7 +41,10 @@ class DailyRunGoalController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->dailyRunGoal->fill($request->substitutable())->save();
+        $params = array_merge($request->substitutable(), [
+            'user_id' => auth()->id(),
+        ]);
+        DailyRunGoal::create($params);
 
         return to_route('user.daily_run_goals.index')->with('status', '作成しました');
     }
@@ -68,9 +57,6 @@ class DailyRunGoalController extends Controller
     public function edit(DailyRunGoal $dailyRunGoal)
     {
         return view('user.daily_run_goals.edit', [
-            'allLongRunGoals' => auth()->user()->longRunGoals()->get(),
-            'allMiddleRunGoals' => auth()->user()->middleRunGoals()->get(),
-            'allShortRunGoals' => auth()->user()->shortRunGoals()->get(),
             'dailyRunGoal' => $dailyRunGoal,
         ]);
     }

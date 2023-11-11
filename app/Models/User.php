@@ -74,16 +74,4 @@ class User extends Authenticatable
             });
         });
     }
-
-    // ユーザーに関連する今日の目標を取得する。
-    public function dailyRunGoals(): Builder
-    {
-        return DailyRunGoal::whereHas('shortRunGoal', function ($query) {
-            $query->whereHas('middleRunGoal', function ($subQuery) {
-                $subQuery->whereHas('longRunGoal', function ($subSubQuery) {
-                    $subSubQuery->where('user_id', $this->id);
-                });
-            });
-        });
-    }
 }

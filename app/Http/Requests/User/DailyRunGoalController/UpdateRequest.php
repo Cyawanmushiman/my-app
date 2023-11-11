@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User\DailyRunGoalController;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -24,8 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'short_run_goal_id' => ['required', 'exists:short_run_goals,id'],
-            'title' => ['required'],
+            'title' => ['required', 'string', 'max:255', Rule::unique('daily_run_goals')->ignore($this->daily_run_goal)],
         ];
     }
 
@@ -35,7 +35,6 @@ class UpdateRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
-            'short_run_goal_id',
             'title',
         ]);
     }
