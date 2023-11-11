@@ -21,6 +21,7 @@ Route::middleware('auth:user')->group(function () {
 
     // TOPページ
     Route::get('/home', [HomeController::class, 'home'])->name('home');
+    Route::post('/home', [HomeController::class, 'store'])->name('home.store');
 
     // 長期目標
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show']);

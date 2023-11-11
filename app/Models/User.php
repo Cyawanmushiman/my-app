@@ -74,4 +74,10 @@ class User extends Authenticatable
             });
         });
     }
+
+    // ユーザーに関連する今日の目標を取得する。
+    public function dailyRunGoals(): HasMany
+    {
+        return $this->hasMany(DailyRunGoal::class);
+    }
 }

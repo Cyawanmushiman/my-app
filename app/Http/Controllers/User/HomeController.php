@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
 {
@@ -25,5 +26,10 @@ class HomeController extends Controller
     public function home()
     {
         return view('user.home');
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        return redirect()->route('home');
     }
 }

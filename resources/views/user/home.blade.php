@@ -7,20 +7,35 @@
             <h4 class="my-2">今日の目標</h4>
         </x-slot>
         <x-slot name="cardBody">
-            <form method="POST" action=""  enctype="multipart/form-data">
+            <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
                 @csrf
 
-                <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-6 text-md-end">
-                            <label class="col-form-label">入社年月日@include('components.parts.required_badge')</label>
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="checkbox" name="dailyRunGoalIds[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
+                                    <label class="h5" for="{{ $dailyRunGoal->id }}">{{ $dailyRunGoal->title }}</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-2 form-group">
-                            @include('components.form.date', ['name' => 'entry_on', 'required' => true])
-                            @include('components.form.error', ['name' => 'entry_on'])
+                    @endforeach
+
+                    <div class="form-body mt-5">
+                        <div class="row">
+                            <div class="col-6 text-md-end">
+                                <label class="col-form-label">今日の点数</label>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                @include('components.form.number', ['name' => 'score'])点
+                            </div>
+                            @include('components.form.error', ['name' => 'score'])
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="text-center my-4">
                     <button type="submit" class="btn btn-primary" >
