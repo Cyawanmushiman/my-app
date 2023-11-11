@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('daily_score_run_goal', function (Blueprint $table) {
+        Schema::create('daily_run_goal_daily_score', function (Blueprint $table) {
             $table->id();
             $table->foreignId('daily_score_id')->constrained()->onDelete('cascade');
             $table->foreignId('daily_run_goal_id')->constrained()->onDelete('cascade');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('daily_score_run_goal');
+        Schema::dropIfExists('daily_run_goal_daily_score');
     }
 };

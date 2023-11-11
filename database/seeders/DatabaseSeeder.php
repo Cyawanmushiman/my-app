@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             UserSeeder::class,
             LongRunGoalSeeder::class,
+            DailyRunGoalSeeder::class,
         ]);
     }
 }

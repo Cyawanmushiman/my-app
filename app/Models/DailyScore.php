@@ -10,6 +10,8 @@ class DailyScore extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function dailyRunGoals(): BelongsToMany
     {
         return $this->belongsToMany(DailyRunGoal::class);

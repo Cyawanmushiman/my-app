@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\DailyScore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\User\HomeController\StoreRequest;
 
 class HomeController extends Controller
 {
@@ -28,8 +30,20 @@ class HomeController extends Controller
         return view('user.home');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
-        return redirect()->route('home');
+        $params = array_merge($request->substitutable(), [
+            'user_id' => auth()->id(),
+        ]);
+
+        $dailyScore = DailyScore::create([
+            'user_id' => $params['user_id'],
+            'score' => $params['score'],
+        ]);
+        $dailyRunGoalIds = $params['daily_run_goal_ids'];
+        
+        $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
+
+        return to_route('user.home')->with('status', '今日の目標を登録しました。');
     }
 }

@@ -15,7 +15,7 @@
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="checkbox" name="dailyRunGoalIds[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
+                                    <input type="checkbox" name="daily_run_goal_ids[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
                                     <label class="h5" for="{{ $dailyRunGoal->id }}">{{ $dailyRunGoal->title }}</label>
                                 </div>
                             </div>
