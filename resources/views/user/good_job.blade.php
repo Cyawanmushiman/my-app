@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex align-items-center justify-content-center">
+    <div class="fadeRight d-flex align-items-center justify-content-center">
         <img src="{{ $inspire->image_url }}" style="max-width:100px;">
         <p style="font-family: serif;">「{{ $inspire->comment }}」</p>
     </div>
+    
     <div class="row mb-5">
         <div class="col-12 mt-3">
             <h2 class="text-center"><span class="text-danger">{{ $consecutiveDays }}</span>日連続</h2>
@@ -29,3 +30,22 @@
     </div>
 </div>
 @endsection
+{{-- @section('script')
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                inspire: {
+                    imageUrl: "{{ $inspire->image_url }}",
+                    comment: "{{ $inspire->comment }}"
+                },
+                isLoaded: false // フェードイン制御用
+            }
+        },
+        mounted() {
+            this.isLoaded = true; // コンポーネントがマウントされたらフェードイン開始
+        }
+    }).mount('#app')
+    </script>
+    
+@endsection --}}

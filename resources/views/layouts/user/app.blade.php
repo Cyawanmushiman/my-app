@@ -55,11 +55,8 @@
     <!-- アイコン -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
-
-    {{-- bundle.jsと重複するため、コメントアウト（bundle.jsはドロップダウンの開閉に必要） --}}
-    {{-- @vite(['resources/js/app.js']) --}}
+    
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body id="@yield('body_id')" class="@yield('body_class')">
