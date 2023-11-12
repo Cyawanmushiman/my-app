@@ -46,6 +46,7 @@ class InspireController extends Controller
         $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
 
         $params = array_merge($request->substitutable(), [
+            'user_id' => auth()->id(),
             'image_url' => $inspireImageUrl['url'],
         ]);
         Inspire::create($params);

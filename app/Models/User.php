@@ -80,4 +80,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(DailyRunGoal::class);
     }
+
+    // ユーザーに関連するインスパイアを取得する。
+    public function inspires(): HasMany
+    {
+        return $this->hasMany(Inspire::class);
+    }
 }
