@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
+use Illuminate\View\View;
 use App\Models\DailyScore;
 use Illuminate\Http\Request;
+use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\HomeController\StoreRequest;
-use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    // コンストラクタ
+    public function __construct(private DailyScoreService $dailyScoreService)
     {
-        $this->middleware('auth:user');
     }
 
     /**
@@ -46,6 +43,8 @@ class HomeController extends Controller
 
     public function showGoodJob(): View
     {
-        return view('user.good_job');
+        return view('user.good_job', [
+            'consecutiveDays' => $this->dailyScoreService->getConsecutiveDays(),
+        ]);
     }
 }

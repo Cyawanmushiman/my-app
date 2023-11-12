@@ -8,6 +8,7 @@
     <div class="row mb-5">
         <h1 class="text-center">学習お疲れ様でした</h1>
         <div class="col-12 mt-3">
+            <h2 class="text-center">現在連続<span class="text-danger">{{ $consecutiveDays }}</span>日!!</h2>
             <h2 class="text-center">この調子で学習していきましょう！</h2>
         </div>
         <div class="col-12 mx-auto text-center mt-3">
