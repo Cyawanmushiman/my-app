@@ -62,6 +62,10 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+
+                                @if (app()->environment('local'))
+                                    <a href="{{ route('admin_dev_login') }}" class="btn btn-dark">開発中ログイン</a>
+                                @endif
                             </div>
                         </div>
                     </form>
