@@ -20,8 +20,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth:user')->group(function () {
 
     // TOPページ
-    Route::get('/home', [HomeController::class, 'home'])->name('home');
-    Route::post('/home', [HomeController::class, 'store'])->name('home.store');
+    Route::get('home', [HomeController::class, 'home'])->name('home');
+    Route::post('home', [HomeController::class, 'store'])->name('home.store');
+    Route::get('home/good_job', [HomeController::class, 'showGoodJob'])->name('home.show_good_job');
 
     // 長期目標
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show']);

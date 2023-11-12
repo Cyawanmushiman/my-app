@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\HomeController\StoreRequest;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -40,6 +41,11 @@ class HomeController extends Controller
         
         $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
 
-        return to_route('user.home')->with('status', '今日の目標を登録しました。');
+        return to_route('user.home.show_good_job');
+    }
+
+    public function showGoodJob(): View
+    {
+        return view('user.good_job');
     }
 }
