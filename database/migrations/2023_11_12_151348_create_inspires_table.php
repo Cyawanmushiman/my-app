@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inspires', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('image_url')->comment('画像URL');
             $table->string('comment')->comment('コメント');
             $table->timestamps();

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\InspireController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 
@@ -18,7 +17,4 @@ Route::middleware('auth:admin')->group(function () {
 
     // TOPページ
     Route::get('/home', [HomeController::class, 'home'])->name('home');
-
-    // インスパイア
-    Route::resource('inspires', InspireController::class)->except(['show']);
 });

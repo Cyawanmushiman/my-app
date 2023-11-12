@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
@@ -35,4 +36,7 @@ Route::middleware('auth:user')->group(function () {
 
     // 今日の目標
     Route::resource('daily_run_goals', DailyRunGoalController::class)->except(['show']);
+
+    // インスパイア
+    Route::resource('inspires', InspireController::class)->except(['show']);
 });

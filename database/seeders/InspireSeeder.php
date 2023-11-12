@@ -14,6 +14,7 @@ class InspireSeeder extends Seeder
     {
         \DB::table('inspires')->insert([
             [
+                'user_id' => 1,
                 'image_url' => '/storage/images/inspires/IoiCuJ6LqE3W3vlU2Ot2irronF9L0WoYyBPwQ4Az.svg',
                 'comment' => '今日も頑張ったね！',
             ],

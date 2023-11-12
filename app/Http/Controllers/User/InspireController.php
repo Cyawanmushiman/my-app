@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Models\Inspire;
 use App\Library\FileLibrary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\InspireController\StoreRequest;
-use App\Http\Requests\Admin\InspireController\UpdateRequest;
+use App\Http\Requests\User\InspireController\StoreRequest;
+use App\Http\Requests\User\InspireController\UpdateRequest;
 
 class InspireController extends Controller
 {
@@ -18,7 +18,7 @@ class InspireController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.inspires.index', [
+        return view('user.inspires.index', [
             'inspires' => Inspire::latest()->get(),
         ]);
     }
@@ -30,7 +30,7 @@ class InspireController extends Controller
      */
     public function create()
     {        
-        return view('admin.inspires.create');
+        return view('user.inspires.create');
     }
 
     /**
@@ -50,7 +50,7 @@ class InspireController extends Controller
         ]);
         Inspire::create($params);
 
-        return to_route('admin.inspires.index')->with('status', '作成しました');
+        return to_route('user.inspires.index')->with('status', '作成しました');
     }
 
     /**
@@ -60,7 +60,7 @@ class InspireController extends Controller
      */
     public function edit(Inspire $inspire)
     {
-        return view('admin.inspires.edit', [
+        return view('user.inspires.edit', [
             'inspire' => $inspire,
         ]);
     }
@@ -101,6 +101,6 @@ class InspireController extends Controller
         FileLibrary::deleteFile($inspire->image_url);
         $inspire->delete();
 
-        return to_route('admin.inspires.index')->with('status', '削除しました');
+        return to_route('user.inspires.index')->with('status', '削除しました');
     }
 }

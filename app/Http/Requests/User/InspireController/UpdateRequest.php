@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\InspireController;
+namespace App\Http\Requests\User\InspireController;
 
 use Illuminate\Foundation\Http\FormRequest;
 
