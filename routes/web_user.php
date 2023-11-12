@@ -38,5 +38,6 @@ Route::middleware('auth:user')->group(function () {
     Route::resource('daily_run_goals', DailyRunGoalController::class)->except(['show']);
 
     // インスパイア
+    Route::post('inspires/set_default', [InspireController::class, 'setDefault'])->name('inspires.set_default');
     Route::resource('inspires', InspireController::class)->except(['show']);
 });
