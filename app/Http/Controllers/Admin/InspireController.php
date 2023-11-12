@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Inspire;
+use App\Library\FileLibrary;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\InspireController\StoreRequest;
 use App\Http\Requests\Admin\InspireController\UpdateRequest;
-use App\Models\Inspire;
-use Illuminate\Http\Request;
 
 class InspireController extends Controller
 {
-    private Inspire $inspire;
-
-    /**
-     * @param Inspire $inspire
-     */
-    public function __construct(Inspire $inspire)
-    {
-        $this->inspire = $inspire;
-    }
-
     /**
      * 一覧
      *
@@ -51,7 +42,13 @@ class InspireController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->inspire->fill($request->substitutable())->save();
+        $imageFolderPath = 'public/images/inspires';
+        $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
+
+        $params = array_merge($request->substitutable(), [
+            'image_url' => $inspireImageUrl['url'],
+        ]);
+        Inspire::create($params);
 
         return to_route('admin.inspires.index')->with('status', '作成しました');
     }
@@ -78,7 +75,16 @@ class InspireController extends Controller
      */
     public function update(UpdateRequest $request, Inspire $inspire)
     {
-        $inspire->fill($request->substitutable())->save();
+        $inspire->update($request->substitutable());
+        
+        FileLibrary::deleteFile($inspire->image_url);
+
+        $imageFolderPath = 'public/images/inspires';
+        $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
+        
+        $inspire->update([
+            'image_url' => $inspireImageUrl['url'],
+        ]);
 
         return back()->with('status', '更新しました');
     }
@@ -92,6 +98,7 @@ class InspireController extends Controller
      */
     public function destroy(Inspire $inspire)
     {
+        FileLibrary::deleteFile($inspire->image_url);
         $inspire->delete();
 
         return to_route('admin.inspires.index')->with('status', '削除しました');

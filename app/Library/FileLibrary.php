@@ -21,6 +21,13 @@ class FileLibrary
 
         return compact('fileName', 'path', 'url');
     }
+   
+    // ファイル削除
+    public static function deleteFile(string $imageUrl): void
+    {
+        $path = str_replace('/storage', 'public', $imageUrl);
+        \Storage::delete($path);
+    }
     
     // CSVファイルをダウンロード
     public function downloadCsv(array $csvHeader, array $csvData, string $fileName): \Illuminate\Http\Response

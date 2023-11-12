@@ -23,8 +23,8 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // TODO
         return [
+            'image_file' => ['required', 'file', 'image', 'max:1024'],
             'comment' => ['required', 'string', 'max:255'],
         ];
     }

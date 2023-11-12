@@ -11,6 +11,12 @@
                 @csrf
 
                 <div class="col-md-8 mb-3 mx-auto">
+                    <label class="" for="image_file">画像</label>
+                    @include('components.form.file', ['name' => 'image_file', 'required' => true, 'accept' => 'image/*'])
+                    @include('components.form.error', ['name' => 'image_file'])
+                </div>
+
+                <div class="col-md-8 mb-3 mx-auto">
                     <label class="" for="comment">コメント</label>
                     @include('components.form.text', ['name' => 'comment', 'required' => true])
                     @include('components.form.error', ['name' => 'comment'])

@@ -11,16 +11,22 @@
             <x-parts.basic_table_layout>
                 <x-slot name="thead">
                     <tr>
-                        <th scope="col" class="text-nowrap">コメント</th>
-                        <th scope="col" class="text-nowrap">削除</th>
+                        <th scope="col" class="text-nowrap text-center">画像</th>
+                        <th scope="col" class="text-nowrap text-center">コメント</th>
+                        <th scope="col" class="text-nowrap text-center">削除</th>
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
                     @if($inspires->isNotEmpty())
                         @foreach($inspires as $inspire)
                             <tr>
-                                <td class="text-nowrap px-2"><a href="{{ route('admin.inspires.edit', $inspire) }}">{{ $inspire->comment }}</a></td>
-                                <td class="text-nowrap px-2">
+                                <td class="text-nowrap px-2 text-center">
+                                    <a href="{{ route('admin.inspires.edit', $inspire) }}">
+                                        <img src="{{ $inspire->image_url }}" alt="インスパイア画像" style="max-width: 60px">
+                                    </a>
+                                </td>
+                                <td class="text-nowrap px-2 text-center"><a href="{{ route('admin.inspires.edit', $inspire) }}">{{ $inspire->comment }}</a></td>
+                                <td class="text-nowrap px-2 text-center">
                                     <form action="{{ route('admin.inspires.destroy', $inspire) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
