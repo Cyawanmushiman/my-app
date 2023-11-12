@@ -16,7 +16,7 @@
                 <div class="col-md-8 mb-3 mx-auto">
                     <img src="{{ $inspire->image_url }}" alt="インスパイア画像" style="max-width: 100px">
                     <label class="" for="image_file">画像</label>
-                    @include('components.form.file', ['name' => 'image_file', 'required' => true, 'accept' => 'image/*'])
+                    @include('components.form.file', ['name' => 'image_file', 'required' => false, 'accept' => 'image/*'])
                     @include('components.form.error', ['name' => 'image_file'])
                 </div>
 

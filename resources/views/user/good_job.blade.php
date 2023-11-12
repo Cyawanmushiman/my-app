@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="col-8 mx-auto text-center">
-        <img src="{{asset('images/good-job.png')}}" style="max-width:500px;">
+    <div class="d-flex align-items-center justify-content-center">
+        <img src="{{ $inspire->image_url }}" style="max-width:100px;">
+        <p style="font-family: serif;">「{{ $inspire->comment }}」</p>
     </div>
     <div class="row mb-5">
-        <h1 class="text-center">学習お疲れ様でした</h1>
         <div class="col-12 mt-3">
-            <h2 class="text-center">現在連続<span class="text-danger">{{ $consecutiveDays }}</span>日!!</h2>
+            <h2 class="text-center"><span class="text-danger">{{ $consecutiveDays }}</span>日連続</h2>
             <h2 class="text-center">この調子で学習していきましょう！</h2>
         </div>
         <div class="col-12 mx-auto text-center mt-3">

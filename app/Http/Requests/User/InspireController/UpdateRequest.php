@@ -24,6 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'image_file' => ['nullable', 'file', 'image', 'max:2048'],
             'comment' => ['required', 'string', 'max:255'],
         ];
     }

@@ -50,12 +50,14 @@ class HomeController extends Controller
 
     public function showGoodJob(): View
     {
-        // $inspireCount = auth()->user()->inspire_count;
-        // $inspireRecordCount = Inspire::count();
-        // dd($inspireRecordCount);
+        $inspireCount = auth()->user()->inspire_count;
+        $inspireRecordCount = Inspire::count();
+        // 循環カウント
+        $inspireRecordId = $inspireCount % $inspireRecordCount + 1;
 
         return view('user.good_job', [
             'consecutiveDays' => $this->dailyScoreService->getConsecutiveDays(),
+            'inspire' => Inspire::find($inspireRecordId),
         ]);
     }
 }

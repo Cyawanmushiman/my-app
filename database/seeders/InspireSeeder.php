@@ -16,7 +16,7 @@ class InspireSeeder extends Seeder
             [
                 'user_id' => 1,
                 'image_url' => '/storage/images/inspires/IoiCuJ6LqE3W3vlU2Ot2irronF9L0WoYyBPwQ4Az.svg',
-                'comment' => '今日も頑張ったね！',
+                'comment' => 'コーヒーが冷めないうちに飲むのが一番だね。今のチャンスも同じ。今、君が頑張っていることは、きっと最高のタイミングなんだ。',
             ],
         ]);
     }

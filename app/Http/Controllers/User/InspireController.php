@@ -77,14 +77,16 @@ class InspireController extends Controller
     {
         $inspire->update($request->substitutable());
         
-        FileLibrary::deleteFile($inspire->image_url);
-
-        $imageFolderPath = 'public/images/inspires';
-        $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
-        
-        $inspire->update([
-            'image_url' => $inspireImageUrl['url'],
-        ]);
+        if ($request->hasFile('image_file')) {
+            FileLibrary::deleteFile($inspire->image_url);
+    
+            $imageFolderPath = 'public/images/inspires';
+            $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
+            
+            $inspire->update([
+                'image_url' => $inspireImageUrl['url'],
+            ]);
+        }
 
         return back()->with('status', '更新しました');
     }

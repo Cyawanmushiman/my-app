@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'image_file' => ['required', 'file', 'image', 'max:1024'],
+            'image_file' => ['required', 'file', 'image', 'max:2048'],
             'comment' => ['required', 'string', 'max:255'],
         ];
     }
