@@ -35,12 +35,8 @@ class HomeController extends Controller
         $params = array_merge($request->substitutable(), [
             'user_id' => auth()->id(),
         ]);
-
-        $dailyScore = DailyScore::create([
-            'user_id' => $params['user_id'],
-            'score' => $params['score'],
-        ]);
-        $dailyRunGoalIds = $params['daily_run_goal_ids'];
+        $dailyScore = DailyScore::create($params);
+        $dailyRunGoalIds = $request['daily_run_goal_ids'];
         
         $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
 

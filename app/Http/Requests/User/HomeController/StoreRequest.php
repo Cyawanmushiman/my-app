@@ -24,6 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'daily_run_goal_ids' => ['required', 'array'],
             'daily_run_goal_ids.*' => ['nullable', 'integer'],
+            'diary' => ['required', 'string', 'max:3000'],
             'score' => ['required', 'integer'],
         ];
     }
@@ -34,7 +35,7 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
-            'daily_run_goal_ids',
+            'diary',
             'score',
         ]);
     }

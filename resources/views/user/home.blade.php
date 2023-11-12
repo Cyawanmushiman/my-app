@@ -24,7 +24,19 @@
 
                     <div class="form-body mt-5">
                         <div class="row">
-                            <div class="col-6 text-md-end">
+                            <div class="col-2 text-md-end">
+                                <label class="col-form-label">日記</label>
+                            </div>
+                            <div class="col-10 d-flex align-items-center">
+                                @include('components.form.textarea', ['name' => 'diary', 'rows' => 10, 'placeholder' => '今日の出来事を記入してください'])
+                            </div>
+                            @include('components.form.error', ['name' => 'diary'])
+                        </div>
+                    </div>
+
+                    <div class="form-body mt-5">
+                        <div class="row">
+                            <div class="col-4 text-md-end">
                                 <label class="col-form-label">今日の点数</label>
                             </div>
                             <div class="col-6 d-flex align-items-center">
