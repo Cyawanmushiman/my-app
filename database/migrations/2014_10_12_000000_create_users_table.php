@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('inspire_count')->default(0)->comment('インスパイア回数');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
