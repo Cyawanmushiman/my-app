@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// トップにアクセスしたらリダイレクト
+Route::get('/', function () {
+    return redirect()->route('user.home');
+});
 
 // 開発中ログイン(ユーザー)
 Route::get('user_dev_login', function () {
