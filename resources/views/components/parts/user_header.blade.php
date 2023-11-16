@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top border-bottom border-3 border-primary">
     <div class="container">
         <a href="{{ route('user.home') }}" class="d-block">
-            <img class="logo" src="{{ asset('images/logo2.png') }}" alt="" style="width: 50px">
+            {{-- <img class="logo" src="{{ asset('images/logo.png') }}" alt="" style="width: 50px"> --}}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

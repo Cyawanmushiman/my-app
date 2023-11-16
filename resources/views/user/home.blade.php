@@ -7,6 +7,8 @@
             <h4 class="my-2">今日の目標</h4>
         </x-slot>
         <x-slot name="cardBody">
+            {{-- <div id="jsmind_container"></div> --}}
+            <div id="jsmind_container" style="width:100%;height:500px;"></div>
             <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
                 @csrf
 
@@ -58,4 +60,51 @@
         </x-slot>
     </x-parts.basic_card_layout>
 </div>
+@endsection
+@section('script')
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/style/jsmind.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/es6/jsmind.js"></script>
+<script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
+<script type="text/javascript">
+    function load_jsmind(){
+        var mind = {
+            "meta":{
+            },
+            "format":"node_tree",
+            "data":{"id":"root","topic":"トップ","children":[
+                {"id":"aaaa","topic":"ああああ","direction":"right","children":[
+                    {"id":"aaaa1","topic":"ああああ to show"},
+                    {"id":"aaaa2","topic":"ああああ to edit"},
+                    {"id":"aaaa3","topic":"ああああ to store"},
+                    {"id":"aaaa4","topic":"ああああ to embed"}
+                ]},
+                {"id":"bbbb","topic":"ババババ Source","direction":"right","children":[
+                    {"id":"bbbb1","topic":"ババババ GitHub"},
+                    {"id":"bbbb2","topic":"ババババ License"}
+                ]},
+                {"id":"iiii","topic":"いいいい","direction":"right","children":[
+                    {"id":"iiii1","topic":"いいいい on Javascript"},
+                    {"id":"iiii2","topic":"いいいい on HTML5"},
+                    {"id":"iiii3","topic":"いいいい on you"}
+                ]},
+                {"id":"uuuu","topic":"うううう node","direction":"right","children":[
+                    {"id":"uuuu1","topic":"ううううI'm from local variable"},
+                    {"id":"uuuu2","topic":"ううううI can do everything"}
+                ]}
+            ]}
+        };
+        var options = {
+            container:'jsmind_container',
+            editable:true,
+            theme:'primary'
+        }
+        var jm = jsMind.show(options,mind);
+        // jm.set_readonly(true);
+        // var mind_data = jm.get_data();
+        // alert(mind_data);
+        jm.add_node("sub2","sub23", "new node", {"background-color":"red"});
+        jm.set_node_color('sub21', 'green', '#ccc');
+    }
+    load_jsmind();
+</script>
 @endsection
