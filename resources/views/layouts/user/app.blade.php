@@ -61,18 +61,20 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <span class="d-block d-lg-none">My App</span>
-            <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span>
+            {{-- <span class="d-block d-lg-none">MyApp</span> --}}
+            <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
+            {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
+            <h2 class="d-none d-lg-block text-white">MyApp</h2>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">ホーム</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.long_run_goals.index') }}">長期目標の管理</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.middle_run_goals.index') }}">中期目標の管理</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.short_run_goals.index') }}">短期目標の管理</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">毎日の目標の管理</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">インスパイアの管理</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">HOME</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.long_run_goals.index') }}">Long-Term</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.middle_run_goals.index') }}">Mid-Term</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.short_run_goals.index') }}">Short-Term</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspirations</a></li>
             </ul>
         </div>
     </nav>
