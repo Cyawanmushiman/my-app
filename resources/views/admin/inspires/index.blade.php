@@ -5,7 +5,7 @@
     <x-parts.basic_card_layout>
         <x-slot name="cardHeader">
             <h4 class="my-2">インスパイア一覧：{{ $inspires->count() }}件</h4>
-            <a href="{{ route('admin.inspires.create') }}" class="btn btn-primary">作成する</a>
+            <a href="{{ route('admin.inspires.create') }}" class="btn btn-primary text-white">作成する</a>
         </x-slot>
         <x-slot name="cardBody">
             <x-parts.basic_table_layout>

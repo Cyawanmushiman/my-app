@@ -10,7 +10,7 @@
     @else
     <title>MyApp</title>
     @endif
-
+    
     <!-- description -->
     @hasSection('description')
         <meta name="description" content="@yield('description')">
@@ -48,33 +48,44 @@
     <link rel="apple-touch-icon" href="{{ asset('/images/favicon-180.png') }}" sizes="180x180">
     <link rel="icon" type="image/png" href="{{ asset('/images/favicon-190.png') }}" sizes="192x192">
 
-    <!-- アイコン -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body id="@yield('body_id')" class="@yield('body_class')">
-    {{-- フラッシュメッセージ --}}
-    @include('components.parts.flash_message')
-    @include('components.parts.user_header')
-    
-    <main class="row mt-5">
-        <div class="col-3">
-            @include('components.parts.user_sidebar')
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">My App</span>
+            <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">ホーム</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.long_run_goals.index') }}">長期目標の管理</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.middle_run_goals.index') }}">中期目標の管理</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.short_run_goals.index') }}">短期目標の管理</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">毎日の目標の管理</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">インスパイアの管理</a></li>
+            </ul>
         </div>
-        <div class="col-9">
-            @yield('content')
-        </div>
-    </main>
-
-    @include('components.parts.user_footer')
+    </nav>
+    <!-- Page Content-->
+    <div class="container-fluid p-0">
+        @yield('content')
+        <hr class="m-0" />
+    </div>
+    <!-- Bootstrap core JS-->
     <script src="https://unpkg.com/vue@3"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @yield('script')
 </body>
-
 </html>
