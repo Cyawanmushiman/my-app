@@ -5,8 +5,8 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">短期目標一覧</h4>
-                <a href="{{ route('user.short_run_goals.create') }}" class="btn btn-primary text-white">作成する</a>
+                <h4 class="my-2">Short Term List</h4>
+                <a href="{{ route('user.short_run_goals.create') }}" class="btn btn-primary text-white">create</a>
             </x-slot>
             <x-slot name="cardBody">
                 @foreach ($groupedShortRunGoals as $middleRunGoalTitle => $shortRunGoals)

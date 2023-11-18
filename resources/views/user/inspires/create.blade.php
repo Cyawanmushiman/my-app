@@ -5,7 +5,7 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">インスパイア作成</h4>
+                <h4 class="my-2">create inspire</h4>
             </x-slot>
             <x-slot name="cardBody">
                 <form method="POST" action="{{ route('user.inspires.store') }}"  enctype="multipart/form-data">
@@ -24,9 +24,9 @@
                     </div>
 
                     <div class="text-center my-4">
-                        <a href="{{ route('user.inspires.index') }}" class="btn btn-outline-dark">一覧へ戻る</a>
+                        <a href="{{ route('user.inspires.index') }}" class="btn btn-outline-dark">back to list</a>
                         <button type="submit" class="btn btn-dark">
-                            登録する
+                            register
                         </button>
                     </div>
                 </form>

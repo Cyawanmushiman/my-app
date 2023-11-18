@@ -5,13 +5,13 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">インスパイア一覧：{{ $inspires->count() }}件</h4>
+                <h4 class="my-2">inspire list</h4>
                 <form action="{{ route('user.inspires.set_default') }}" method="POST">
                     @csrf
 
                     <button type="submit" class="btn btn-outline-success" onclick="return confirm('デフォルトの設定を適用しますか？')">デフォルトをセット</button>
                 </form>
-                <a href="{{ route('user.inspires.create') }}" class="btn btn-primary text-white">作成する</a>
+                <a href="{{ route('user.inspires.create') }}" class="btn btn-primary text-white">create</a>
             </x-slot>
             <x-slot name="cardBody">
                 <x-parts.basic_table_layout>

@@ -10,7 +10,7 @@
         
         <div class="row mb-5">
             <div class="col-12 mt-3">
-                <h2 class="text-center"><span class="text-danger">{{ $consecutiveDays }}</span>日連続</h2>
+                <h2 class="text-center">Achieved <span class="text-danger">{{ $consecutiveDays }}</span> consecutive days</h2>
                 {{-- <h2 class="text-center">この調子で学習していきましょう！</h2> --}}
             </div>
             <div class="col-12 mx-auto text-center mt-3">

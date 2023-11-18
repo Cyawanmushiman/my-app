@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="text-center my-4">
-                    <a href="{{ route('admin.inspires.index') }}" class="btn btn-outline-dark">一覧へ戻る</a>
+                    <a href="{{ route('admin.inspires.index') }}" class="btn btn-outline-dark">back to list</a>
                     <button type="submit" class="btn btn-dark">
                         更新する
                     </button>

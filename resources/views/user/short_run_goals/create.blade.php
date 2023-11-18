@@ -5,7 +5,7 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">短期目標作成</h4>
+                <h4 class="my-2">Create Short Term</h4>
             </x-slot>
             <x-slot name="cardBody">
                 <p>{{ $longRunGoal->title }}を達成するために必要な短期的な目標を登録して下さい</p>
@@ -27,7 +27,7 @@
                     <div class="text-center my-4">
                         <a href="{{ route('user.short_run_goals.index') }}" class="btn btn-outline-dark">一覧画面へ戻る</a>
                         <button type="submit" class="btn btn-dark">
-                            登録する
+                            register
                         </button>
                     </div>
                 </form>

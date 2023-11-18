@@ -60,7 +60,7 @@
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
             {{-- <span class="d-block d-lg-none">MyApp</span> --}}
             <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
             {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}

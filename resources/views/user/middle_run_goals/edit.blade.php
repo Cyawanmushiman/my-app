@@ -5,7 +5,7 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">中期目標編集</h4>
+                <h4 class="my-2">Edit Middle Term</h4>
             </x-slot>
             <x-slot name="cardBody">
                 <p>{{ $middleRunGoal->longRunGoal->title }}を達成するために必要な中期的な目標を登録して下さい</p>

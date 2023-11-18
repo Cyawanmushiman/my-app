@@ -5,7 +5,7 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">長期目標作成</h4>
+                <h4 class="my-2">Create Long Term</h4>
             </x-slot>
             <x-slot name="cardBody">
                 <form method="POST" action="{{ route('user.long_run_goals.store') }}"  enctype="multipart/form-data">
@@ -22,7 +22,7 @@
                             一覧に戻る
                         </a>
                         <button type="submit" class="btn btn-dark">
-                            登録する
+                            register
                         </button>
                     </div>
                 </form>

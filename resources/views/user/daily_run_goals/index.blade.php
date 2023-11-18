@@ -5,8 +5,8 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">毎日の目標一覧</h4>
-                <a href="{{ route('user.daily_run_goals.create') }}" class="btn btn-primary text-white">作成する</a>
+                <h4 class="my-2">Daily Goal List</h4>
+                <a href="{{ route('user.daily_run_goals.create') }}" class="btn btn-primary text-white">create</a>
             </x-slot>
             <x-slot name="cardBody">
                 <div class="mb-4">

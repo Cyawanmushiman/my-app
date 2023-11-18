@@ -5,7 +5,7 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">毎日の目標編集</h4>
+                <h4 class="my-2">Edit Daily Goal</h4>
             </x-slot>
             <x-slot name="cardBody">
                 <form method="POST" action="{{ route('user.daily_run_goals.update', $dailyRunGoal) }}"  enctype="multipart/form-data">

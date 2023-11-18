@@ -48,7 +48,7 @@
 
             <div class="text-center my-4">
                 <button type="submit" class="btn btn-primary text-white">
-                    今日の記録を登録する
+                    Log today's record
                 </button>
             </div>
         </form>
