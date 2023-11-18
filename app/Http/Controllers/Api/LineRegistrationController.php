@@ -8,16 +8,14 @@ use App\Http\Controllers\Controller;
 
 class LineRegistrationController extends Controller
 {
-    public function webhook(Request $request)
+    public function webhook(Request $request): \Illuminate\Http\JsonResponse
     {
-        \Log::debug($request->all());
-        // $lineUser = LineUser::firstOrCreate([
-        //     'line_id' => $request->input('events.0.source.userId'),
-        // ]);
-
-        // $lineUser->update([
-        //     'name' => $request->input('events.0.source.displayName'),
-        // ]);
+        // 友達追加時にユーザーを登録
+        if ($request->input('events.0.type') === 'follow') {
+            LineUser::firstOrCreate([
+                'line_id' => $request->input('events.0.source.userId'),
+            ]);
+        }
 
         return response()->json([
             'status' => 'ok',
