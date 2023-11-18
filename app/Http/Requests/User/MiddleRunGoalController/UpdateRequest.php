@@ -23,21 +23,10 @@ class UpdateRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
-        $longRunGoalId = $this->input('long_run_goal_id');
-        $middleRunGoalId = $this->middle_run_goal;
-    
+    {    
         return [
             'long_run_goal_id' => ['required', 'exists:long_run_goals,id'],
-            'title' => [
-                'required',
-                'string',
-                'max:255',
-                // ユニークバリデーションルールをカスタマイズ
-                Rule::unique('middle_run_goals')
-                    ->where('long_run_goal_id', $longRunGoalId)
-                    ->ignore($middleRunGoalId) // 現在のmiddle_run_goalのIDを除外
-            ],
+            'title' => ['required', 'string', 'max:255', Rule::unique('middle_run_goals')->ignore($this->middle_run_goal)],
         ];
     }
 

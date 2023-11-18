@@ -24,18 +24,9 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        $longRunGoalId = $this->input('long_run_goal_id');
-        $ignoreId = $this->route('middle_run_goal');
-
         return [
-            'long_run_goal_id' => ['required', 'exists:long_run_goals,id'],
-            'title' => ['required', 'string', 'max:255', 
-                        Rule::unique('middle_run_goals', 'title')
-                            ->ignore($ignoreId)
-                            ->where(function ($query) use ($longRunGoalId) {
-                                return $query->where('long_run_goal_id', $longRunGoalId);
-                            }),
-            ],
+            'long_run_goal_id' => ['required', 'integer', 'exists:long_run_goals,id'],
+            'title' => ['required', 'string', 'max:255', 'unique:middle_run_goals'],
         ];
     }
 

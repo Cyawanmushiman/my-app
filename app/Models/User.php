@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -47,9 +48,9 @@ class User extends Authenticatable
     ];
 
     //////// リレーションエリア ////////
-    public function longRunGoals(): HasMany
+    public function longRunGoal(): HasOne
     {
-        return $this->hasMany(LongRunGoal::class);
+        return $this->hasOne(LongRunGoal::class);
     }
 
     // ユーザーに関連する中期目標を取得する。

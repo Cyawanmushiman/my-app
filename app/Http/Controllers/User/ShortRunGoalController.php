@@ -41,13 +41,8 @@ class ShortRunGoalController extends Controller
      */
     public function create()
     {   
-        $allLongRunGoals = auth()->user()->longRunGoals()->get();
-
-        $allMiddleRunGoals = auth()->user()->middleRunGoals()->get();
-        
         return view('user.short_run_goals.create', [
-            'allLongRunGoals' => $allLongRunGoals,
-            'allMiddleRunGoals' => $allMiddleRunGoals,
+            'longRunGoal' => auth()->user()->longRunGoal,
         ]);
     }
 
@@ -72,7 +67,7 @@ class ShortRunGoalController extends Controller
      */
     public function edit(ShortRunGoal $shortRunGoal)
     {
-        $allLongRunGoals = auth()->user()->longRunGoals()->get();
+        $allLongRunGoals = auth()->user()->longRunGoal()->get();
 
         $allMiddleRunGoals = auth()->user()->middleRunGoals()->get();
 

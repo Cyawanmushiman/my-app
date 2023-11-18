@@ -25,18 +25,15 @@ class MiddleRunGoalController extends Controller
     public function index()
     {
         // 親テーブルでグループ化
-        $groupedMiddleRunGoals = MiddleRunGoal::with('longRunGoal')
+        $middleRunGoals = MiddleRunGoal::with('longRunGoal')
             ->whereHas('longRunGoal', function ($query) {
                 $query->where('user_id', auth()->id());
             })
-            ->get()
-            ->groupBy(function ($item) {
-                return $item->longRunGoal->title; // longRunGoalリレーションのtitleでグループ化
-            });
+            ->get();
         
         return view('user.middle_run_goals.index', [
-            'allLongRunGoals' => auth()->user()->longRunGoals()->get(),
-            'groupedMiddleRunGoals' => $groupedMiddleRunGoals,
+            'longRunGoal' => auth()->user()->longRunGoal,
+            'middleRunGoals' => $middleRunGoals,
         ]);
     }
 
@@ -48,7 +45,7 @@ class MiddleRunGoalController extends Controller
     public function create()
     {        
         return view('user.middle_run_goals.create', [
-            'allLongRunGoals' => auth()->user()->longRunGoals()->get(),
+            'longRunGoal' => auth()->user()->longRunGoal,
         ]);
     }
 
@@ -74,7 +71,6 @@ class MiddleRunGoalController extends Controller
     public function edit(MiddleRunGoal $middleRunGoal)
     {
         return view('user.middle_run_goals.edit', [
-            'allLongRunGoals' => auth()->user()->longRunGoals()->get(),
             'middleRunGoal' => $middleRunGoal,
         ]);
     }

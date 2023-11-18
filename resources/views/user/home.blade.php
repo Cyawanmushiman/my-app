@@ -67,11 +67,33 @@
 <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
 <script type="text/javascript">
     function load_jsmind(){
+        const longRunGoal = @json($longRunGoal);
+        console.log(longRunGoal.middleRunGoals);
+        // foreach
+        let data = [
+            {
+                "id": "root",
+                "topic": longRunGoal.title,
+                "children": longRunGoal.middleRunGoals.map(middleRunGoal => ({
+                    "id": middleRunGoal.id,
+                    "topic": middleRunGoal.title,
+                    "direction": "right",
+                    "children": middleRunGoal.shortRunGoals.map(shortRunGoal => ({
+                        "id": shortRunGoal.id,
+                        "topic": shortRunGoal.title
+                    }))
+                }))
+            }
+        ];
+
+        console.log(data);
+
+
         var mind = {
             "meta":{
             },
             "format":"node_tree",
-            "data":{"id":"root","topic":"トップ","children":[
+            "data":{"id":"root","topic":longRunGoal.title,"children":[ 
                 {"id":"aaaa","topic":"ああああ","direction":"right","children":[
                     {"id":"aaaa1","topic":"ああああ to show"},
                     {"id":"aaaa2","topic":"ああああ to edit"},
@@ -107,4 +129,6 @@
     }
     load_jsmind();
 </script>
+{{-- resources/views/user/home.blade.php --}}
+
 @endsection

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Inspire;
 use Illuminate\View\View;
 use App\Models\DailyScore;
+use App\Models\LongRunGoal;
 use Illuminate\Http\Request;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,10 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return view('user.home');
+        $longRunGoal = LongRunGoal::with(['middleRunGoals', 'middleRunGoals.shortRunGoals'])->where('user_id', auth()->guard('user')->id())->first();
+        return view('user.home', [
+            'longRunGoal' => $longRunGoal,
+        ]);
     }
 
     public function store(StoreRequest $request): RedirectResponse
