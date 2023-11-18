@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('line_users', function (Blueprint $table) {
             $table->id();
             $table->string('line_id', 255)->comment('LINE ID');
-            $table->enum('mode', ['active', 'standby'])->comment('チャネルの状態');
             $table->string('name', 255)->comment('LINEの名前');
             $table->timestamps();
         });

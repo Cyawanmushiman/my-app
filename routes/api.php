@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\LineRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('line')->group(function() {
-    Route::post('registration/webhook', [LineRegistrationController::class, 'webhook']);
+    Route::post('webhook', [LineRegistrationController::class, 'webhook']);
 });
