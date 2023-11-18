@@ -68,53 +68,28 @@
 <script type="text/javascript">
     function load_jsmind(){
         const longRunGoal = @json($longRunGoal);
-        console.log(longRunGoal.middleRunGoals);
         // foreach
-        let data = [
-            {
-                "id": "root",
-                "topic": longRunGoal.title,
-                "children": longRunGoal.middleRunGoals.map(middleRunGoal => ({
-                    "id": middleRunGoal.id,
-                    "topic": middleRunGoal.title,
-                    "direction": "right",
-                    "children": middleRunGoal.shortRunGoals.map(shortRunGoal => ({
-                        "id": shortRunGoal.id,
-                        "topic": shortRunGoal.title
-                    }))
+        let data = {
+            "id": "root",
+            "topic": longRunGoal.title,
+            "children": longRunGoal.middle_run_goals.map(middleRunGoal => ({
+                "id": "middleRunGoalId" + middleRunGoal.id,
+                "topic": middleRunGoal.title,
+                "direction": "right",
+                "children": middleRunGoal.short_run_goals.map(shortRunGoal => ({
+                    "id": shortRunGoal.id,
+                    "topic": shortRunGoal.title
                 }))
-            }
-        ];
-
-        console.log(data);
-
+            }))
+        };
 
         var mind = {
             "meta":{
             },
             "format":"node_tree",
-            "data":{"id":"root","topic":longRunGoal.title,"children":[ 
-                {"id":"aaaa","topic":"ああああ","direction":"right","children":[
-                    {"id":"aaaa1","topic":"ああああ to show"},
-                    {"id":"aaaa2","topic":"ああああ to edit"},
-                    {"id":"aaaa3","topic":"ああああ to store"},
-                    {"id":"aaaa4","topic":"ああああ to embed"}
-                ]},
-                {"id":"bbbb","topic":"ババババ Source","direction":"right","children":[
-                    {"id":"bbbb1","topic":"ババババ GitHub"},
-                    {"id":"bbbb2","topic":"ババババ License"}
-                ]},
-                {"id":"iiii","topic":"いいいい","direction":"right","children":[
-                    {"id":"iiii1","topic":"いいいい on Javascript"},
-                    {"id":"iiii2","topic":"いいいい on HTML5"},
-                    {"id":"iiii3","topic":"いいいい on you"}
-                ]},
-                {"id":"uuuu","topic":"うううう node","direction":"right","children":[
-                    {"id":"uuuu1","topic":"ううううI'm from local variable"},
-                    {"id":"uuuu2","topic":"ううううI can do everything"}
-                ]}
-            ]}
+            "data":data
         };
+
         var options = {
             container:'jsmind_container',
             editable:true,

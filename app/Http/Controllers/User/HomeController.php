@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $longRunGoal = LongRunGoal::with(['middleRunGoals', 'middleRunGoals.shortRunGoals'])->where('user_id', auth()->guard('user')->id())->first();
+        $longRunGoal = auth()->user()->longRunGoal->load('middleRunGoals.shortRunGoals');
         return view('user.home', [
             'longRunGoal' => $longRunGoal,
         ]);
