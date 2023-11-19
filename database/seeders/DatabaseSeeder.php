@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\DailyScore;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            AdminSeeder::class,
+            UserSeeder::class,
+            LongRunGoalSeeder::class,
+            DailyRunGoalSeeder::class,
+            DailyScoreSeeder::class,
+            InspireSeeder::class,
+        ]);
     }
 }
