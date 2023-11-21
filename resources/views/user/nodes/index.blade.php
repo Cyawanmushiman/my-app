@@ -5,6 +5,7 @@
     <div class="resume-section-content">
         <div id="jsmind_container" style="width:100%;height:500px;"></div>
         <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
+        <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
         <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
     </div>
 </section>
@@ -60,6 +61,18 @@
         }
         // ボタンをクリックしたら新しいノードを追加
         document.getElementById('add_button').addEventListener('click', addNewNode);
+
+        // 選択したノードを編集する関数
+        function editNode() {
+            var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+            if (!selected_node) {
+                alert('ノードを選択してください');
+                return;
+            }
+            jm.begin_edit(selected_node); // 選択したノードを編集状態にする
+        }
+        // ボタンをクリックしたら選択したノードを編集
+        document.getElementById('edit_button').addEventListener('click', editNode);
 
         // 選択したノードを削除する関数
         function removeNode() {
