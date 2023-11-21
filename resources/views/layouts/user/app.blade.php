@@ -72,9 +72,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">HOME</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.long_run_goals.index') }}">Long-Term</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.middle_run_goals.index') }}">Mid-Term</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.short_run_goals.index') }}">Short-Term</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}">Mind Map</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspirations</a></li>
             </ul>

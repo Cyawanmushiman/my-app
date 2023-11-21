@@ -58,36 +58,22 @@
 @section('script')
 <script type="text/javascript">
     function load_jsmind(){
-        const longRunGoal = @json($longRunGoal);
-        // foreach
-        let data = {
-            "id": "root",
-            "topic": longRunGoal.title,
-            "children": longRunGoal.middle_run_goals.map(middleRunGoal => ({
-                "id": "middleRunGoalId" + middleRunGoal.id,
-                "topic": middleRunGoal.title,
-                "direction": "right",
-                "children": middleRunGoal.short_run_goals.map(shortRunGoal => ({
-                    "id": shortRunGoal.id,
-                    "topic": shortRunGoal.title
-                }))
-            }))
-        };
-
-        var mind = {
-            "meta":{
-            },
-            "format":"node_tree",
-            "data":data
-        };
-
-        var options = {
-            container:'jsmind_container',
-            editable:true,
-            theme:'primary'
+        const userId = @json(auth()->user()->id);
+        
+        mindMap = @json($mindMap);
+        if (mindMap) {
+            var mind = JSON.parse(mindMap.mind_data_json);
+            
+            var options = {
+                container:'jsmind_container',
+                editable:true,
+                theme:'primary',
+            }
+    
+            var jm = new jsMind(options);
+            jm.show(mind);    
         }
-        var jm = new jsMind(options);
-        jm.show(mind); 
+        
     }
     load_jsmind();
 </script>

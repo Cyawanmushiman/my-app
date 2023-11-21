@@ -16,30 +16,8 @@
 <script type="text/javascript">
     function load_jsmind(){
         const userId = @json(auth()->user()->id);
-        
-        // let data = {
-        //     "id": "root",
-        //     "topic": longRunGoal.title,
-        //     "children": longRunGoal.middle_run_goals.map(middleRunGoal => ({
-        //         "id": "middleRunGoalId" + middleRunGoal.id,
-        //         "topic": middleRunGoal.title,
-        //         "direction": "right",
-        //         "children": middleRunGoal.short_run_goals.map(shortRunGoal => ({
-        //             "id": shortRunGoal.id,
-        //             "topic": shortRunGoal.title
-        //         }))
-        //     }))
-        // };
 
-        // var mind = {
-        //     "meta":{
-        //     },
-        //     "format":"node_tree",
-        //     "data":data
-        // };
-        // var mind = {"meta":{},"format":"node_tree","data":{"id":"root","topic":"IELTS 5.0","expanded":true,"children":[{"id":"middleRunGoalId1","topic":"TOEIC700点","expanded":true,"direction":"right"},{"id":"bf1f3aa22bffdacb","topic":"新しいノード bf1f3","expanded":true,"direction":"right"},{"id":"bf1f3c1a5b78f5fd","topic":"New Node","expanded":true,"direction":"left"},{"id":"bf1f3b41ce3c3820","topic":"New Node","expanded":true,"direction":"left"}]}}
         mindMap = @json($mindMap);
-        
         if (mindMap) {
             var mind = JSON.parse(mindMap.mind_data_json);
             console.log(mind);
