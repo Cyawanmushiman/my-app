@@ -72,13 +72,6 @@
         }
         // ボタンをクリックしたら選択したノードを削除
         document.getElementById('remove_button').addEventListener('click', removeNode);
-
-        // ダブルクリックでノードの編集を開始
-        jm.add_event_listener(function(type, event, data){
-            if(type === jsMind.event_type.dblclick){
-                jm.begin_edit(data); // ダブルクリックされたノードの編集を開始
-            }
-        });
     }
     load_jsmind();
 </script>
