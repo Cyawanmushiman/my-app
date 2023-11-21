@@ -7,14 +7,17 @@
         <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
         <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
         <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
+        <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
     </div>
 </section>
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
     function load_jsmind(){
         const longRunGoal = @json($longRunGoal);
-        // foreach
+        const userId = @json(auth()->user()->id);
+        
         let data = {
             "id": "root",
             "topic": longRunGoal.title,
@@ -29,12 +32,13 @@
             }))
         };
 
-        var mind = {
-            "meta":{
-            },
-            "format":"node_tree",
-            "data":data
-        };
+        // var mind = {
+        //     "meta":{
+        //     },
+        //     "format":"node_tree",
+        //     "data":data
+        // };
+        var mind = {"meta":{},"format":"node_tree","data":{"id":"root","topic":"IELTS 5.0","expanded":true,"children":[{"id":"middleRunGoalId1","topic":"TOEIC700点","expanded":true,"direction":"right"},{"id":"bf1f3aa22bffdacb","topic":"新しいノード bf1f3","expanded":true,"direction":"right"},{"id":"bf1f3c1a5b78f5fd","topic":"New Node","expanded":true,"direction":"left"},{"id":"bf1f3b41ce3c3820","topic":"New Node","expanded":true,"direction":"left"}]}}
 
         var options = {
             container:'jsmind_container',
@@ -57,7 +61,6 @@
             var node = jm.add_node(selected_node, nodeid, topic); // ノードを追加
             jm.select_node(nodeid); // 追加したノードを選択
             jm.begin_edit(nodeid); // 追加したノードを編集状態にする
-            console.log(jm.get_data());
         }
         // ボタンをクリックしたら新しいノードを追加
         document.getElementById('add_button').addEventListener('click', addNewNode);
@@ -85,6 +88,35 @@
         }
         // ボタンをクリックしたら選択したノードを削除
         document.getElementById('remove_button').addEventListener('click', removeNode);
+
+        // マインドマップを保存する関数
+        function storeMindMap() {
+            var mindData = jm.get_data(); // マインドマップのデータを取得
+
+            var mindDataJson = JSON.stringify(mindData); // マインドマップのデータをJSON形式に変換
+            
+            // マインドマップのデータを送信
+            axios.post('/api/mindMaps/store', {
+                params: {
+                    mind_data_json: mindDataJson,
+                    user_id: userId,
+                }
+            })
+            .then((response) => {
+                if(response.data.status === 'success'){
+                    console.log(response)
+                    // alert(response.data.message)
+                }
+                else{
+                    alert(response.data.message)
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
+        // ボタンをクリックしたらマインドマップを保存
+        document.getElementById('store_button').addEventListener('click', storeMindMap);
     }
     load_jsmind();
 </script>

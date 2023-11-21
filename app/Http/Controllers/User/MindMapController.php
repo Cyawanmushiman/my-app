@@ -6,12 +6,12 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class NodeController extends Controller
+class MindMapController extends Controller
 {
     public function index(): View
     {
         $longRunGoal = auth()->user()->longRunGoal->load('middleRunGoals.shortRunGoals');
-        return view('user.nodes.index', [
+        return view('user.mindMaps.index', [
             'longRunGoal' => $longRunGoal,
         ]);
     }
