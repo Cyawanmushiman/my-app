@@ -4,6 +4,8 @@
 <section class="resume-section">
     <div class="resume-section-content">
         <div id="jsmind_container" style="width:100%;height:500px;"></div>
+        <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
+        <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
     </div>
 </section>
 @endsection
@@ -37,21 +39,46 @@
             container:'jsmind_container',
             editable:true,
             theme:'primary',
-            view:{
-                zoom: {             // ズーム設定
-                    min: 0.8,       // 最小ズーム比率
-                    max: 2.1,       // 最大ズーム比率
-                    step: 0.1,      // ズーム比率の間隔
-                },
-            },
         }
 
         var jm = new jsMind(options);
         jm.show(mind);
 
+        // 新しいノードを追加する関数
         function addNewNode() {
-            
+            var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+            if (!selected_node) {
+                alert('ノードを選択してください');
+                return;
+            }
+            var nodeid = jsMind.util.uuid.newid(); // 新しいノードのIDを生成
+            var topic = '新しいノード ' + nodeid.substr(0, 5); // ノードのトピック
+            var node = jm.add_node(selected_node, nodeid, topic); // ノードを追加
+            jm.select_node(nodeid); // 追加したノードを選択
+            jm.begin_edit(nodeid); // 追加したノードを編集状態にする
+            console.log(jm.get_data());
         }
+        // ボタンをクリックしたら新しいノードを追加
+        document.getElementById('add_button').addEventListener('click', addNewNode);
+
+        // 選択したノードを削除する関数
+        function removeNode() {
+            var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+            if (!selected_node) {
+                alert('ノードを選択してください');
+                return;
+            }
+            jm.remove_node(selected_node); // ノードを削除
+        }
+        // ボタンをクリックしたら選択したノードを削除
+        document.getElementById('remove_button').addEventListener('click', removeNode);
+
+        // ダブルクリックでノードの編集を開始
+        jm.add_event_listener(function(type, event, data){
+            if(type === jsMind.event_type.dblclick){
+                jm.begin_edit(data); // ダブルクリックされたノードの編集を開始
+            }
+        });
     }
     load_jsmind();
 </script>

@@ -86,12 +86,8 @@
             editable:true,
             theme:'primary'
         }
-        var jm = jsMind.show(options,mind);
-        // jm.set_readonly(true);
-        // var mind_data = jm.get_data();
-        // alert(mind_data);
-        jm.add_node("sub2","sub23", "new node", {"background-color":"red"});
-        jm.set_node_color('sub21', 'green', '#ccc');
+        var jm = new jsMind(options);
+        jm.show(mind); 
     }
     load_jsmind();
 </script>
