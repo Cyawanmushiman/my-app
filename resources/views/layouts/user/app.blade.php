@@ -55,6 +55,8 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
     
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- js-mind css --}}
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/style/jsmind.css"/>
 </head>
 
 <body id="page-top">
@@ -85,9 +87,12 @@
     </div>
     <!-- Bootstrap core JS-->
     <script src="https://unpkg.com/vue@3"></script>
-
+    {{-- jQuery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- js-mind --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/es6/jsmind.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
     @yield('script')
 </body>
 </html>

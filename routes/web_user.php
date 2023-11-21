@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\NodeController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
@@ -40,4 +41,7 @@ Route::middleware('auth:user')->group(function () {
     // インスパイア
     Route::post('inspires/set_default', [InspireController::class, 'setDefault'])->name('inspires.set_default');
     Route::resource('inspires', InspireController::class)->except(['show']);
+
+    // ノード管理
+    Route::get('nodes', [NodeController::class, 'index'])->name('nodes.index');
 });
