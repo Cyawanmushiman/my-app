@@ -20,13 +20,18 @@
         mindMap = @json($mindMap);
         if (mindMap) {
             var mind = JSON.parse(mindMap.mind_data_json);
-            console.log(mind);
             
             var options = {
                 container:'jsmind_container',
                 editable:true,
-                theme:'primary',
+                theme:'clouds',
+                view:{
+                    engine: 'svg',
+                }
             }
+
+            // ノードのスタイルを設定
+
     
             var jm = new jsMind(options);
             jm.show(mind);

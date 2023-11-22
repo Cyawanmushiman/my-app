@@ -1,31 +1,32 @@
 @extends('layouts.user.app')
 
 @section('content')
-<section class="resume-section" id="home">
+<section class="resume-section pt-0" id="home">
     <div class="resume-section-content">
         <div id="jsmind_container" style="width:100%;height:500px;"></div>
         <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
             @csrf
 
-            <div class="d-flex flex-column align-items-center justify-content-center">
-                @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="checkbox" name="daily_run_goal_ids[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
-                                <label class="h5" for="{{ $dailyRunGoal->id }}">{{ $dailyRunGoal->title }}</label>
+            <div class="d-flex justify-content-center">
+                <div class="d-flex flex-column justify-content-start">
+                    @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="checkbox" name="daily_run_goal_ids[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
+                                    <label class="h5" for="{{ $dailyRunGoal->id }}">{{ $dailyRunGoal->title }}</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-
+                    @endforeach
+                </div>
+            </div>
+            
+            <div class="d-flex flex-column align-items-center">
                 <div class="form-body mt-5">
                     <div class="row">
-                        <div class="col-2 text-md-end">
-                            <label class="col-form-label">日記</label>
-                        </div>
-                        <div class="col-10 d-flex align-items-center">
-                            @include('components.form.textarea', ['name' => 'diary', 'rows' => 10, 'placeholder' => '今日の出来事を記入してください'])
+                        <div class="col-12 d-flex align-items-center">
+                            @include('components.form.textarea', ['name' => 'diary', 'rows' => 10, 'placeholder' => 'Please enter what happened today'])
                         </div>
                         @include('components.form.error', ['name' => 'diary'])
                     </div>
@@ -33,11 +34,8 @@
 
                 <div class="form-body mt-5">
                     <div class="row">
-                        <div class="col-4 text-md-end">
-                            <label class="col-form-label">今日の点数</label>
-                        </div>
-                        <div class="col-6 d-flex align-items-center">
-                            @include('components.form.number', ['name' => 'score'])点
+                        <div class="col-12 d-flex align-items-center">
+                            @include('components.form.number', ['name' => 'score', 'placeholder' => "today's score", 'class' => 'text-center'])
                         </div>
                         @include('components.form.error', ['name' => 'score'])
                     </div>
@@ -66,8 +64,11 @@
             
             var options = {
                 container:'jsmind_container',
-                editable:true,
-                theme:'primary',
+                editable:false,
+                theme:'clouds',
+                view:{
+                    engine: 'svg',
+                }
             }
     
             var jm = new jsMind(options);
