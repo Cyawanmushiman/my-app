@@ -8,6 +8,8 @@
         <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
         <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
         <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
+        <button type="button" class="btn btn-outline-primary" id="clear_button">達成にする</button>
+        <button type="button" class="btn btn-outline-secondary" id="un_clear_button">未達成にする</button>
     </div>
 </section>
 @endsection
@@ -27,6 +29,12 @@
                 theme:'clouds',
                 view:{
                     engine: 'svg',
+                    node_overflow: 'wrap',
+                    zoom: {             // 配置缩放
+                        min: 0.1,       // 最小的缩放比例
+                        max: 1.5,       // 最大的缩放比例
+                        step: 0.1,      // 缩放比例间隔
+                    },
                 }
             }
 
@@ -103,6 +111,34 @@
             }
             // ボタンをクリックしたらマインドマップを保存
             document.getElementById('store_button').addEventListener('click', storeMindMap);
+
+            // 選択したマインドマップを達成にする関数
+            function clearMindMap() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#ff9900', '#ffffff');
+                // 選択したノードの背景をオレンジにする
+                // jm.set_node_background(selected_node.id, null, '#ff9900');
+            }
+            // ボタンをクリックしたら選択したマインドマップを達成にする
+            document.getElementById('clear_button').addEventListener('click', clearMindMap);
+
+            // 選択したマインドマップを未達成にする関数
+            function unClearMindMap() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#ecf0f1', '#333');
+            }
+            // ボタンをクリックしたら選択したマインドマップを未達成にする
+            document.getElementById('un_clear_button').addEventListener('click', unClearMindMap);
         }
         
     }
