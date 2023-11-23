@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             DailyRunGoalSeeder::class,
             DailyScoreSeeder::class,
             InspireSeeder::class,
+            MindMapSeeder::class,
         ]);
     }
 }

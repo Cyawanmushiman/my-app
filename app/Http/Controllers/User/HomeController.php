@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Carbon\Carbon;
 use App\Models\Inspire;
+use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
 use App\Models\LongRunGoal;
@@ -27,9 +28,8 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $longRunGoal = auth()->user()->longRunGoal->load('middleRunGoals.shortRunGoals');
         return view('user.home', [
-            'longRunGoal' => $longRunGoal,
+            'mindMap' => MindMap::find(auth()->user()->id),
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\MindMapController;
 use App\Http\Controllers\Api\LineRegistrationController;
 
 /*
@@ -19,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('line')->group(function () {
-    Route::post('webhook', [LineRegistrationController::class, 'webhook']);
+Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
+    Route::post('store', [MindMapController::class, 'store']);
 });

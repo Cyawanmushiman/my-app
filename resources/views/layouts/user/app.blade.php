@@ -53,8 +53,11 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-    
+    {{-- bootstrap icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- js-mind css --}}
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/style/jsmind.css"/>
 </head>
 
 <body id="page-top">
@@ -68,13 +71,11 @@
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">HOME</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.long_run_goals.index') }}">Long-Term</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.middle_run_goals.index') }}">Mid-Term</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.short_run_goals.index') }}">Short-Term</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspirations</a></li>
+            <ul class="navbar-nav text-end">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">HOME<i class="fa-solid fa-house ms-2"></i></a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
             </ul>
         </div>
     </nav>
@@ -85,9 +86,12 @@
     </div>
     <!-- Bootstrap core JS-->
     <script src="https://unpkg.com/vue@3"></script>
-
+    {{-- jQuery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- js-mind --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/es6/jsmind.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
     @yield('script')
 </body>
 </html>
