@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\InspireController;
+use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
@@ -44,4 +45,10 @@ Route::middleware('auth:user')->group(function () {
 
     // ノード管理
     Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
+});
+
+Route::get('/test-car', function () {
+    $myCar = new Car("Toyota", "red");
+    dd($myCar);
+    $myCar->drive();
 });

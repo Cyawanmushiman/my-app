@@ -4,12 +4,19 @@
 <section class="resume-section">
     <div class="resume-section-content">
         <div id="jsmind_container" style="width:100%;height:500px;"></div>
-        <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
-        <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
-        <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
-        <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
-        <button type="button" class="btn btn-outline-primary" id="clear_button">達成にする</button>
-        <button type="button" class="btn btn-outline-secondary" id="un_clear_button">未達成にする</button>
+        <div class="d-flex flex-column">
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
+                <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
+                <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
+                <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-secondary" id="chage_default">デフォルト</button>
+                <button type="button" class="btn btn-outline-primary" id="change_orange">オレンジ</button>
+                <button type="button" class="btn btn-outline-info" id="change_blue">ブルー</button>
+            </div>
+        </div>
     </div>
 </section>
 @endsection
@@ -112,8 +119,8 @@
             // ボタンをクリックしたらマインドマップを保存
             document.getElementById('store_button').addEventListener('click', storeMindMap);
 
-            // 選択したマインドマップを達成にする関数
-            function clearMindMap() {
+            // 選択したマインドマップをオレンジにする関数
+            function changeColorOrange() {
                 var selected_node = jm.get_selected_node(); // 選択されたノードを取得
                 if (!selected_node) {
                     alert('ノードを選択してください');
@@ -124,11 +131,11 @@
                 // 選択したノードの背景をオレンジにする
                 // jm.set_node_background(selected_node.id, null, '#ff9900');
             }
-            // ボタンをクリックしたら選択したマインドマップを達成にする
-            document.getElementById('clear_button').addEventListener('click', clearMindMap);
+            // ボタンをクリックしたら選択したマインドマップをオレンジにする
+            document.getElementById('change_orange').addEventListener('click', changeColorOrange);
 
-            // 選択したマインドマップを未達成にする関数
-            function unClearMindMap() {
+            // 選択したマインドマップをデフォルトカラーにする関数
+            function changeColorDefault() {
                 var selected_node = jm.get_selected_node(); // 選択されたノードを取得
                 if (!selected_node) {
                     alert('ノードを選択してください');
@@ -137,8 +144,23 @@
                 // 選択したノードの色を白色にする
                 jm.set_node_color(selected_node.id, '#ecf0f1', '#333');
             }
-            // ボタンをクリックしたら選択したマインドマップを未達成にする
-            document.getElementById('un_clear_button').addEventListener('click', unClearMindMap);
+            // ボタンをクリックしたら選択したマインドマップをデフォルトカラーにする
+            document.getElementById('chage_default').addEventListener('click', changeColorDefault);
+
+            // 選択したマインドマップをブルーにする関数
+            function changeColorBlue() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#3498db', '#ffffff');
+            }
+            // ボタンをクリックしたら選択したマインドマップをブルーにする
+            document.getElementById('change_blue').addEventListener('click', changeColorBlue);
+
+            
         }
         
     }
