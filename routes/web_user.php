@@ -46,9 +46,3 @@ Route::middleware('auth:user')->group(function () {
     // ノード管理
     Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
 });
-
-Route::get('/test-car', function () {
-    $myCar = new Car("Toyota", "red");
-    dd($myCar);
-    $myCar->drive();
-});
