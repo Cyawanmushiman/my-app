@@ -24,6 +24,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check() && $guard === 'user') {
+                // メール認証が完了していない場合は、メール認証画面にリダイレクトする
+                if (! Auth::user()->hasVerifiedEmail()) {
+                    return redirect(RouteServiceProvider::USER_EMAIL_VERIFY);
+                }
                 return redirect(RouteServiceProvider::HOME);
             } elseif (Auth::guard($guard)->check() && $guard === 'admin') {
                 return redirect(RouteServiceProvider::ADMIN_HOME);

@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::USER_EMAIL_VERIFY;
 
     /**
      * Create a new controller instance.
@@ -56,7 +56,7 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
+    public function showRegisterForm()
     {
         return view('user.auth.register');
     }

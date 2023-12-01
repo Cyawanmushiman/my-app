@@ -20,6 +20,9 @@ class RouteServiceProvider extends ServiceProvider
     // Userのリダイレクト先
     public const HOME = '/user/home';
 
+    // Userのメール確認リダイレクト先
+    public const USER_EMAIL_VERIFY = '/user/email/verify';
+
     // Adminのリダイレクト先
     public const ADMIN_HOME = '/admin/home';
 

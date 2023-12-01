@@ -21,6 +21,8 @@ Route::get('/', function () {
     return redirect()->route('user.home');
 });
 
+\Auth::routes(['verify' => true]);
+
 // 開発中ログイン(ユーザー)
 Route::get('user_dev_login', function () {
     abort_unless(app()->environment('local'), 403);

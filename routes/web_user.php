@@ -11,16 +11,27 @@ use App\Http\Controllers\User\DailyRunGoalController;
 use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
+use App\Http\Controllers\User\Auth\VerificationController;
 
 // ログイン認証関連
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+// 会員登録
+Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+// Email Verificationのルート
+Route::get('/email/verify', static function () {
+    return view('user.auth.verify');
+});
+// メールアドレス確認
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+// ログアウト
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // ログイン認証後
-Route::middleware('auth:user')->group(function () {
+Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // TOPページ
     Route::get('home', [HomeController::class, 'home'])->name('home');
