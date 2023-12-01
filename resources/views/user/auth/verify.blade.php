@@ -15,11 +15,11 @@
                             </div>
                         @endif
 
-                        {{ __('Before proceeding, please check your email for a verification link.') }}
-                        {{ __('If you did not receive the email') }},
+                        <p>入力いただいたメールアドレスに認証メールを送信いたしました。メールに記載のリンクをクリックして認証を完了させて下さい。</p>
+                        
                         <form class="d-inline" method="POST" action="{{ route('user.verification.resend') }}">
                             @csrf
-                            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>
                         </form>
                     </div>
                 </div>
