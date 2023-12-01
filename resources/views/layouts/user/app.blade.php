@@ -77,14 +77,14 @@
                     @if (Route::has('user.login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.login') }}">
-                                {{ __('Login') }}<i class="fas fa-sign-in-alt ms-2"></i>
+                                Login<i class="fas fa-sign-in-alt ms-2"></i>
                             </a>
                         </li>
                     @endif
                     @if (Route::has('user.register'))
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
-                                {{ __('Register') }}<i class="fas fa-user-plus ms-2"></i>
+                                Register<i class="fas fa-user-plus ms-2"></i>
                             </a>
                         </li>
                     @endif
