@@ -123,8 +123,9 @@
     </nav>
     <!-- Page Content-->
     <div class="container-fluid p-0">
+        {{-- フラッシュメッセージ --}}
+        @include('components.parts.flash_message')
         @yield('content')
-        <hr class="m-0" />
     </div>
     <!-- Bootstrap core JS-->
     <script src="https://unpkg.com/vue@3"></script>
@@ -135,5 +136,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/es6/jsmind.js"></script>
     <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
     @yield('script')
+    @yield('flash_message_script')
 </body>
 </html>

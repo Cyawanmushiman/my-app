@@ -3,7 +3,7 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="resend">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Verify Your Email Address') }}</div>
