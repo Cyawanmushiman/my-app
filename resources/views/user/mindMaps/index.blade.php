@@ -12,9 +12,10 @@
                 <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
             </div>
             <div>
-                <button type="button" class="btn btn-outline-secondary" id="chage_default">デフォルト</button>
-                <button type="button" class="btn btn-outline-primary" id="change_orange">オレンジ</button>
-                <button type="button" class="btn btn-outline-info" id="change_blue">ブルー</button>
+                <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
+                <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
+                <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
+                <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
             </div>
         </div>
     </div>
@@ -33,7 +34,7 @@
             var options = {
                 container:'jsmind_container',
                 editable:true,
-                theme:'clouds',
+                theme:'default',
                 view:{
                     engine: 'svg',
                     node_overflow: 'wrap',
@@ -119,6 +120,19 @@
             // ボタンをクリックしたらマインドマップを保存
             document.getElementById('store_button').addEventListener('click', storeMindMap);
 
+            // 選択したマインドマップを装飾なしにする関数
+            function changeColorAir() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの背景色を透明にする
+                jm.set_node_color(selected_node.id, '#ffffff', '#333');
+            }
+            // ボタンをクリックしたら選択したマインドマップを装飾なしにする
+            document.getElementById('chage_air').addEventListener('click', changeColorAir);
+
             // 選択したマインドマップをオレンジにする関数
             function changeColorOrange() {
                 var selected_node = jm.get_selected_node(); // 選択されたノードを取得
@@ -135,7 +149,7 @@
             document.getElementById('change_orange').addEventListener('click', changeColorOrange);
 
             // 選択したマインドマップをデフォルトカラーにする関数
-            function changeColorDefault() {
+            function changeColorGray() {
                 var selected_node = jm.get_selected_node(); // 選択されたノードを取得
                 if (!selected_node) {
                     alert('ノードを選択してください');
@@ -145,7 +159,7 @@
                 jm.set_node_color(selected_node.id, '#ecf0f1', '#333');
             }
             // ボタンをクリックしたら選択したマインドマップをデフォルトカラーにする
-            document.getElementById('chage_default').addEventListener('click', changeColorDefault);
+            document.getElementById('chage_gray').addEventListener('click', changeColorGray);
 
             // 選択したマインドマップをブルーにする関数
             function changeColorBlue() {
