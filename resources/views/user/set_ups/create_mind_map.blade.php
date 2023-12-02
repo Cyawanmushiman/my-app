@@ -3,10 +3,15 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
+        <ul class="progressbar mb-5">
+            <li class="complete">First Goal</li>
+            <li class="complete">Mind Map</li>
+            <li>Daily Goal</li>
+        </ul>
         <p>次は簡単にマインドマップを作成してみましょう。<br>
             <small>※マインドマップは後から自由に編集することができます。</small>
         </p>
-        <div id="jsmind_container" style="width:100%;height:500px;"></div>
+        <div id="jsmind_container" style="width:100%;height:200px;"></div>
         <div class="d-flex flex-column">
             <p>作成が完了したら「登録」をクリックして次に進んでください。</p>
             <div class="mb-3 d-flex">

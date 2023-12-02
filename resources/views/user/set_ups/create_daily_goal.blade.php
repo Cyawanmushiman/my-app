@@ -3,6 +3,11 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
+        <ul class="progressbar mb-5">
+            <li class="complete">First Goal</li>
+            <li class="complete">Mind Map</li>
+            <li class="active">Daily Goal</li>
+        </ul>
         <p class="mb-5 text-center">これで初期設定は最後です。毎日欠かさず取り組む目標をまずは1つ、設定しましょう<br>
             <small>※毎日の目標は後から編集することができます。</small>
         </p>

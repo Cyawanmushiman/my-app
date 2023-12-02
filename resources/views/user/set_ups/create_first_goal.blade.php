@@ -3,6 +3,11 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
+        <ul class="progressbar mb-5">
+            <li class="complete">First Goal</li>
+            <li class="">Mind Map</li>
+            <li>Daily Goal</li>
+        </ul>
         <p class="text-center mb-5">はじめまして！一緒に初期設定をしていきましょう。</p>
         <p class="text-center mb-5">最初に、あなたが達成したい目標を登録して下さい。</p>
         <form method="POST" action="{{ route('user.set_ups.store_first_goal') }}"  enctype="multipart/form-data">
