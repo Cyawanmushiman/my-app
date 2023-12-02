@@ -21,13 +21,13 @@ class HomeController extends Controller
     {
     }
 
-    /**
-     * ホーム画面
-     *
-     * @return \Illuminate\View\View
-     */
-    public function home()
-    {
+    // TOPページの表示、または初期目標設定画面へのリダイレクト
+    public function home(): View|RedirectResponse
+    { 
+        if (auth()->user()->isFinishedSetUp() === false) {
+            return to_route('user.set_ups.create_first_goal');
+        }
+        
         return view('user.home', [
             'mindMap' => MindMap::find(auth()->user()->id),
         ]);

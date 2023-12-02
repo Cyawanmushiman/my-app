@@ -23,11 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,7 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'has_first_goal' => 'boolean',
+        'is_mind_map_create' => 'boolean',
+        'has_daily_goal' => 'boolean',
     ];
+
+    public function isFinishedSetUp(): bool
+    {
+        return $this->has_first_goal && $this->is_mind_map_create && $this->has_daily_goal;
+    }
 
     // メール確認マルチオースカスタム
     public function sendEmailVerificationNotification()

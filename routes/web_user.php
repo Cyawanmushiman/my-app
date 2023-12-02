@@ -3,6 +3,7 @@
 use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\SetUpController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\Auth\LoginController;
@@ -35,8 +36,18 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // TOPページ
     Route::get('home', [HomeController::class, 'home'])->name('home');
-    Route::post('home', [HomeController::class, 'store'])->name('home.store');
+    Route::post('home/store', [HomeController::class, 'store'])->name('home.store');
     Route::get('home/good_job', [HomeController::class, 'showGoodJob'])->name('home.show_good_job');
+
+    // 最初の目標設定
+    Route::prefix('set_ups')->name('set_ups.')->group(function () {
+        Route::get('create_first_goal', [SetUpController::class, 'createFirstGoal'])->name('create_first_goal');
+        Route::post('store_first_goal', [SetUpController::class, 'storeFirstGoal'])->name('store_first_goal');
+        Route::get('create_mind_map', [SetUpController::class, 'createMindMap'])->name('create_mind_map');
+        Route::post('store_mind_map', [SetUpController::class, 'storeMindMap'])->name('store_mind_map');
+        Route::get('create_daily_goal', [SetUpController::class, 'createDailyGoal'])->name('create_daily_goal');
+        Route::post('store_daily_goal', [SetUpController::class, 'storeDailyGoal'])->name('store_daily_goal');
+    });
 
     // 長期目標
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show']);

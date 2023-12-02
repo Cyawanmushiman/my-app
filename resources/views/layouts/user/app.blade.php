@@ -102,9 +102,11 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-end">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">HOME<i class="fa-solid fa-house ms-2"></i></a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}" id="MindMap">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
+                    @if (auth()->user()->isFinishedSetUp())
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}" id="MindMap">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"
                             onclick="event.preventDefault();

@@ -65,7 +65,7 @@
             var options = {
                 container:'jsmind_container',
                 editable:false,
-                theme:'clouds',
+                theme:'default',
                 view:{
                     engine: 'svg',
                 }
