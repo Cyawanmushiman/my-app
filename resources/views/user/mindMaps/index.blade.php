@@ -4,10 +4,20 @@
 <section class="resume-section">
     <div class="resume-section-content">
         <div id="jsmind_container" style="width:100%;height:500px;"></div>
-        <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
-        <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
-        <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
-        <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
+        <div class="d-flex flex-column">
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
+                <button type="button" class="btn btn-outline-success" id="edit_button">編集</button>
+                <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
+                <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
+                <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
+                <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
+                <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
+            </div>
+        </div>
     </div>
 </section>
 @endsection
@@ -24,9 +34,15 @@
             var options = {
                 container:'jsmind_container',
                 editable:true,
-                theme:'clouds',
+                theme:'default',
                 view:{
                     engine: 'svg',
+                    node_overflow: 'wrap',
+                    zoom: {             // 配置缩放
+                        min: 0.1,       // 最小的缩放比例
+                        max: 1.5,       // 最大的缩放比例
+                        step: 0.1,      // 缩放比例间隔
+                    },
                 }
             }
 
@@ -103,6 +119,62 @@
             }
             // ボタンをクリックしたらマインドマップを保存
             document.getElementById('store_button').addEventListener('click', storeMindMap);
+
+            // 選択したマインドマップを装飾なしにする関数
+            function changeColorAir() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの背景色を透明にする
+                jm.set_node_color(selected_node.id, '#ffffff', '#333');
+            }
+            // ボタンをクリックしたら選択したマインドマップを装飾なしにする
+            document.getElementById('chage_air').addEventListener('click', changeColorAir);
+
+            // 選択したマインドマップをオレンジにする関数
+            function changeColorOrange() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#ff9900', '#ffffff');
+                // 選択したノードの背景をオレンジにする
+                // jm.set_node_background(selected_node.id, null, '#ff9900');
+            }
+            // ボタンをクリックしたら選択したマインドマップをオレンジにする
+            document.getElementById('change_orange').addEventListener('click', changeColorOrange);
+
+            // 選択したマインドマップをデフォルトカラーにする関数
+            function changeColorGray() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#ecf0f1', '#333');
+            }
+            // ボタンをクリックしたら選択したマインドマップをデフォルトカラーにする
+            document.getElementById('chage_gray').addEventListener('click', changeColorGray);
+
+            // 選択したマインドマップをブルーにする関数
+            function changeColorBlue() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードの色を白色にする
+                jm.set_node_color(selected_node.id, '#3498db', '#ffffff');
+            }
+            // ボタンをクリックしたら選択したマインドマップをブルーにする
+            document.getElementById('change_blue').addEventListener('click', changeColorBlue);
+
+            
         }
         
     }

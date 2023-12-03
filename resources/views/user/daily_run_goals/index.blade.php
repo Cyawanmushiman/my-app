@@ -24,7 +24,7 @@
                                     <td class="text-nowrap px-2"><a href="{{ route('user.daily_run_goals.edit', $dailyRunGoal) }}">{{ $dailyRunGoal->title }}</a></td>
                                     <td class="text-nowrap px-2">{{ $dailyRunGoal->created_at }}</td>
                                     <td class="text-nowrap px-2">
-                                        <form action="{{ route('user.short_run_goals.destroy', $dailyRunGoal) }}" method="POST">
+                                        <form action="{{ route('user.daily_run_goals.destroy', $dailyRunGoal) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-outline-danger"

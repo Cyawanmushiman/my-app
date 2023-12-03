@@ -63,26 +63,71 @@
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-        <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
-            {{-- <span class="d-block d-lg-none">MyApp</span> --}}
-            <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
-            {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
-            <h2 class="d-none d-lg-block text-white">MyApp</h2>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav text-end">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}">HOME<i class="fa-solid fa-house ms-2"></i></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
-            </ul>
-        </div>
+        @guest
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                {{-- <span class="d-block d-lg-none">MyApp</span> --}}
+                <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
+                {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
+                <h2 class="d-none d-lg-block text-white">MyApp</h2>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-end">
+                    @if (Route::has('user.login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.login') }}">
+                                Login<i class="fas fa-sign-in-alt ms-2"></i>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Route::has('user.register'))
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
+                                Register<i class="fas fa-user-plus ms-2"></i>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        @else
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                {{-- <span class="d-block d-lg-none">MyApp</span> --}}
+                <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
+                {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
+                <h2 class="d-none d-lg-block text-white">MyApp</h2>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">HOME<i class="fa-solid fa-house ms-2"></i></a></li>
+                    @if (auth()->user()->isFinishedSetUp())
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}" id="MindMap">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            logout
+                            <i class="fa-solid fa-right-from-bracket ms-1"></i>
+                        </a>
+
+                        <form id="logout-form" action="{{ url('user/logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endguest
     </nav>
     <!-- Page Content-->
     <div class="container-fluid p-0">
+        {{-- フラッシュメッセージ --}}
+        @include('components.parts.flash_message')
         @yield('content')
-        <hr class="m-0" />
     </div>
     <!-- Bootstrap core JS-->
     <script src="https://unpkg.com/vue@3"></script>
@@ -93,5 +138,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/es6/jsmind.js"></script>
     <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
     @yield('script')
+    @yield('flash_message_script')
 </body>
 </html>

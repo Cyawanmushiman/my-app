@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Car;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SampleController;
 use App\Http\Controllers\User\HomeController;
 
 /*
@@ -18,6 +20,8 @@ use App\Http\Controllers\User\HomeController;
 Route::get('/', function () {
     return redirect()->route('user.home');
 });
+
+\Auth::routes(['verify' => true]);
 
 // 開発中ログイン(ユーザー)
 Route::get('user_dev_login', function () {
@@ -52,6 +56,10 @@ Route::get('500', function () {
 });
 
 // サンプル画面
-// Route::prefix('samples')->group(function () {
+Route::get('/sample1', [SampleController::class, 'sample1']);
 
-// });
+Route::get('/test-car', function () {
+    $myCar = new Car("Toyota", "red");
+    dd($myCar);
+    $myCar->drive();
+});
