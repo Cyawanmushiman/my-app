@@ -68,6 +68,12 @@
                 theme:'default',
                 view:{
                     engine: 'svg',
+                    node_overflow: 'wrap',
+                    zoom: {             // 配置缩放
+                        min: 0.1,       // 最小的缩放比例
+                        max: 1.5,       // 最大的缩放比例
+                        step: 0.1,      // 缩放比例间隔
+                    },
                 }
             }
     
