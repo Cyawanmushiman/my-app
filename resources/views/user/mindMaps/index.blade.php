@@ -11,11 +11,16 @@
                 <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
                 <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
             </div>
-            <div>
+            <div class="mb-3">
                 <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
                 <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
                 <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
                 <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_large">大きくする</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_normal">標準サイズ</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_small">小さくする</button>
             </div>
         </div>
     </div>
@@ -173,6 +178,46 @@
             }
             // ボタンをクリックしたら選択したマインドマップをブルーにする
             document.getElementById('change_blue').addEventListener('click', changeColorBlue);
+
+            // 選択したマインドマップのフォントサイズを大きくする関数
+            function changeFontSizeLarge() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを大きくする
+                jm.set_node_font_style(selected_node.id, 18.5);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを大きくする
+            document.getElementById('change_font_size_large').addEventListener('click', changeFontSizeLarge);
+
+            // 選択したマインドマップのフォントサイズを標準サイズにする関数
+            function changeFontSizeNormal() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを標準サイズにする
+                jm.set_node_font_style(selected_node.id, 16);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを標準サイズにする
+            document.getElementById('change_font_size_normal').addEventListener('click', changeFontSizeNormal);
+
+            // 選択したマインドマップのフォントサイズを小さくする関数
+            function changeFontSizeSmall() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを小さくする
+                jm.set_node_font_style(selected_node.id, 13.5);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを小さくする
+            document.getElementById('change_font_size_small').addEventListener('click', changeFontSizeSmall);
+
 
             
         }
