@@ -99,4 +99,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Inspire::class);
     }
+
+    // daily_scoresテーブルとのリレーション
+    public function dailyScores(): HasMany
+    {
+        return $this->hasMany(DailyScore::class);
+    }
 }
