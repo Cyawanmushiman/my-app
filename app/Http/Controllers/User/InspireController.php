@@ -21,7 +21,7 @@ class InspireController extends Controller
     public function index(Request $request)
     {
         return view('user.inspires.index', [
-            'inspires' => Inspire::latest()->get(),
+            'inspires' => Inspire::where('user_id', auth()->id())->get(),
         ]);
     }
 
