@@ -4,6 +4,7 @@ use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\SetUpController;
+use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\Auth\LoginController;
@@ -67,4 +68,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // ノード管理
     Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
+
+    // daily_scoreの履歴
+    Route::get('histories', [HistoryController::class, 'index'])->name('histories.index');
 });
