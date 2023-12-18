@@ -1,0 +1,112 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Controllers\Controller;
+use {{ requestNamespace }}\StoreRequest;
+use {{ requestNamespace }}\UpdateRequest;
+use App\Models\{{ modelName }};
+use Illuminate\Http\Request;
+
+
+class {{ modelName }}Controller extends Controller
+{
+    private {{ modelName }} ${{ camelModelName }};
+
+    /**
+     * @param {{ modelName }} ${{ camelModelName }}
+     */
+    public function __construct({{ modelName }} ${{ camelModelName }})
+    {
+        $this->{{ camelModelName }} = ${{ camelModelName }};
+    }
+
+    /**
+     * 一覧
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        return view('{{ indexViewName }}', [
+            '{{ camelModelNamePlural }}' => {{ modelName }}::latest()->paginate(12),
+        ]);
+    }
+
+    /**
+     * 登録フォーム表示
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {        
+        return view('{{ createViewName }}');
+    }
+
+    /**
+     * 詳細表示
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show({{ modelName }} ${{ camelModelName }})
+    {        
+        return view('{{ showViewName }}', [
+            '{{ camelModelName }}' => ${{ camelModelName }},
+        ]);
+    }
+
+    /**
+     * 登録
+     *
+     * @param StoreRequest $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreRequest $request)
+    {
+        $this->{{ camelModelName }}->fill($request->substitutable())->save();
+
+        return to_route('{{ indexViewName }}')->with('status', '作成しました');
+    }
+
+    /**
+     * 編集フォーム表示
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit({{ modelName }} ${{ camelModelName }})
+    {
+        return view('{{ editViewName }}', [
+            '{{ camelModelName }}' => ${{ camelModelName }},
+        ]);
+    }
+
+    /**
+     * 更新
+     *
+     * @param UpdateRequest $request
+     * @param {{ modelName }} ${{ camelModelName }}
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request, {{ modelName }} ${{ camelModelName }})
+    {
+        ${{ camelModelName }}->fill($request->substitutable())->save();
+
+        return back()->with('status', '更新しました');
+    }
+
+    /**
+     * 削除
+     *
+     * @param {{ modelName }} ${{ camelModelName }}
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy({{ modelName }} ${{ camelModelName }})
+    {
+        ${{ camelModelName }}->delete();
+
+        return to_route('{{ indexViewName }}')->with('status', '削除しました');
+    }
+}
