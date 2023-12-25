@@ -7,6 +7,7 @@ use App\Http\Controllers\User\SetUpController;
 use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
+use App\Http\Controllers\User\WebPushController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
@@ -71,4 +72,11 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // daily_scoreの履歴
     Route::get('histories', [HistoryController::class, 'index'])->name('histories.index');
+    
+    // web_push
+    Route::prefix('web_push')->name('web_push.')->group(function () {
+        Route::get('create', [WebPushController::class, 'create'])->name('create');
+        Route::post('store', [WebPushController::class, 'store'])->name('store');
+        Route::get('send', [WebPushController::class, 'send'])->name('send');
+    });
 });
