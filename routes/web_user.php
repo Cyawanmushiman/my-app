@@ -72,11 +72,4 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // daily_scoreの履歴
     Route::get('histories', [HistoryController::class, 'index'])->name('histories.index');
-    
-    // web_push
-    Route::prefix('web_push')->name('web_push.')->group(function () {
-        Route::get('create', [WebPushController::class, 'create'])->name('create');
-        Route::post('store', [WebPushController::class, 'store'])->name('store');
-        Route::get('send', [WebPushController::class, 'send'])->name('send');
-    });
 });
