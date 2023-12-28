@@ -62,12 +62,15 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-0 justify-content-center">
-                                <div class="col-md-6 text-center">
+                            <div class="row mb-0 flex-column justify-content-center align-items-center">
+                                <div class="col-md-6 text-center mb-3">
                                     <button type="submit" class="btn btn-primary text-white">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
+                                <a href="{{ route('user.linelogin') }}" class="line-button d-flex align-items-center">
+                                    <i class="fa-brands fa-line me-2 fa-2x"></i>LINEで登録する
+                                </a>
                             </div>
                         </form>
                     </div>
