@@ -1,0 +1,20 @@
+.line-button {
+    width: 200px;
+    background-color: #06C755;
+    border-radius: 0.25rem;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.6;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+}
+.line-button:hover {
+    background-color: #06a448;
+    color: #FFFFFF;
+    text-decoration: none;
+}

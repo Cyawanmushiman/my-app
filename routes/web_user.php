@@ -8,6 +8,7 @@ use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\WebPushController;
+use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
@@ -32,6 +33,9 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 // ログアウト
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
+Route::get('callback', [LineLoginController::class, 'callback'])->name('callback');
 
 // ログイン認証後
 Route::middleware(['auth:user', 'verified'])->group(function () {
