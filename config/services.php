@@ -32,12 +32,12 @@ return [
     ],
     
     'line' => [
-        // 'client_id'=>env('LINE_CHANNEL_ID'),
-        // 'client_secret' =>env('LINE_CHANNEL_SECRET'),
-        // 'redirect'=>env('LINE_REDIRECT'),
         'client_id'=>env('LINE_CLIENT_ID'),
         'client_secret' =>env('LINE_CLIENT_SECRET'),
         'redirect_uri'=>env('LINE_REDIRECT_URI'),
+        'message_api_channel_id'=>env('LINE_MESSAGE_API_CHANNEL_ID'),
+        'message_api_channel_secret'=>env('LINE_MESSAGE_API_CHANNEL_SECRET'),
+        'access_token'=>env('LINE_ACCESS_TOKEN'),
     ],
 
 ];

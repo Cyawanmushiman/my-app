@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use Carbon\Carbon;
-use App\Models\Inspire;
 use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
-use App\Models\LongRunGoal;
-use Illuminate\Http\Request;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
