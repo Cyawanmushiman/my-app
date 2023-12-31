@@ -80,5 +80,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::prefix('notification_settings')->name('notification_settings.')->group(function () {
         Route::get('edit', [NotificationSettingController::class, 'edit'])->name('edit');
         Route::patch('update', [NotificationSettingController::class, 'update'])->name('update');
+        Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
+        Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
     });
+    
 });

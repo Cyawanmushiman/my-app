@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use GuzzleHttp\Client;
 use App\Enums\DayOfWeek;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\NotificationSettingController\UpdateRequest;
+use Illuminate\View\View;
 use App\Models\NotificationMethod;
 use App\Models\NotificationSetting;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Requests\User\NotificationSettingController\UpdateRequest;
 
 class NotificationSettingController extends Controller
 {
@@ -81,5 +85,18 @@ class NotificationSettingController extends Controller
         });
         
         return back()->with('status', '更新しました');
+    }
+    
+    // line通知の設定方法案内ページの表示
+    public function lineNotificationGuide(): View
+    {
+        return view('user.notification_settings.line_notification_guide');
+    }
+    
+    // lineと連携
+    public function lineAlignment(): RedirectResponse
+    {        
+        // リダイレクト
+        return to_route('user.linelogin');
     }
 }

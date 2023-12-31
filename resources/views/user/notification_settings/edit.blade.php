@@ -6,6 +6,9 @@
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
                 <h4 class="my-2">Notification Settings</h4>
+                <a href="{{ route('user.notification_settings.line_notification_guide') }}">
+                    Lineへの通知を行いたい場合はこちらをご確認ください
+                </a>
             </x-slot>
             <x-slot name="cardBody">
                 <form method="POST" action="{{ route('user.notification_settings.update') }}"
