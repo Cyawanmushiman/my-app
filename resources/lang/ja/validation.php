@@ -143,6 +143,93 @@ return [
     'uuid'                 => ':Attributeは、有効なUUIDである必要があります。',
 
     
+    /*
+    |--------------------------------------------------------------------------
+    | Custom バリデーション言語行
+    |--------------------------------------------------------------------------
+    |
+    | "属性.ルール"の規約でキーを指定することでカスタムバリデーション
+    | メッセージを定義できます。指定した属性ルールに対する特定の
+    | カスタム言語行を手早く指定できます。
+    |
+    */
+    'custom' => [
+        'Monday-content' => [
+            'required' => '月曜日のcontentは必須です。',
+        ],
+        'Monday-action_time' => [
+            'required' => '月曜日のtimeは必須です。',
+        ],
+        'Monday-methods' => [
+            'required' => '月曜日のmethodsは必須です。',
+        ],
+        'Tuesday-content' => [
+            'required' => '火曜日のcontentは必須です。',
+        ],
+        'Tuesday-action_time' => [
+            'required' => '火曜日のtimeは必須です。',
+        ],
+        'Tuesday-methods' => [
+            'required' => '火曜日のmethodsは必須です。',
+        ],
+        'Wednesday-content' => [
+            'required' => '水曜日のcontentは必須です。',
+        ],
+        'Wednesday-action_time' => [
+            'required' => '水曜日のtimeは必須です。',
+        ],
+        'Wednesday-methods' => [
+            'required' => '水曜日のmethodsは必須です。',
+        ],
+        'Thursday-content' => [
+            'required' => '木曜日のcontentは必須です。',
+        ],
+        'Thursday-action_time' => [
+            'required' => '木曜日のtimeは必須です。',
+        ],
+        'Thursday-methods' => [
+            'required' => '木曜日のmethodsは必須です。',
+        ],
+        'Friday-content' => [
+            'required' => '金曜日のcontentは必須です。',
+        ],
+        'Friday-action_time' => [
+            'required' => '金曜日のtimeは必須です。',
+        ],
+        'Friday-methods' => [
+            'required' => '金曜日のmethodsは必須です。',
+        ],
+        'Saturday-content' => [
+            'required' => '土曜日のcontentは必須です。',
+        ],
+        'Saturday-action_time' => [
+            'required' => '土曜日のtimeは必須です。',
+        ],
+        'Saturday-methods' => [
+            'required' => '土曜日のmethodsは必須です。',
+        ],
+        'Sunday-content' => [
+            'required' => '日曜日のcontentは必須です。',
+        ],
+        'Sunday-action_time' => [
+            'required' => '日曜日のtimeは必須です。',
+        ],
+        'Sunday-methods' => [
+            'required' => '日曜日のmethodsは必須です。',
+        ],
+    ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | カスタムバリデーション属性名
+    |--------------------------------------------------------------------------
+    |
+    | 以下の言語行は、例えば"email"の代わりに「メールアドレス」のように、
+    | 読み手にフレンドリーな表現でプレースホルダーを置き換えるために指定する
+    | 言語行です。これはメッセージをよりきれいに表示するために役に立ちます。
+    |
+    */
+    
     'attributes' => [
         'title' => 'タイトル',
     ],

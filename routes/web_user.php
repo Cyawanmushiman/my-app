@@ -1,13 +1,11 @@
 <?php
 
-use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\SetUpController;
 use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
-use App\Http\Controllers\User\WebPushController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
@@ -16,6 +14,7 @@ use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
 use App\Http\Controllers\User\Auth\VerificationController;
+use App\Http\Controllers\User\NotificationSettingController;
 
 // ログイン認証関連
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -76,4 +75,10 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // daily_scoreの履歴
     Route::get('histories', [HistoryController::class, 'index'])->name('histories.index');
+    
+    // 通知設定
+    Route::prefix('notification_settings')->name('notification_settings.')->group(function () {
+        Route::get('edit', [NotificationSettingController::class, 'edit'])->name('edit');
+        Route::patch('update', [NotificationSettingController::class, 'update'])->name('update');
+    });
 });
