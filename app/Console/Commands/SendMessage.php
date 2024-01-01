@@ -29,11 +29,22 @@ class SendMessage extends Command
     public function handle(): void
     {
         $this->info('SendMessageコマンドが実行されました');
+        
+        \Log::notice([
+            'message' => 'SendMessageコマンドが実行されました',
+            'time' => date('Y-m-d H:i:s'),
+        ]);
+        
         $notificationSettings = NotificationSetting::where('day_of_week', date('l'))
             ->where('action_time', date('H:i'))
             ->where('is_enable', true)
             ->get();
-            
+        
+        if ($notificationSettings->isEmpty()) {
+            $this->info('送信するメッセージがありません');
+            return;
+        }
+        
         foreach ($notificationSettings as $notificationSetting) {
             $this->info($notificationSetting->user->name . 'さんにメッセージを送信します');
             if ($notificationSetting->isSendEmail()) {
