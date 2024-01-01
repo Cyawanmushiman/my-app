@@ -30,11 +30,6 @@ class SendMessage extends Command
     {
         $this->info('SendMessageコマンドが実行されました');
         
-        \Log::notice([
-            'message' => 'SendMessageコマンドが実行されました',
-            'time' => date('Y-m-d H:i:s'),
-        ]);
-        
         $notificationSettings = NotificationSetting::where('day_of_week', date('l'))
             ->where('action_time', date('H:i'))
             ->where('is_enable', true)
