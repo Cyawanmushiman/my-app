@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Library\LineMessageApiLibrary;
 use Illuminate\Console\Command;
+use App\Mail\User\NotificationMail;
 use App\Models\NotificationSetting;
+use App\Library\LineMessageApiLibrary;
 
 class SendMessage extends Command
 {
@@ -39,7 +40,7 @@ class SendMessage extends Command
                 $this->info('メールを送信します');
                 
                 // メール送信処理
-                // \Mail::to($notificationSetting->user->email)->send(new NotificationMail());
+                \Mail::to($notificationSetting->user->email)->send(new NotificationMail($notificationSetting->content));
             }
             if ($notificationSetting->isSendLine()) {
                 $this->info('LINEを送信します');
