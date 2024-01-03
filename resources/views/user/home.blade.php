@@ -3,7 +3,14 @@
 @section('content')
 <section class="resume-section pt-0" id="home">
     <div class="resume-section-content">
-        <div id="jsmind_container" style="width:100%;height:500px;"></div>
+        <div class="mx-auto" id="jsmind_container" style="width:80%;height:300px;"></div>
+        {{-- 拡大・縮小ボタン --}}
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button type="button" class="btn btn-outline-secondary" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            </div>
+        </div>
         <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
             @csrf
 
@@ -70,7 +77,7 @@
                     engine: 'svg',
                     node_overflow: 'wrap',
                     zoom: {             // 配置缩放
-                        min: 0.1,       // 最小的缩放比例
+                        min: 0.5,       // 最小的缩放比例
                         max: 1.5,       // 最大的缩放比例
                         step: 0.1,      // 缩放比例间隔
                     },
@@ -78,7 +85,15 @@
             }
     
             var jm = new jsMind(options);
-            jm.show(mind);    
+            jm.show(mind);   
+            
+            // 拡大・縮小ボタン
+            $('#zoomIn').on('click', function() {
+                jm.view.zoomIn();
+            });
+            $('#zoomOut').on('click', function() {
+                jm.view.zoomOut();
+            });
         }
         
     }
