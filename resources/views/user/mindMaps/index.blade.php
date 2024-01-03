@@ -66,10 +66,10 @@
             
             // 拡大・縮小ボタン
             $('#zoomIn').on('click', function() {
-                jm.view.zoomIn(0.5);
+                jm.view.zoomIn();
             });
             $('#zoomOut').on('click', function() {
-                jm.view.zoomOut(0.5);
+                jm.view.zoomOut();
             });
     
             // 新しいノードを追加する関数
