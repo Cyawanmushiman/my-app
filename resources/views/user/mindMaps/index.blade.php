@@ -3,7 +3,7 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
-        <div class="mx-auto" id="jsmind_container" style="width:80%;height:300px;"></div>
+        <div class="mx-auto mindmap-size" id="jsmind_container"></div>
         {{-- 拡大・縮小ボタン --}}
         <div class="d-flex justify-content-center mt-3 mb-3">
             <div class="btn-group" role="group" aria-label="Basic example">
