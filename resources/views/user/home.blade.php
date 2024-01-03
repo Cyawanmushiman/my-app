@@ -77,7 +77,7 @@
                     engine: 'svg',
                     node_overflow: 'wrap',
                     zoom: {             // 配置缩放
-                        min: 0.5,       // 最小的缩放比例
+                        min: 0.1,       // 最小的缩放比例
                         max: 1.5,       // 最大的缩放比例
                         step: 0.1,      // 缩放比例间隔
                     },
@@ -89,10 +89,10 @@
             
             // 拡大・縮小ボタン
             $('#zoomIn').on('click', function() {
-                jm.view.zoomIn();
+                jm.view.zoomIn(0.5);
             });
             $('#zoomOut').on('click', function() {
-                jm.view.zoomOut();
+                jm.view.zoomOut(0.5);
             });
         }
         
