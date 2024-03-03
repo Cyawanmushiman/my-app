@@ -31,7 +31,9 @@
                                         {{ $dailyScore->score }}
                                     </td>
                                     <td class="text-nowrap px-2 text-start">
-                                        {{ $dailyScore->diary }}
+                                        {{-- {!! $dailyScore->diary !!} --}}
+                                        {!! nl2br(e($dailyScore->diary)) !!}
+                                        
                                     </td>
                                 </tr>
                             @endforeach
