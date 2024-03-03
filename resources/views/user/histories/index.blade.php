@@ -3,6 +3,9 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
+        <p class="text-end">
+            <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_scores') }}">過去の記録はこちら</a>
+        </p>
         @if ($dailyScores)
             <canvas id="lineChart"></canvas>
         @else

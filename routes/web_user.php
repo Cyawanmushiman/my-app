@@ -74,7 +74,10 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
 
     // daily_scoreの履歴
-    Route::get('histories', [HistoryController::class, 'index'])->name('histories.index');
+    Route::prefix('histories')->name('histories.')->group(function () {
+        Route::get('/', [HistoryController::class, 'index'])->name('index');
+        Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
+    });
     
     // 通知設定
     Route::prefix('notification_settings')->name('notification_settings.')->group(function () {
