@@ -33,7 +33,11 @@
                 <div class="form-body mt-5">
                     <div class="row">
                         <div class="col-12 d-flex align-items-center">
-                            @include('components.form.textarea', ['name' => 'diary', 'rows' => 10, 'placeholder' => 'Please enter what happened today'])
+                            @include('components.form.textarea', [
+                                'name' => 'diary', 
+                                'rows' => 10,
+                                'placeholder' => 'Please enter what happened today'
+                            ])
                         </div>
                         @include('components.form.error', ['name' => 'diary'])
                     </div>

@@ -14,10 +14,14 @@ class HistoryController extends Controller
     {
         $dailyScores = DailyScore::with(['dailyRunGoals'])
             ->where('user_id', auth()->id())
+            ->latest()
             ->limit(7)
             ->get();
+        
+        $sortDailyScores = $dailyScores->sortBy(['created_at', 'asc'])->values();
+        
         return view('user.histories.index', [
-            'dailyScores' => $dailyScores,
+            'dailyScores' => $sortDailyScores,
         ]);
     }
     
