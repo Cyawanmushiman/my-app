@@ -217,6 +217,10 @@ return [
         'Sunday-methods' => [
             'required' => '日曜日のmethodsは必須です。',
         ],
+        
+        'daily_run_goal_ids' => [
+            'required' => '何か一つはやらないと登録できないよ？？',
+        ],
     ],
     
     /*

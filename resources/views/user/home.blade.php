@@ -13,7 +13,9 @@
         </div>
         <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
             @csrf
-
+            @error('daily_run_goal_ids')
+                <p class="text-center text-danger">{{ $message }}</p>
+            @enderror
             <div class="d-flex justify-content-center">
                 <div class="d-flex flex-column justify-content-start">
                     @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
