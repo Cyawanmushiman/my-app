@@ -30,6 +30,7 @@ class HistoryController extends Controller
     {
         $dailyScores = DailyScore::with(['dailyRunGoals'])
             ->where('user_id', auth()->id())
+            ->latest()
             ->paginate(12);
         return view('user.histories.past_scores', [
             'dailyScores' => $dailyScores,
