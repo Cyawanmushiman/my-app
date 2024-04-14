@@ -54,12 +54,3 @@ Route::get('500', function () {
     \Log::error('500エラーのテスト');
     abort(500);
 });
-
-// サンプル画面
-Route::get('/sample1', [SampleController::class, 'sample1']);
-
-Route::get('/test-car', function () {
-    $myCar = new Car("Toyota", "red");
-    dd($myCar);
-    $myCar->drive();
-});

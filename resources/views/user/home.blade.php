@@ -3,10 +3,19 @@
 @section('content')
 <section class="resume-section pt-0" id="home">
     <div class="resume-section-content">
-        <div id="jsmind_container" style="width:100%;height:500px;"></div>
+        <div class="mx-auto mindmap-size" id="jsmind_container"></div>
+        {{-- 拡大・縮小ボタン --}}
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button type="button" class="btn btn-outline-secondary" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            </div>
+        </div>
         <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
             @csrf
-
+            @error('daily_run_goal_ids')
+                <p class="text-center text-danger">{{ $message }}</p>
+            @enderror
             <div class="d-flex justify-content-center">
                 <div class="d-flex flex-column justify-content-start">
                     @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
@@ -26,7 +35,11 @@
                 <div class="form-body mt-5">
                     <div class="row">
                         <div class="col-12 d-flex align-items-center">
-                            @include('components.form.textarea', ['name' => 'diary', 'rows' => 10, 'placeholder' => 'Please enter what happened today'])
+                            @include('components.form.textarea', [
+                                'name' => 'diary', 
+                                'rows' => 10,
+                                'placeholder' => 'Please enter what happened today'
+                            ])
                         </div>
                         @include('components.form.error', ['name' => 'diary'])
                     </div>
@@ -68,11 +81,29 @@
                 theme:'default',
                 view:{
                     engine: 'svg',
+                    node_overflow: 'wrap',
+                    zoom: {             // 配置缩放
+                        min: 0.1,       // 最小的缩放比例
+                        max: 1.5,       // 最大的缩放比例
+                        step: 0.1,      // 缩放比例间隔
+                    },
                 }
             }
     
             var jm = new jsMind(options);
-            jm.show(mind);    
+            
+            // 最小の拡大率で表示
+            jm.view.setZoom(0.1);
+            
+            jm.show(mind);
+            
+            // 拡大・縮小ボタン
+            $('#zoomIn').on('click', function() {
+                jm.view.zoomIn();
+            });
+            $('#zoomOut').on('click', function() {
+                jm.view.zoomOut();
+            });
         }
         
     }

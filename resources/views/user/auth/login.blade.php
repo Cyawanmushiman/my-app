@@ -5,11 +5,11 @@
     <div class="resume-section-content">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">ユーザー{{ __('Login') }}</div>
+                <div class="card mb-3">
+                    <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('user.login') }}">
+                        <form method="POST" action="{{ route('user.login') }}" class="mb-3">
                             @csrf
 
                             <div class="row mb-3">
@@ -53,24 +53,37 @@
                             </div>
 
                             <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary text-white">
+                                <div class="col-md-12 d-flex flex-column align-items-center">
+                                    <button type="submit" class="btn btn-primary text-white mb-2">
                                         {{ __('Login') }}
                                     </button>
 
                                     @if (Route::has('user.password.request'))
-                                        <a class="btn btn-link" href="{{ route('user.password.request') }}">
+                                        <a class="btn btn-link mb-2" href="{{ route('user.password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
 
                                     @if (app()->environment('local'))
-                                        <a href="{{ route('user_dev_login') }}" class="btn btn-dark">開発中ログイン</a>
+                                        <a href="{{ route('user_dev_login') }}" class="btn btn-dark mb-2">開発中ログイン</a>
                                     @endif
+                                    
+                                    <a href="{{ route('user.linelogin') }}" class="line-button d-flex align-items-center">
+                                        <i class="fa-brands fa-line me-2 fa-2x"></i>LINEでログインする
+                                    </a>
                                 </div>
                             </div>
                         </form>
+                        
                     </div>
+                    
+
+                </div>
+                <div class="alert alert-light" role="alert">
+                    <p>
+                        本サイトの会員情報を連携することにより、各サイトIDを使ってログインすることができます。ログイン画面にある、【LINEログインする】ボタンより手続きを行なってください。なお、ログイン時の認証画面にて許可をいただいた場合のみ、LINEの登録情報を取得し連携します。情報は以下の項目となります。<br>
+                        <i class="fa-solid fa-square me-2"></i>LINE:名前・メールアドレス
+                    </p>
                 </div>
             </div>
         </div>

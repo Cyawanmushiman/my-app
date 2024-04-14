@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\SetUpController;
+use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
+use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
 use App\Http\Controllers\User\Auth\VerificationController;
+use App\Http\Controllers\User\NotificationSettingController;
 
 // ログイン認証関連
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -30,6 +32,9 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 // ログアウト
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
+Route::get('callback', [LineLoginController::class, 'callback'])->name('callback');
 
 // ログイン認証後
 Route::middleware(['auth:user', 'verified'])->group(function () {
@@ -67,4 +72,19 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
 
     // ノード管理
     Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
+
+    // daily_scoreの履歴
+    Route::prefix('histories')->name('histories.')->group(function () {
+        Route::get('/', [HistoryController::class, 'index'])->name('index');
+        Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
+    });
+    
+    // 通知設定
+    Route::prefix('notification_settings')->name('notification_settings.')->group(function () {
+        Route::get('edit', [NotificationSettingController::class, 'edit'])->name('edit');
+        Route::patch('update', [NotificationSettingController::class, 'update'])->name('update');
+        Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
+        Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
+    });
+    
 });

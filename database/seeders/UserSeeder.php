@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
                     'name' => 'テストユーザー', 
                     'email' => 'user1@test.com', 
                     'password' => \Hash::make('11111111'), 
+                    'provider' => null,
+                    'line_id' => null,
                     'remember_token' => \Str::random(10), 
                     'email_verified_at' => now(), 
                     'has_first_goal' => true,

@@ -18,7 +18,7 @@ class DailyRunGoalController extends Controller
     public function index()
     {
         return view('user.daily_run_goals.index', [
-            'allDailyRunGoals' => DailyRunGoal::all(),
+            'allDailyRunGoals' => DailyRunGoal::where('user_id', auth()->id())->get(),
         ]);
     }
 

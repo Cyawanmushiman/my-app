@@ -65,9 +65,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
         @guest
             <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
-                {{-- <span class="d-block d-lg-none">MyApp</span> --}}
                 <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
-                {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
                 <h2 class="d-none d-lg-block text-white">MyApp</h2>
             </a>
             {{-- ログインしていれば表示 --}}
@@ -92,9 +90,7 @@
             </div>
         @else
             <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
-                {{-- <span class="d-block d-lg-none">MyApp</span> --}}
                 <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
-                {{-- <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span> --}}
                 <h2 class="d-none d-lg-block text-white">MyApp</h2>
             </a>
             {{-- ログインしていれば表示 --}}
@@ -106,6 +102,10 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mindMaps.index') }}" id="MindMap">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">Histories<i class="fas fa-history ms-2"></i></a></li>
+                        @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}">Notifications<i class="fa-solid fa-bell ms-2"></i></a></li>
+                        @endif
                     @endif
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"

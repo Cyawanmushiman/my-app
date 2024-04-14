@@ -17,7 +17,7 @@ class RedirectIfNotVerified
     public function handle(Request $request, Closure $next): Response
     {
         // ユーザーがログインしているがメールアドレスが未確認の場合
-        if ($request->user() && !$request->user()->hasVerifiedEmail()) {
+        if ($request->user() && !$request->user()->hasVerifiedEmail() && $request->user()->line_id === null) {
             // カスタムリダイレクトパスにリダイレクトする
             return Redirect::to('/user/email/verify');
         }

@@ -3,7 +3,14 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
-        <div id="jsmind_container" style="width:100%;height:500px;"></div>
+        <div class="mx-auto mindmap-size" id="jsmind_container"></div>
+        {{-- 拡大・縮小ボタン --}}
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button type="button" class="btn btn-outline-secondary" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+            </div>
+        </div>
         <div class="d-flex flex-column">
             <div class="mb-3">
                 <button type="button" class="btn btn-outline-dark" id="add_button">追加</button>
@@ -11,11 +18,16 @@
                 <button type="button" class="btn btn-outline-danger" id="remove_button">削除</button>
                 <button type="button" class="btn btn-primary text-white" id="store_button">保存</button>
             </div>
-            <div>
+            <div class="mb-3">
                 <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
                 <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
                 <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
                 <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_large">大きくする</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_normal">標準サイズ</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_small">小さくする</button>
             </div>
         </div>
     </div>
@@ -51,6 +63,14 @@
     
             var jm = new jsMind(options);
             jm.show(mind);
+            
+            // 拡大・縮小ボタン
+            $('#zoomIn').on('click', function() {
+                jm.view.zoomIn();
+            });
+            $('#zoomOut').on('click', function() {
+                jm.view.zoomOut();
+            });
     
             // 新しいノードを追加する関数
             function addNewNode() {
@@ -173,6 +193,46 @@
             }
             // ボタンをクリックしたら選択したマインドマップをブルーにする
             document.getElementById('change_blue').addEventListener('click', changeColorBlue);
+
+            // 選択したマインドマップのフォントサイズを大きくする関数
+            function changeFontSizeLarge() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを大きくする
+                jm.set_node_font_style(selected_node.id, 18.5);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを大きくする
+            document.getElementById('change_font_size_large').addEventListener('click', changeFontSizeLarge);
+
+            // 選択したマインドマップのフォントサイズを標準サイズにする関数
+            function changeFontSizeNormal() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを標準サイズにする
+                jm.set_node_font_style(selected_node.id, 16);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを標準サイズにする
+            document.getElementById('change_font_size_normal').addEventListener('click', changeFontSizeNormal);
+
+            // 選択したマインドマップのフォントサイズを小さくする関数
+            function changeFontSizeSmall() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                // 選択したノードのフォントサイズを小さくする
+                jm.set_node_font_style(selected_node.id, 13.5);
+            }
+            // ボタンをクリックしたら選択したマインドマップのフォントサイズを小さくする
+            document.getElementById('change_font_size_small').addEventListener('click', changeFontSizeSmall);
+
 
             
         }

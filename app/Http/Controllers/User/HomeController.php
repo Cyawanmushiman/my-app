@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use Carbon\Carbon;
-use App\Models\Inspire;
 use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
-use App\Models\LongRunGoal;
-use Illuminate\Http\Request;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -54,17 +50,21 @@ class HomeController extends Controller
 
     public function showGoodJob(): View
     {
-        $inspireCount = auth()->user()->inspire_count;
-        $userInspires = auth()->user()->inspires;
+        $user = auth()->user();
+        $inspireCount = $user->inspire_count;
+        $userInspires = $user->inspires;
         
-        // 循環カウント
-        $index = $inspireCount % \count($userInspires);
-        // dd($userInspires, $count);
-        $inspire = $userInspires[$index];
+        if ($userInspires->count() > 0) {
+            // 循環カウント
+            $index = $inspireCount % \count($userInspires);
+            // dd($userInspires, $count);
+            $inspire = $userInspires[$index];
+        }
         
         return view('user.good_job', [
             'consecutiveDays' => $this->dailyScoreService->getConsecutiveDays(),
-            'inspire' => $inspire,
+            'dailyScores' => $user->dailyScores,
+            'inspire' => $inspire ?? null,
         ]);
     }
 }

@@ -5,14 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\User\CustomVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Notifications\User\CustomVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -98,5 +98,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function inspires(): HasMany
     {
         return $this->hasMany(Inspire::class);
+    }
+
+    // daily_scoresテーブルとのリレーション
+    public function dailyScores(): HasMany
+    {
+        return $this->hasMany(DailyScore::class);
     }
 }

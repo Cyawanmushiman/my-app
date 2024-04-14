@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             DailyScoreSeeder::class,
             InspireSeeder::class,
             MindMapSeeder::class,
+            NotificationSettingSeeder::class,
+            NotificationMethodSeeder::class,
         ]);
     }
 }
