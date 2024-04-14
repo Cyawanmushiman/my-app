@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
                 $name = reset($table);
             }
 
-            if (in_array($name, ['migrations'], true)) {
+            if (\in_array($name, ['migrations'], true)) {
                 continue;
             }
 
@@ -44,7 +44,7 @@ abstract class TestCase extends BaseTestCase
             }
 
             $data = $collection->map(function ($item) {
-                unset($item->created_at, $item->updated_at);
+                $item->created_at = null; $item->updated_at = null;
 
                 return $item;
             })->toArray();
@@ -77,7 +77,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
     }
     
-    protected function login($user = null)
+    protected function login(?User $user = null): User
     {
         $user ??= User::factory()->create(); // $userがnullの場合、新規ユーザーを作成
 

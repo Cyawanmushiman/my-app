@@ -10,13 +10,13 @@ use Tests\TestCase;
 
 class DailyRunGoalControllerTest extends TestCase
 {
-    public function test_未ログインの場合はログイン画面にリダイレクトされる()
+    public function test_未ログインの場合はログイン画面にリダイレクトされる(): void
     {
         $response = $this->get(route('user.daily_run_goals.index'));
         $response->assertRedirect(route('user.login'));
     }   
     
-    public function test_自分の毎日の目標一覧が表示される()
+    public function test_自分の毎日の目標一覧が表示される(): void
     {
         $me = $this->login();
         
@@ -31,7 +31,7 @@ class DailyRunGoalControllerTest extends TestCase
         $response->assertSee('今日も走る');
     }
     
-    public function test_自分の毎日の目標が一つもなければ、「毎日の目標が登録されていません」が表示される()
+    public function test_自分の毎日の目標が一つもなければ、「毎日の目標が登録されていません」が表示される(): void
     {
         $me = $this->login();
         
@@ -41,7 +41,7 @@ class DailyRunGoalControllerTest extends TestCase
         $response->assertSee('毎日の目標が登録されていません');
     }
     
-    public function test_自分の毎日の目標を登録できる()
+    public function test_自分の毎日の目標を登録できる(): void
     {
         $me = $this->login();
         
