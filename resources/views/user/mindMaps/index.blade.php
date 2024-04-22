@@ -55,7 +55,21 @@
                         max: 1.5,       // 最大的缩放比例
                         step: 0.1,      // 缩放比例间隔
                     },
-                }
+                },
+                shortcut:{
+                    enable:true, 		// whether to enable shortcut
+                    handles:{}, 			// Named shortcut key event processor
+                    mapping:{ 			// shortcut key mapping
+                        // addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
+                        addchild : 9, 	// <Tab>
+                        addbrother : 13, // <Enter>
+                        delnode : 46, 	// <Delete>
+                        left : 37, 		// <Left>
+                        up : 38, 		// <Up>
+                        right : 39, 		// <Right>
+                        down : 40, 		// <Down>
+                    }
+                },
             }
 
             // ノードのスタイルを設定
