@@ -3,7 +3,7 @@ $secret = 'Cyawanmushi0314';
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
-$signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+$signature = $_SERVER['HTTP_X_HUB_SIGNATURE_256'];
 
 if ($signature) {
     $hash = 'sha1=' . hash_hmac('sha1', $json, $secret);
@@ -12,7 +12,8 @@ if ($signature) {
         echo 'Success';
     } else {
         header('HTTP/1.0 403 Forbidden');
-        echo 'Invalid signature';
+        // ログに記録
+        Log::error('Invalid signature');
     }
 } else {
     header('HTTP/1.0 400 Bad Request');
