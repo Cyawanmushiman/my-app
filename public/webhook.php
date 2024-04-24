@@ -1,6 +1,8 @@
 <?php
-$LOG_FILE = '/home/bitnami/laravel-project/my-app/storage/logs/webhook.log';
+
+$LOG_FILE = dirname(__FILE__) . '/webhook.log';
 $SECRET_KEY = 'Cyawanmushi0314';
+file_put_contents( $LOG_FILE, date( "[Y-m-d H:i:s]" ) . " Start Deploy\n", FILE_APPEND | LOCK_EX );
 
 $header = getallheaders();
 $hmac = hash_hmac('sha1', $HTTP_RAW_POST_DATA, $SECRET_KEY);
