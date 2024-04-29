@@ -1,4 +1,5 @@
 <?php
+http_response_code(200);
 $LOG_FILE = dirname(__FILE__) . '/webhook.log';
 
 // $SECRET_KEY = 'Cyawanmushi0314';
