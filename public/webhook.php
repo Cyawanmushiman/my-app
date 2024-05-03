@@ -10,10 +10,11 @@ $postData = file_get_contents('php://input');
 // データのロギング（デバッグ用）
 file_put_contents('webhook.log', $postData . "\n", FILE_APPEND);
 
+exec('cd /home/bitnami/laravel-project/my-app && git pull origin main');
+
 // 何かしらのレスポンスを返す
 http_response_code(200);
 
-exec('cd /home/bitnami/laravel-project/my-app && git pull origin main');
 // $LOG_FILE = dirname(__FILE__) . '/webhook.log';
 
 // $SECRET_KEY = 'Cyawanmushi0314';  // GitHubのWebhookで設定したSecretと同じ値
