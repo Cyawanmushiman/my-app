@@ -10,10 +10,10 @@ $postData = file_get_contents('php://input');
 // データのロギング（デバッグ用）
 file_put_contents('webhook.log', $postData . "\n", FILE_APPEND);
 
-$output = [];
-$return_var = 0;
-exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output, $return_var);
-file_put_contents('webhook.log', implode("\n", $output) . "\nReturn code: " . $return_var . "\n", FILE_APPEND);
+$output = null;
+exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
+file_put_contents('webhook.log', 'execコマンドの結果: ' . $output . "\n", FILE_APPEND);
+
 
 // 何かしらのレスポンスを返す
 http_response_code(200);
