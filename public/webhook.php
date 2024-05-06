@@ -15,7 +15,6 @@ $output = null;
 exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
 file_put_contents('webhook.log', 'execコマンドの結果: ' . implode("\n", $output) . "\n", FILE_APPEND);
 
-
 // 何かしらのレスポンスを返す
 http_response_code(200);
 
