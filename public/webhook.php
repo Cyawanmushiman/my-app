@@ -9,11 +9,11 @@ $postData = file_get_contents('php://input');
 
 // データのロギング（デバッグ用）
 file_put_contents('webhook.log', $postData . "\n", FILE_APPEND);
-\Log::debug($postData);
+// \Log::debug($postData);
 
 $output = null;
-// exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
-// file_put_contents('webhook.log', 'execコマンドの結果: ' . $output . "\n", FILE_APPEND);
+exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
+file_put_contents('webhook.log', 'execコマンドの結果: ' . $output . "\n", FILE_APPEND);
 
 
 // 何かしらのレスポンスを返す
