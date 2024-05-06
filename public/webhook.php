@@ -13,7 +13,7 @@ file_put_contents('webhook.log', $postData . "\n", FILE_APPEND);
 
 $output = null;
 exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
-file_put_contents('webhook.log', 'execコマンドの結果: ' . $output . "\n", FILE_APPEND);
+file_put_contents('webhook.log', 'execコマンドの結果: ' . implode("\n", $output) . "\n", FILE_APPEND);
 
 
 // 何かしらのレスポンスを返す
