@@ -11,6 +11,10 @@ $postData = file_get_contents('php://input');
 file_put_contents('webhook.log', $postData . "\n", FILE_APPEND);
 // \Log::debug($postData);
 
+// whoamiコマンドの実行結果を取得
+exec('whoami', $whoamiOutput);
+file_put_contents('webhook.log', 'whoamiコマンドの結果: ' . implode("\n", $whoamiOutput) . "\n", FILE_APPEND);
+
 $output = null;
 exec('cd /home/bitnami/laravel-project/my-app && git pull origin main 2>&1', $output);
 file_put_contents('webhook.log', 'execコマンドの結果: ' . implode("\n", $output) . "\n", FILE_APPEND);
