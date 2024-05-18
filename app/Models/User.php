@@ -105,4 +105,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(DailyScore::class);
     }
+    
+    // mind_mapsテーブルとのリレーション
+    public function mindMaps(): HasMany
+    {
+        return $this->hasMany(MindMap::class);
+    }
 }

@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
-    Route::post('store', [MindMapController::class, 'store']);
+    Route::post('update', [MindMapController::class, 'update']);
 });
