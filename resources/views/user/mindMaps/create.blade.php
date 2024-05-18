@@ -63,10 +63,10 @@
                 enable:true, 		// whether to enable shortcut
                 handles:{}, 			// Named shortcut key event processor
                 mapping:{ 			// shortcut key mapping
-                    // addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
+                    addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
                     addchild : 9, 	// <Tab>
                     addbrother : 13, // <Enter>
-                    // delnode : 9, 	// <Delete>
+                    delnode : 9, 	// <Delete>
                     delnode : 8, 	// <Delete>
                     left : 37, 		// <Left>
                     up : 38, 		// <Up>
