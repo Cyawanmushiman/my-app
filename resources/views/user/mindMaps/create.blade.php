@@ -3,22 +3,15 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
-        <ul class="progressbar mb-5">
-            <li class="complete">First Goal</li>
-            <li class="complete">Mind Map</li>
-            <li>Daily Goal</li>
-        </ul>
-        <p>次は簡単にマインドマップを作成してみましょう。<br>
-            <small>※マインドマップは後から自由に編集することができます。</small>
-        </p>
-        <div id="jsmind_container" style="width:100%;height:200px;"></div>
         <div class="d-flex flex-column">
-            <p>作成が完了したら「登録」をクリックして次に進んでください。</p>
-            <div class="mb-3 d-flex">
+            <div class="mb-3">
+                <a href="{{ route('user.mind_maps.index') }}" class="btn btn-outline-secondary">一覧へ戻る</a>
+            </div>
+            <div class="mb-3">
                 <button type="button" class="me-2 btn btn-outline-dark" id="add_button">追加</button>
                 <button type="button" class="me-2 btn btn-outline-success" id="edit_button">編集</button>
                 <button type="button" class="me-2 btn btn-outline-danger" id="remove_button">削除</button>
-                <form action="{{ route('user.set_ups.update_mind_map') }}" method="post" id="registerMindMap">
+                <form action="{{ route('user.mind_maps.store') }}" method="post" id="registerMindMap">
                     @csrf
 
                     <input type="hidden" id="mindDataJson" name="mind_data_json">
@@ -32,6 +25,7 @@
                 <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
             </div>
         </div>
+        <div class="mx-auto mindmap-size" id="jsmind_container"></div>
     </div>
 </section>
 @endsection
@@ -41,7 +35,7 @@
     function load_jsmind(){
         const userId = @json(auth()->user()->id);
 
-        const firstGoalText = @json($firstGoalText);
+        const firstGoalText = 'click to edit';
 
         var mind = {
             "meta":{
@@ -64,7 +58,21 @@
                     max: 1.5,       // 最大的缩放比例
                     step: 0.1,      // 缩放比例间隔
                 },
-            }
+            },
+            shortcut:{
+                enable:true, 		// whether to enable shortcut
+                handles:{}, 			// Named shortcut key event processor
+                mapping:{ 			// shortcut key mapping
+                    // addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
+                    addchild : 9, 	// <Tab>
+                    addbrother : 13, // <Enter>
+                    delnode : 46, 	// <Delete>
+                    left : 37, 		// <Left>
+                    up : 38, 		// <Up>
+                    right : 39, 		// <Right>
+                    down : 40, 		// <Down>
+                }
+            },
         }
 
         // ノードのスタイルを設定

@@ -71,14 +71,14 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::resource('inspires', InspireController::class)->except(['show']);
 
     // ノード管理
-    Route::get('mindMaps', [MindMapController::class, 'index'])->name('mindMaps.index');
+    Route::resource('mind_maps', MindMapController::class)->except(['show', 'update']);
 
     // daily_scoreの履歴
     Route::prefix('histories')->name('histories.')->group(function () {
         Route::get('/', [HistoryController::class, 'index'])->name('index');
         Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
     });
-    
+
     // 通知設定
     Route::prefix('notification_settings')->name('notification_settings.')->group(function () {
         Route::get('edit', [NotificationSettingController::class, 'edit'])->name('edit');
@@ -86,5 +86,4 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
         Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
     });
-    
 });
