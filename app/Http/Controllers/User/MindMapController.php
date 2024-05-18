@@ -6,6 +6,7 @@ use App\Models\MindMap;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class MindMapController extends Controller
 {
@@ -22,7 +23,7 @@ class MindMapController extends Controller
     }
     
     // マインドマップの保存
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $arrayData = json_decode($request->mind_data_json, true);
         // "topic"フィールドの値を取得
@@ -44,7 +45,7 @@ class MindMapController extends Controller
         ]);
     }
     
-    public function destroy(MindMap $mindMap)
+    public function destroy(MindMap $mindMap): RedirectResponse
     {
         $mindMap->delete();
         
