@@ -79,6 +79,8 @@
                 container:'jsmind_container',
                 editable:false,
                 theme:'default',
+                mode:'side',
+                support_html:true,
                 view:{
                     engine: 'svg',
                     node_overflow: 'wrap',

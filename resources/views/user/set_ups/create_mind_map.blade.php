@@ -25,7 +25,7 @@
                     <button type="submit" id="store_button" class="me-2 btn btn-primary text-white">登録</button>
                 </form>
             </div>
-            <div>
+            <div class="d-flex">
                 <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
                 <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
                 <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
@@ -56,6 +56,8 @@
             container:'jsmind_container',
             editable:true,
             theme:'default',
+            mode:'side',
+            support_html:true,
             view:{
                 engine: 'svg',
                 node_overflow: 'wrap',

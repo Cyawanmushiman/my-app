@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <a href="{{ route('user.mind_maps.index') }}" class="btn btn-outline-secondary">一覧へ戻る</a>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 d-flex">
                 <button type="button" class="me-2 btn btn-outline-dark" id="add_button">追加</button>
                 <button type="button" class="me-2 btn btn-outline-success" id="edit_button">編集</button>
                 <button type="button" class="me-2 btn btn-outline-danger" id="remove_button">削除</button>
@@ -18,11 +18,16 @@
                     <button type="submit" id="store_button" class="me-2 btn btn-primary text-white">登録</button>
                 </form>
             </div>
-            <div>
-                <button type="button" class="btn btn-outline-secondary" id="chage_air">装飾なし</button>
-                <button type="button" class="btn btn-secondary text-white" id="chage_gray">グレー</button>
-                <button type="button" class="btn btn-primary text-white" id="change_orange">オレンジ</button>
-                <button type="button" class="btn btn-info text-white" id="change_blue">ブルー</button>
+            <div class="mb-3 d-flex">
+                <button type="button" class="me-2 btn btn-outline-secondary" id="chage_air">装飾なし</button>
+                <button type="button" class="me-2 btn btn-secondary text-white" id="chage_gray">グレー</button>
+                <button type="button" class="me-2 btn btn-primary text-white" id="change_orange">オレンジ</button>
+                <button type="button" class="me-2 btn btn-info text-white" id="change_blue">ブルー</button>
+            </div>
+            <div class="d-flex">
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_large">大きくする</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_normal">標準サイズ</button>
+                <button type="button" class="btn btn-outline-secondary" id="change_font_size_small">小さくする</button>
             </div>
         </div>
         <div class="mx-auto mindmap-size" id="jsmind_container"></div>
@@ -50,6 +55,8 @@
             container:'jsmind_container',
             editable:true,
             theme:'default',
+            mode:'side',
+            support_html:true,
             view:{
                 engine: 'svg',
                 node_overflow: 'wrap',
@@ -63,10 +70,11 @@
                 enable:true, 		// whether to enable shortcut
                 handles:{}, 			// Named shortcut key event processor
                 mapping:{ 			// shortcut key mapping
-                    // addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
+                    addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
                     addchild : 9, 	// <Tab>
                     addbrother : 13, // <Enter>
-                    delnode : 46, 	// <Delete>
+                    delnode : 9, 	// <Delete>
+                    delnode : 8, 	// <Delete>
                     left : 37, 		// <Left>
                     up : 38, 		// <Up>
                     right : 39, 		// <Right>
