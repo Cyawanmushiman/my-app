@@ -1,13 +1,14 @@
 .mindmap-size {
-    width: 80%;
-    height: 300px;
+    width: 100%;
+    // 高さは画面いっぱい
+    height: 100vh;
 }
 
 // pc表示
-@media screen and (min-width: 768px) {
-    .mindmap-size {
-        width: 100%;
-        // 高さは画面いっぱい
-        height: 80vh;
-    }
-}
+// @media screen and (min-width: 768px) {
+//     .mindmap-size {
+//         width: 100%;
+//         // 高さは画面いっぱい
+//         height: 100vh;
+//     }
+// }
