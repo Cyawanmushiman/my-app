@@ -1,13 +1,13 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div class="mt-3">
-    <div class="d-flex ps-3 pe-3 z-3 position-fixed bg-white">
-        <div class="mb-3 me-3">
+<div class="mt-1">
+    <div class="d-flex flex-wrap ps-3 pe-3 z-3 position-fixed bg-white">
+        <div class="me-3">
             {{-- 一覧へ戻るボタン --}}
             <a href="{{ route('user.mind_maps.index') }}" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
-        <div class="mb-3 me-3 d-flex">
+        <div class="me-3 d-flex">
             {{-- ノード追加 --}}
             <button type="button" class="btn btn-sm btn-outline-dark" id="add_button"><i class="fa-regular fa-square-plus"></i></button>
             {{-- ノード編集 --}}
@@ -22,7 +22,7 @@
                 <button type="submit" id="store_button" class="btn btn-sm btn-primary text-white"><i class="fa-regular fa-floppy-disk"></i></button>
             </form>
         </div>
-        <div class="mb-3 me-3 d-flex">
+        <div class="me-3 d-flex">
             {{-- カラー変更→default --}}
             <button type="button" class="btn btn-sm btn-outline-secondary" id="chage_air"><i class="fa-solid fa-droplet"></i></button>
             {{-- カラー変更→gray --}}
@@ -32,7 +32,7 @@
             {{-- カラー変更→blue --}}
             <button type="button" class="btn btn-sm btn-info text-white" id="change_blue"><i class="fa-solid fa-droplet"></i></button>
         </div>
-        <div class="mb-3 me-3 d-flex">
+        <div class="me-3 d-flex">
             {{-- ノードサイズ拡大 --}}
             <button type="button" class="btn btn-sm btn-outline-secondary" id="change_font_size_large"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
             {{-- ノードサイズ標準 --}}
@@ -40,7 +40,7 @@
             {{-- ノードサイズ縮小 --}}
             <button type="button" class="btn btn-sm btn-outline-secondary" id="change_font_size_small"><i class="fa-solid fa-down-left-and-up-right-to-center"></i></button>
         </div>
-        <div class="mb-3 d-flex">
+        <div class="d-flex">
             <div class="btn-group" role="group" aria-label="Basic example">
                 {{-- マインドマップ拡大 --}}
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
