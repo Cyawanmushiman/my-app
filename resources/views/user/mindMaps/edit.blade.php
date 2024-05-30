@@ -1,51 +1,49 @@
 @extends('layouts.user.app')
 
 @section('content')
-<div class="mt-1">
-    <div class="d-flex flex-wrap ps-3 pe-3 z-3 position-fixed bg-white">
-        <div class="me-3">
-            {{-- 一覧へ戻るボタン --}}
-            <a href="{{ route('user.mind_maps.index') }}" class="btn  btn-sm btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i></a>
-        </div>
-        <div class="me-3 d-flex">
-            {{-- ノード追加 --}}
-            <button type="button" class="btn  btn-sm btn-outline-dark" id="add_button"><i class="fa-regular fa-square-plus"></i></button>
-            {{-- ノード編集 --}}
-            <button type="button" class="btn  btn-sm btn-outline-success" id="edit_button"><i class="fa-regular fa-pen-to-square"></i></button>
-            {{-- ノード削除 --}}
-            <button type="button" class="btn  btn-sm btn-outline-danger" id="remove_button"><i class="fa-solid fa-minus"></i></button>
-            {{-- マインドマップ登録 --}}
-            <button type="button" class="btn  btn-sm btn-primary text-white" id="update_button"><i class="fa-regular fa-floppy-disk"></i></button>
-        </div>
-        <div class="me-3 d-flex">
-            {{-- カラー変更→default --}}
-            <button type="button" class="btn  btn-sm btn-outline-secondary" id="chage_air"><i class="fa-solid fa-droplet"></i></button>
-            {{-- カラー変更→gray --}}
-            <button type="button" class="btn  btn-sm btn-secondary text-white" id="chage_gray"><i class="fa-solid fa-droplet"></i></button>
-            {{-- カラー変更→orange --}}
-            <button type="button" class="btn  btn-sm btn-primary text-white" id="change_orange"><i class="fa-solid fa-droplet"></i></button>
-            {{-- カラー変更→blue --}}
-            <button type="button" class="btn  btn-sm btn-info text-white" id="change_blue"><i class="fa-solid fa-droplet"></i></button>
-        </div>
-        <div class="me-3 d-flex">
-            {{-- ノードサイズ拡大 --}}
-            <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_large"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
-            {{-- ノードサイズ標準 --}}
-            <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_normal"><i class="fa-solid fa-rotate-left"></i></button>
-            {{-- ノードサイズ縮小 --}}
-            <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_small"><i class="fa-solid fa-down-left-and-up-right-to-center"></i></button>
-        </div>
-        <div class="d-flex">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                {{-- マインドマップ拡大 --}}
-                <button type="button" class="btn  btn-sm btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                {{-- マインドマップ縮小 --}}
-                <button type="button" class="btn  btn-sm btn-outline-secondary" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-            </div>
+<div class="d-flex flex-wrap pt-2 ps-3 pe-3 z-3 position-fixed bg-white">
+    <div class="me-3">
+        {{-- 一覧へ戻るボタン --}}
+        <a href="{{ route('user.mind_maps.index') }}" class="btn  btn-sm btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i></a>
+    </div>
+    <div class="me-3 d-flex">
+        {{-- ノード追加 --}}
+        <button type="button" class="btn  btn-sm btn-outline-dark" id="add_button"><i class="fa-regular fa-square-plus"></i></button>
+        {{-- ノード編集 --}}
+        <button type="button" class="btn  btn-sm btn-outline-success" id="edit_button"><i class="fa-regular fa-pen-to-square"></i></button>
+        {{-- ノード削除 --}}
+        <button type="button" class="btn  btn-sm btn-outline-danger" id="remove_button"><i class="fa-solid fa-minus"></i></button>
+        {{-- マインドマップ登録 --}}
+        <button type="button" class="btn  btn-sm btn-primary text-white" id="update_button"><i class="fa-regular fa-floppy-disk"></i></button>
+    </div>
+    <div class="me-3 d-flex">
+        {{-- カラー変更→default --}}
+        <button type="button" class="btn  btn-sm btn-outline-secondary" id="chage_air"><i class="fa-solid fa-droplet"></i></button>
+        {{-- カラー変更→gray --}}
+        <button type="button" class="btn  btn-sm btn-secondary text-white" id="chage_gray"><i class="fa-solid fa-droplet"></i></button>
+        {{-- カラー変更→orange --}}
+        <button type="button" class="btn  btn-sm btn-primary text-white" id="change_orange"><i class="fa-solid fa-droplet"></i></button>
+        {{-- カラー変更→blue --}}
+        <button type="button" class="btn  btn-sm btn-info text-white" id="change_blue"><i class="fa-solid fa-droplet"></i></button>
+    </div>
+    <div class="me-3 d-flex">
+        {{-- ノードサイズ拡大 --}}
+        <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_large"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+        {{-- ノードサイズ標準 --}}
+        <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_normal"><i class="fa-solid fa-rotate-left"></i></button>
+        {{-- ノードサイズ縮小 --}}
+        <button type="button" class="btn  btn-sm btn-outline-secondary" id="change_font_size_small"><i class="fa-solid fa-down-left-and-up-right-to-center"></i></button>
+    </div>
+    <div class="d-flex">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            {{-- マインドマップ拡大 --}}
+            <button type="button" class="btn  btn-sm btn-outline-secondary" id="zoomIn"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+            {{-- マインドマップ縮小 --}}
+            <button type="button" class="btn  btn-sm btn-outline-secondary" id="zoomOut"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
         </div>
     </div>
-    <div class="mt-3 mx-auto mindmap-size" id="jsmind_container"></div>
 </div>
+<div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem"></div>
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
