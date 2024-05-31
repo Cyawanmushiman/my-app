@@ -3,6 +3,17 @@
     // 高さは画面いっぱい
     height: 100vh;
 }
+// jsMindのノードスタイル上書き
+// jmnode {
+//     background-color: #b11818 !important;
+//     color: #ae3131 !important;
+// }
+jmnode {
+    padding: 5px !important;
+    border-radius: 0px 0px 0px 0px !important;
+    box-shadow: inset -1px -1px 0px 0px #cfcfcf !important;
+    cursor: pointer !important;
+}
 
 // pc表示
 // @media screen and (min-width: 768px) {
