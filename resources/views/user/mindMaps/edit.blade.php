@@ -25,7 +25,7 @@
                 container:'jsmind_container',
                 editable:true,
                 theme:'default',
-                mode:'side',
+                mode:'wrap',
                 support_html:true,
                 view:{
                     engine: 'svg',
