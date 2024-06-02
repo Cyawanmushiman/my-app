@@ -25,11 +25,11 @@
                 container:'jsmind_container',
                 editable:true,
                 theme:'default',
-                mode:'wrap',
+                mode:'side',
                 support_html:true,
                 view:{
                     engine: 'svg',
-                    node_overflow: 'hidden',
+                    node_overflow: 'wrap',
                     zoom: {             // 配置缩放
                         min: 0.1,       // 最小的缩放比例
                         max: 1.5,       // 最大的缩放比例
