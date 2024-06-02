@@ -177,7 +177,6 @@
                     // ファイルを非同期で読み込む準備
                     var reader = new FileReader();
                     // ファイルの読み込みが完了した際に実行される関数を定義
-                    let node = undefined;
                     reader.onloadend = function () {
                         var selected_node = jm.get_selected_node();
                         var nodeid = 'img-' + jsMind.util.uuid.newid();
@@ -187,7 +186,7 @@
                             'width': '70',
                             'height': '70',
                         };
-                        node = jm.add_node(selected_node, nodeid, topic, data);
+                        var node = jm.add_node(selected_node, nodeid, topic, data);
                         
                         // ノードが追加された後にDOM要素を取得
                         var addedNodeDom = document.querySelector('jmnode[nodeid="' + nodeid + '"]');
