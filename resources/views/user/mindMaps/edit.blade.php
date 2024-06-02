@@ -15,6 +15,8 @@
         <button type="button" class="btn  btn-sm btn-outline-danger" id="remove_button"><i class="fa-solid fa-minus"></i></button>
         {{-- マインドマップ登録 --}}
         <button type="button" class="btn  btn-sm btn-primary text-white" id="update_button"><i class="fa-regular fa-floppy-disk"></i></button>
+        {{-- 画像ノード追加 --}}
+        <button type="button" class="btn  btn-sm btn-outline-dark" id="add_image_node"><i class="fa-solid fa-plus"></i><i class="fa-regular fa-image"></i></button>
     </div>
     <div class="me-3 d-flex">
         {{-- カラー変更→default --}}
@@ -44,6 +46,57 @@
     </div>
 </div>
 <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem"></div>
+<div style="display: none">
+    <input class="file" type="file" id="image-chooser" accept="image/*" />
+</div>
+<!-- モーダルのHTML -->
+<div id="image-modal" style="display: none;">
+    <div id="modal-content">
+        <span id="close-modal">&times;</span>
+        <img id="modal-image" src="" alt="Image">
+    </div>
+</div>
+
+<style>
+    /* モーダルのスタイル */
+    #image-modal {
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    #modal-content {
+        margin: 15% auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 500px;
+        background-color: white;
+        text-align: center;
+    }
+
+    #close-modal {
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #close-modal:hover,
+    #close-modal:focus {
+        color: red;
+        cursor: pointer;
+    }
+
+    #modal-image {
+        width: 100%;
+    }
+</style>
+
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -63,7 +116,7 @@
                 support_html:true,
                 view:{
                     engine: 'svg',
-                    node_overflow: 'wrap',
+                    node_overflow: 'hidden',
                     zoom: {             // 配置缩放
                         min: 0.1,       // 最小的缩放比例
                         max: 1.5,       // 最大的缩放比例
@@ -88,8 +141,6 @@
             }
 
             // ノードのスタイルを設定
-
-    
             var jm = new jsMind(options);
             jm.show(mind);
             
@@ -116,6 +167,72 @@
             }
             // ボタンをクリックしたら新しいノードを追加
             document.getElementById('add_button').addEventListener('click', addNewNode);
+            
+            // 画像ノードを追加する関数
+            var imageChooser = document.getElementById('image-chooser');
+                // イベントリスナーの設定:ユーザーがファイルを選択した際にこのイベントが発火
+            imageChooser.addEventListener(
+                'change',
+                function (event) {
+                    // ファイルを非同期で読み込む準備
+                    var reader = new FileReader();
+                    // ファイルの読み込みが完了した際に実行される関数を定義
+                    let node = undefined;
+                    reader.onloadend = function () {
+                        var selected_node = jm.get_selected_node();
+                        var nodeid = 'img-' + jsMind.util.uuid.newid();
+                        var topic = undefined;
+                        var data = {
+                            'background-image': reader.result,
+                            'width': '70',
+                            'height': '70',
+                        };
+                        node = jm.add_node(selected_node, nodeid, topic, data);
+                        
+                        // ノードが追加された後にDOM要素を取得
+                        var addedNodeDom = document.querySelector('jmnode[nodeid="' + nodeid + '"]');
+                        if (addedNodeDom) {
+                            // ダブルクリックで画像を表示する
+                            addedNodeDom.addEventListener('dblclick', function(event) {
+                                var backgroundImage = addedNodeDom.style.backgroundImage;
+                                if (backgroundImage) {
+                                    var imageUrl = backgroundImage.slice(5, -2); // url("...") の部分を取り除く
+
+                                    var modal = document.getElementById('image-modal');
+                                    var modalImg = document.getElementById('modal-image');
+                                    modalImg.src = imageUrl;
+                                    
+                                    modal.style.display = 'block';
+                                }
+                            });
+                        }
+                    };
+
+                    // Data URLとして読み込みを開始
+                    var file = imageChooser.files[0];
+                    if (file) {
+                        reader.readAsDataURL(file);
+                        
+                        // storageに画像を保存
+                    }
+                    
+                    // ファイル入力値をリセットして、同じファイルを再度選択できるようにします。
+                    imageChooser.value = '';
+                },
+                false
+            );
+            function addImageNode() {
+                var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+                if (!selected_node) {
+                    alert('ノードを選択してください');
+                    return;
+                }
+                
+                imageChooser.focus();
+                imageChooser.click();
+            }
+            // ボタンをクリックしたら新しい画像ノードを追加
+            document.getElementById('add_image_node').addEventListener('click', addImageNode);
     
             // 選択したノードを編集する関数
             function editNode() {
@@ -262,11 +379,48 @@
             }
             // ボタンをクリックしたら選択したマインドマップのフォントサイズを小さくする
             document.getElementById('change_font_size_small').addEventListener('click', changeFontSizeSmall);
-
+            
+            // ダブルクリックで画像を表示する
+            function initializeDoubleClickEvents() {
+                // nodeidがimg-で始まるnodeを取得（jmnode[nodeid^="img-"]）
+                var imgNodes = document.querySelectorAll('jmnode[nodeid^="img-"]');
+                imgNodes.forEach(function(imgNode) {
+                    imgNode.addEventListener('dblclick', function(event) {
+                        // background-imageを取得
+                        var backgroundImage = imgNode.style.backgroundImage;
+                        if (backgroundImage) {
+                            // URLからdata部分のみを取得
+                            var imageUrl = backgroundImage.slice(5, -2); // url("...") の部分を取り除く
+    
+                            // モーダルに画像をセット
+                            var modal = document.getElementById('image-modal');
+                            var modalImg = document.getElementById('modal-image');
+                            modalImg.src = imageUrl;
+                            
+                            // モーダルを表示
+                            modal.style.display = 'block';
+                        }
+                    });
+                });                
+            }
+            // 初期化時に呼び出し
+            initializeDoubleClickEvents();
 
             
+            // モーダルの閉じるボタンのイベントリスナーを追加
+            document.getElementById('close-modal').addEventListener('click', function() {
+                var modal = document.getElementById('image-modal');
+                modal.style.display = 'none';
+            });
+
+            // モーダルの外側をクリックした際に閉じるイベントリスナーを追加
+            window.addEventListener('click', function(event) {
+                var modal = document.getElementById('image-modal');
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
         }
-        
     }
     load_jsmind();
 </script>
