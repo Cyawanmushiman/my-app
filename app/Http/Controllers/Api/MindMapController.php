@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\MindMap;
+use App\Library\FileLibrary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,5 +29,25 @@ class MindMapController extends Controller
             'userId' => $userId,
             'message' => '更新しました',
         ]);
+    }
+    
+    public function uploadImage(Request $request): \Illuminate\Http\JsonResponse
+    {
+        if ($request->hasFile('image_file')) {
+            $imageFolderPath = 'public/images/mindMaps';
+            $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
+            $uniqueFileName = explode('/', $inspireImageUrl['url'])[4];
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => '画像をアップロードしました',
+                'uniqueFileName' => $uniqueFileName,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => '画像をアップロードできませんでした',
+            ]);
+        }
     }
 }

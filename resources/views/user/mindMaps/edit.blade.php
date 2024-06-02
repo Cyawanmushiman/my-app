@@ -16,7 +16,7 @@
         {{-- マインドマップ登録 --}}
         <button type="button" class="btn  btn-sm btn-primary text-white" id="update_button"><i class="fa-regular fa-floppy-disk"></i></button>
         {{-- 画像ノード追加 --}}
-        <button type="button" class="btn  btn-sm btn-outline-dark" id="add_image_node"><i class="fa-solid fa-plus"></i><i class="fa-regular fa-image"></i></button>
+        <button type="button" class="btn  btn-sm btn-outline-dark" id="add_image_node"><i class="fa-solid fa-code-commit fa-xs"></i><i class="fa-regular fa-image"></i></button>
     </div>
     <div class="me-3 d-flex">
         {{-- カラー変更→default --}}
@@ -176,45 +176,57 @@
                 function (event) {
                     // ファイルを非同期で読み込む準備
                     var reader = new FileReader();
-                    // ファイルの読み込みが完了した際に実行される関数を定義
-                    reader.onloadend = function () {
-                        var selected_node = jm.get_selected_node();
-                        var nodeid = 'img-' + jsMind.util.uuid.newid();
-                        var topic = undefined;
-                        var data = {
-                            'background-image': reader.result,
-                            'width': '70',
-                            'height': '70',
-                        };
-                        var node = jm.add_node(selected_node, nodeid, topic, data);
-                        
-                        // ノードが追加された後にDOM要素を取得
-                        var addedNodeDom = document.querySelector('jmnode[nodeid="' + nodeid + '"]');
-                        if (addedNodeDom) {
-                            // ダブルクリックで画像を表示する
-                            addedNodeDom.addEventListener('dblclick', function(event) {
-                                var backgroundImage = addedNodeDom.style.backgroundImage;
-                                if (backgroundImage) {
-                                    var imageUrl = backgroundImage.slice(5, -2); // url("...") の部分を取り除く
-
-                                    var modal = document.getElementById('image-modal');
-                                    var modalImg = document.getElementById('modal-image');
-                                    modalImg.src = imageUrl;
-                                    
-                                    modal.style.display = 'block';
-                                }
-                            });
-                        }
-                    };
-
-                    // Data URLとして読み込みを開始
-                    var file = imageChooser.files[0];
+                    
+                    // // Data URLとして読み込みを開始
+                    var file = imageChooser.files[0];                   
                     if (file) {
                         reader.readAsDataURL(file);
                         
-                        // storageに画像を保存
-                    }
-                    
+                        // 画像を保存
+                        var formData = new FormData();
+                        formData.append('image_file', file);
+                        axios.post('/api/mindMaps/upload_image', formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        })
+                        .then((response) => {
+                            if(response.data.status === 'success'){
+                                let uniqueFileName = response.data.uniqueFileName;
+                                
+                                var selected_node = jm.get_selected_node();
+                                var nodeid = 'img-' + uniqueFileName + '-' + jsMind.util.uuid.newid();
+                                var topic = undefined;
+                                var data = {
+                                    'background-image': reader.result,
+                                    'width': '70',
+                                    'height': '70',
+                                };
+                                
+                                var node = jm.add_node(selected_node, nodeid, topic, data);
+                                // ノードが追加された後にDOM要素を取得
+                                var addedNodeDom = document.querySelector('jmnode[nodeid="' + nodeid + '"]');         
+                                if (addedNodeDom) {
+                                    // ダブルクリックで画像を表示するイベントリスナーを表示
+                                    addedNodeDom.addEventListener('dblclick', function(event) {
+                                        var addNodeId = event.target.getAttribute('nodeid');
+                                        var uniqueFileName = addNodeId.split('-')[1];
+                                        var modal = document.getElementById('image-modal');
+                                        var modalImg = document.getElementById('modal-image');
+                                        modalImg.src = '/storage/images/mindMaps/' + uniqueFileName;
+                                        
+                                        modal.style.display = 'block';
+                                    });
+                                }
+                            }
+                            else{
+                                alert(response.data.message)
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                    }            
                     // ファイル入力値をリセットして、同じファイルを再度選択できるようにします。
                     imageChooser.value = '';
                 },
@@ -385,20 +397,13 @@
                 var imgNodes = document.querySelectorAll('jmnode[nodeid^="img-"]');
                 imgNodes.forEach(function(imgNode) {
                     imgNode.addEventListener('dblclick', function(event) {
-                        // background-imageを取得
-                        var backgroundImage = imgNode.style.backgroundImage;
-                        if (backgroundImage) {
-                            // URLからdata部分のみを取得
-                            var imageUrl = backgroundImage.slice(5, -2); // url("...") の部分を取り除く
-    
-                            // モーダルに画像をセット
-                            var modal = document.getElementById('image-modal');
-                            var modalImg = document.getElementById('modal-image');
-                            modalImg.src = imageUrl;
-                            
-                            // モーダルを表示
-                            modal.style.display = 'block';
-                        }
+                        var addNodeId = event.target.getAttribute('nodeid');
+                        var uniqueFileName = addNodeId.split('-')[1];
+                        var modal = document.getElementById('image-modal');
+                        var modalImg = document.getElementById('modal-image');
+                        modalImg.src = '/storage/images/mindMaps/' + uniqueFileName;
+                        
+                        modal.style.display = 'block';
                     });
                 });                
             }

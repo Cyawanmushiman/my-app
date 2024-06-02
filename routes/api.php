@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
     Route::post('update', [MindMapController::class, 'update']);
+    Route::post('upload_image', [MindMapController::class, 'uploadImage']);
 });
