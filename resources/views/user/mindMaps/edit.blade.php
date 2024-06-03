@@ -16,7 +16,8 @@
 <script type="text/javascript">
     function load_jsmind(){
         const userId = @json(auth()->user()->id);
-
+        let deleteImageNames = [];
+        
         mindMap = @json($mindMap);
         if (mindMap) {
             var mind = JSON.parse(mindMap.mind_data_json);
@@ -211,6 +212,11 @@
                 alert('ノードを選択してください');
                 return;
             }
+            // imageノードの場合、画像を削除予定の配列に追加
+            if (selected_node.id.startsWith('img-')) {
+                var uniqueFileName = selected_node.id.split('-')[1];
+                deleteImageNames.push(uniqueFileName);
+            }
             jm.remove_node(selected_node); // ノードを削除
         }
         
@@ -219,6 +225,24 @@
             var mindData = jm.get_data(); // マインドマップのデータを取得
 
             var mindDataJson = JSON.stringify(mindData); // マインドマップのデータをJSON形式に変換
+            
+            // 削除する画像ファイル名を送信
+            axios.post('/api/mindMaps/delete_images', {
+                params: {
+                    delete_image_names: deleteImageNames,
+                }
+            })
+            .then((response) => {
+                if(response.data.status === 'success'){
+                    console.log(response.data.message);
+                }
+                else{
+                    console.log(response.data.message);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
             
             // マインドマップのデータを送信
             axios.post('/api/mindMaps/update', {

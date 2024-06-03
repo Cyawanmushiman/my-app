@@ -50,4 +50,18 @@ class MindMapController extends Controller
             ]);
         }
     }
+    
+    public function deleteImages(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $deleteImageNames = $request['params']['delete_image_names'];
+        foreach ($deleteImageNames as $deleteImageName) {
+            $imageUrl = '/storage/images/mindMaps/' . $deleteImageName;
+            FileLibrary::deleteFile($imageUrl);
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => '画像を削除しました',
+        ]);
+    }
 }
