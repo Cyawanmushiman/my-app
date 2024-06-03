@@ -8,6 +8,13 @@
     <div style="display: none">
         <input class="file" type="file" id="image-chooser" accept="image/*" />
     </div>
+    <style>
+        .jsmind-link {
+            stroke: red; /* ラインの色を赤に変更 */
+            stroke-width: 2px; /* ラインの太さを変更 */
+            stroke-dasharray: 5, 5; /* 点線に変更 */
+        }
+    </style>
     
     @include('components.parts.mind_maps.expand_image_modal')
 @endsection
@@ -56,6 +63,15 @@
             // ノードのスタイルを設定
             var jm = new jsMind(options);
             jm.show(mind);
+            
+            // ノード間のラインのスタイルを変更する
+            var links = document.getElementsByClassName('jsmind-link');
+            console.log(links);
+            for (var i = 0; i < links.length; i++) {
+                links[i].style.stroke = 'blue'; // ラインの色を青に変更
+                links[i].style.strokeWidth = '3px'; // ラインの太さを3pxに変更
+                links[i].style.strokeDasharray = '10, 5'; // 点線に変更
+            }
             
             // 拡大・縮小ボタン
             $('#zoomIn').on('click', function() {
