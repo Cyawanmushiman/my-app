@@ -55,12 +55,12 @@ class MindMapController extends Controller
                 'message' => '一時フォルダに画像をアップロードしました',
                 'uniqueFileName' => $uniqueFileName,
             ]);
-        } else {
+        }  
             return response()->json([
                 'status' => 'error',
                 'message' => '一時フォルダに画像をアップロードできませんでした',
             ]);
-        }
+        
     }
     
     public function deleteImages(Request $request): \Illuminate\Http\JsonResponse
