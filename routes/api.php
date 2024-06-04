@@ -24,5 +24,6 @@ Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
     Route::post('update', [MindMapController::class, 'update']);
     // 一時フォルダに画像をアップロードする
     Route::post('temp_upload_image', [MindMapController::class, 'tempUploadImage']);
+    Route::post('upload_images', [MindMapController::class, 'uploadImages']);
     Route::post('delete_images', [MindMapController::class, 'deleteImages']);
 });

@@ -23,16 +23,6 @@ class MindMapController extends Controller
             'title' => $title,
             'mind_data_json' => $mindDataJson,
         ]);
-        
-        if ($request['params']['temp_image_names'] !== []) {
-            // 画像を一時フォルダから本フォルダへ移動
-            $tempImageNames = $request['params']['temp_image_names'];
-            foreach ($tempImageNames as $tempImageName) {
-                $tempImageUrl = '/storage/images/tempMindMaps/' . $tempImageName;
-                $uniqueFileName = explode('/', $tempImageUrl)[4];
-                Storage::move('public/images/tempMindMaps/' . $uniqueFileName, 'public/images/mindMaps/' . $uniqueFileName);
-            }
-        }
 
         return response()->json([
             'status' => 'success',
@@ -61,6 +51,29 @@ class MindMapController extends Controller
                 'message' => '一時フォルダに画像をアップロードできませんでした',
             ]);
         
+    }
+    
+    public function uploadImages(Request $request): \Illuminate\Http\JsonResponse
+    {
+        if ($request['params']['temp_image_names'] !== []) {
+            // 画像を一時フォルダから本フォルダへ移動
+            $tempImageNames = $request['params']['temp_image_names'];
+            foreach ($tempImageNames as $tempImageName) {
+                $tempImageUrl = '/storage/images/tempMindMaps/' . $tempImageName;
+                $uniqueFileName = explode('/', $tempImageUrl)[4];
+                Storage::move('public/images/tempMindMaps/' . $uniqueFileName, 'public/images/mindMaps/' . $uniqueFileName);
+            }
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => '画像をアップロードしました',
+            ]);
+        }
+        
+        return response()->json([
+            'status' => 'error',
+            'message' => '画像をアップロードできませんでした',
+        ]);
     }
     
     public function deleteImages(Request $request): \Illuminate\Http\JsonResponse

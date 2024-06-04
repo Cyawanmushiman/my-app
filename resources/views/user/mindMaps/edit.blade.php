@@ -1,15 +1,14 @@
 @extends('layouts.user.app')
 
 @section('content')
-
     @include('components.parts.mind_maps.control_buttons')
-    
     <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem"></div>
     <div style="display: none">
         <input class="file" type="file" id="image-chooser" accept="image/*" />
     </div>
     
     @include('components.parts.mind_maps.expand_image_modal')
+    @include('components.parts.loading')
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -236,6 +235,9 @@
         
         // マインドマップを更新する関数
         function updateMindMap() {
+            // ローディング画面を表示
+            document.getElementById('spinner').classList.remove('d-none');
+            
             var mindData = jm.get_data(); // マインドマップのデータを取得
 
             var mindDataJson = JSON.stringify(mindData); // マインドマップのデータをJSON形式に変換
@@ -260,10 +262,31 @@
                 });
             }
             
+            // 一時保存した画像ファイル名を送信
+            if (tempImageNames.length !== 0) {
+                axios.post('/api/mindMaps/upload_images', {
+                    params: {
+                        temp_image_names: tempImageNames,
+                    }
+                })
+                .then((response) => {
+                    if(response.data.status === 'success'){
+                        // tempImageNamesを初期化
+                        tempImageNames = [];
+                        console.log(response.data.message);
+                    }
+                    else{
+                        console.log(response.data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+            
             // マインドマップのデータを送信
             axios.post('/api/mindMaps/update', {
                 params: {
-                    temp_image_names: tempImageNames,
                     mind_data_json: mindDataJson,
                     mind_map_id: mindMap.id,
                     user_id: userId,
@@ -271,11 +294,13 @@
             })
             .then((response) => {
                 if(response.data.status === 'success'){
-                    // tempImageNamesを初期化
-                    tempImageNames = [];
+                    // ローディング画面を非表示
+                    document.getElementById('spinner').classList.add('d-none');
                     alert(response.data.message)
                 }
                 else{
+                    // ローディング画面を非表示
+                    document.getElementById('spinner').classList.add('d-none');
                     alert(response.data.message)
                 }
             })
@@ -327,17 +352,6 @@
             // 選択したノードの色を白色にする
             jm.set_node_color(selected_node.id, '#3498db', '#ffffff');
         }
-        
-        // 選択したマインドマップの色を変更する関数 TODO: 動く時と動かない時があり不安定なので、一旦コメントアウト
-        // function changeColor(textColorCode, bgColorCode) {
-        //     var selected_node = jm.get_selected_node(); // 選択されたノードを取得
-        //     if (!selected_node) {
-        //         alert('ノードを選択してください');
-        //         return;
-        //     }
-        //     // 選択したノードの色を変更
-        //     jm.set_node_color(selected_node.id, textColorCode, bgColorCode);
-        // }
         
         // 選択したマインドマップのフォントサイズを大きくする関数
         function changeFontSizeLarge() {
