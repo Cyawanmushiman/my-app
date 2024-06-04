@@ -63,7 +63,12 @@
             },
             "format":"node_array",
             "data":[
-                {"id":"root", "isroot":true, "topic":firstGoalText},
+                {
+                     "id":"root", 
+                     "isroot":true, 
+                     "topic":firstGoalText,
+                     "leading-line-color":"#1abc9c"
+                 },
             ]
         };
         
@@ -112,7 +117,8 @@
             }
             var nodeid = jsMind.util.uuid.newid(); // 新しいノードのIDを生成
             var topic = '新しいノード ' + nodeid.substr(0, 5); // ノードのトピック
-            var node = jm.add_node(selected_node, nodeid, topic); // ノードを追加
+            var leadingLineColor = '#1abc9c';
+            var node = jm.add_node(selected_node, nodeid, topic, leadingLineColor); // ノードを追加
             jm.select_node(nodeid); // 追加したノードを選択
             jm.begin_edit(nodeid); // 追加したノードを編集状態にする
         }

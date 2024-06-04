@@ -16,7 +16,9 @@
 <script type="text/javascript">
     function load_jsmind(){
         const userId = @json(auth()->user()->id);
-
+        let deleteImageNames = [];
+        let tempImageNames = [];
+        
         mindMap = @json($mindMap);
         if (mindMap) {
             var mind = JSON.parse(mindMap.mind_data_json);
@@ -38,13 +40,17 @@
                 },
                 shortcut:{
                     enable:true, 		// whether to enable shortcut
-                    handles:{}, 			// Named shortcut key event processor
+                    handles:{
+                        'customdelete': function (jm,e){
+                            removeNode();
+                        }
+                    }, 			// Named shortcut key event processor
                     mapping:{ 			// shortcut key mapping
                         addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
                         addchild : 9, 	// <Tab>
                         addbrother : 13, // <Enter>
-                        delnode : 9, 	// <Delete>
-                        delnode : 8, 	// <Delete>
+                        customdelete : 9, 	// <Delete>
+                        customdelete : 8, 	// <Delete>
                         left : 37, 		// <Left>
                         up : 38, 		// <Up>
                         right : 39, 		// <Right>
@@ -136,7 +142,7 @@
                     // 画像を保存
                     var formData = new FormData();
                     formData.append('image_file', file);
-                    axios.post('/api/mindMaps/upload_image', formData, {
+                    axios.post('/api/mindMaps/temp_upload_image', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -144,6 +150,7 @@
                     .then((response) => {
                         if(response.data.status === 'success'){
                             let uniqueFileName = response.data.uniqueFileName;
+                            tempImageNames.push(uniqueFileName);
                             
                             var selected_node = jm.get_selected_node();
                             var nodeid = 'img-' + uniqueFileName + '-' + jsMind.util.uuid.newid();
@@ -164,7 +171,7 @@
                                     var uniqueFileName = addNodeId.split('-')[1];
                                     var modal = document.getElementById('image-modal');
                                     var modalImg = document.getElementById('modal-image');
-                                    modalImg.src = '/storage/images/mindMaps/' + uniqueFileName;
+                                    modalImg.src = '/storage/images/tempMindMaps/' + uniqueFileName;
                                     
                                     modal.style.display = 'block';
                                 });
@@ -211,6 +218,19 @@
                 alert('ノードを選択してください');
                 return;
             }
+            // imageノードの場合、画像を削除予定の配列に追加
+            if (selected_node.id.startsWith('img-')) {
+                var uniqueFileName = selected_node.id.split('-')[1];
+                // tempImageNamesに含まれている場合、tempImageNamesから削除
+                if (tempImageNames.includes(uniqueFileName)) {
+                    tempImageNames = tempImageNames.filter(function(value) {
+                        return value !== uniqueFileName;
+                    });
+                } else {
+                    deleteImageNames.push(uniqueFileName);
+                }
+            }
+            
             jm.remove_node(selected_node); // ノードを削除
         }
         
@@ -220,9 +240,30 @@
 
             var mindDataJson = JSON.stringify(mindData); // マインドマップのデータをJSON形式に変換
             
+            // 削除する画像ファイル名を送信
+            if (deleteImageNames.length !== 0) {
+                axios.post('/api/mindMaps/delete_images', {
+                    params: {
+                        delete_image_names: deleteImageNames,
+                    }
+                })
+                .then((response) => {
+                    if(response.data.status === 'success'){
+                        console.log(response.data.message);
+                    }
+                    else{
+                        console.log(response.data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+            
             // マインドマップのデータを送信
             axios.post('/api/mindMaps/update', {
                 params: {
+                    temp_image_names: tempImageNames,
                     mind_data_json: mindDataJson,
                     mind_map_id: mindMap.id,
                     user_id: userId,
@@ -230,6 +271,8 @@
             })
             .then((response) => {
                 if(response.data.status === 'success'){
+                    // tempImageNamesを初期化
+                    tempImageNames = [];
                     alert(response.data.message)
                 }
                 else{

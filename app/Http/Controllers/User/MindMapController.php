@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Storage;
 
 class MindMapController extends Controller
 {
@@ -40,6 +41,8 @@ class MindMapController extends Controller
     
     public function edit(MindMap $mindMap): View
     {
+        // /storage/images/tempMindMaps/ディレクトリ内のファイルを削除
+        Storage::deleteDirectory('public/images/tempMindMaps');
         return view('user.mindMaps.edit', [
             'mindMap' => $mindMap,
         ]);
