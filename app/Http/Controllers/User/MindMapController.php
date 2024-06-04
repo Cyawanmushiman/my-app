@@ -28,7 +28,6 @@ class MindMapController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $arrayData = json_decode($request->mind_data_json, true);
-        // "topic"フィールドの値を取得
         $title = $arrayData['data']['topic'];  
         
         MindMap::create([

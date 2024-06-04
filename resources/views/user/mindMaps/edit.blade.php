@@ -262,10 +262,31 @@
                 });
             }
             
+            // 一時保存した画像ファイル名を送信
+            if (tempImageNames.length !== 0) {
+                axios.post('/api/mindMaps/upload_images', {
+                    params: {
+                        temp_image_names: tempImageNames,
+                    }
+                })
+                .then((response) => {
+                    if(response.data.status === 'success'){
+                        // tempImageNamesを初期化
+                        tempImageNames = [];
+                        console.log(response.data.message);
+                    }
+                    else{
+                        console.log(response.data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+            
             // マインドマップのデータを送信
             axios.post('/api/mindMaps/update', {
                 params: {
-                    temp_image_names: tempImageNames,
                     mind_data_json: mindDataJson,
                     mind_map_id: mindMap.id,
                     user_id: userId,
@@ -273,8 +294,6 @@
             })
             .then((response) => {
                 if(response.data.status === 'success'){
-                    // tempImageNamesを初期化
-                    tempImageNames = [];
                     // ローディング画面を非表示
                     document.getElementById('spinner').classList.add('d-none');
                     alert(response.data.message)
