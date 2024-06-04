@@ -40,13 +40,17 @@
                 },
                 shortcut:{
                     enable:true, 		// whether to enable shortcut
-                    handles:{}, 			// Named shortcut key event processor
+                    handles:{
+                        'customdelete': function (jm,e){
+                            removeNode();
+                        }
+                    }, 			// Named shortcut key event processor
                     mapping:{ 			// shortcut key mapping
                         addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
                         addchild : 9, 	// <Tab>
                         addbrother : 13, // <Enter>
-                        delnode : 9, 	// <Delete>
-                        delnode : 8, 	// <Delete>
+                        customdelete : 9, 	// <Delete>
+                        customdelete : 8, 	// <Delete>
                         left : 37, 		// <Left>
                         up : 38, 		// <Up>
                         right : 39, 		// <Right>
