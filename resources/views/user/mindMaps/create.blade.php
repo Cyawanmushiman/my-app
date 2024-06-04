@@ -244,7 +244,6 @@
         
         // マインドマップを保存する関数
         function storeMindMap() {
-            console.log('storeMindMap');
             // ローディング画面を表示
             document.getElementById('spinner').classList.remove('d-none');
             
