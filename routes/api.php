@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
     Route::post('update', [MindMapController::class, 'update']);
-    Route::post('upload_image', [MindMapController::class, 'uploadImage']);
+    // 一時フォルダに画像をアップロードする
+    Route::post('temp_upload_image', [MindMapController::class, 'tempUploadImage']);
     Route::post('delete_images', [MindMapController::class, 'deleteImages']);
 });

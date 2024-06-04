@@ -6,6 +6,7 @@ use App\Models\MindMap;
 use App\Library\FileLibrary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Storage;
 
 class MindMapController extends Controller
 {
@@ -22,6 +23,16 @@ class MindMapController extends Controller
             'title' => $title,
             'mind_data_json' => $mindDataJson,
         ]);
+        
+        if ($request['params']['temp_image_names'] !== []) {
+            // 画像を一時フォルダから本フォルダへ移動
+            $tempImageNames = $request['params']['temp_image_names'];
+            foreach ($tempImageNames as $tempImageName) {
+                $tempImageUrl = '/storage/images/tempMindMaps/' . $tempImageName;
+                $uniqueFileName = explode('/', $tempImageUrl)[4];
+                Storage::move('public/images/tempMindMaps/' . $uniqueFileName, 'public/images/mindMaps/' . $uniqueFileName);
+            }
+        }
 
         return response()->json([
             'status' => 'success',
@@ -31,22 +42,23 @@ class MindMapController extends Controller
         ]);
     }
     
-    public function uploadImage(Request $request): \Illuminate\Http\JsonResponse
+    // 一時フォルダに画像をアップロードする
+    public function tempUploadImage(Request $request): \Illuminate\Http\JsonResponse
     {
         if ($request->hasFile('image_file')) {
-            $imageFolderPath = 'public/images/mindMaps';
-            $inspireImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
-            $uniqueFileName = explode('/', $inspireImageUrl['url'])[4];
+            $imageFolderPath = 'public/images/tempMindMaps';
+            $tempImageUrl = FileLibrary::uploadFile($request->file('image_file'), $imageFolderPath);
+            $uniqueFileName = explode('/', $tempImageUrl['url'])[4];
             
             return response()->json([
                 'status' => 'success',
-                'message' => '画像をアップロードしました',
+                'message' => '一時フォルダに画像をアップロードしました',
                 'uniqueFileName' => $uniqueFileName,
             ]);
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => '画像をアップロードできませんでした',
+                'message' => '一時フォルダに画像をアップロードできませんでした',
             ]);
         }
     }
