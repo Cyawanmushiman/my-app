@@ -328,17 +328,6 @@
             jm.set_node_color(selected_node.id, '#3498db', '#ffffff');
         }
         
-        // 選択したマインドマップの色を変更する関数 TODO: 動く時と動かない時があり不安定なので、一旦コメントアウト
-        // function changeColor(textColorCode, bgColorCode) {
-        //     var selected_node = jm.get_selected_node(); // 選択されたノードを取得
-        //     if (!selected_node) {
-        //         alert('ノードを選択してください');
-        //         return;
-        //     }
-        //     // 選択したノードの色を変更
-        //     jm.set_node_color(selected_node.id, textColorCode, bgColorCode);
-        // }
-        
         // 選択したマインドマップのフォントサイズを大きくする関数
         function changeFontSizeLarge() {
             var selected_node = jm.get_selected_node(); // 選択されたノードを取得
