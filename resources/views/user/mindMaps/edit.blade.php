@@ -1,15 +1,14 @@
 @extends('layouts.user.app')
 
 @section('content')
-
     @include('components.parts.mind_maps.control_buttons')
-    
     <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem"></div>
     <div style="display: none">
         <input class="file" type="file" id="image-chooser" accept="image/*" />
     </div>
     
     @include('components.parts.mind_maps.expand_image_modal')
+    @include('components.parts.loading')
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -236,6 +235,9 @@
         
         // マインドマップを更新する関数
         function updateMindMap() {
+            // ローディング画面を表示
+            document.getElementById('spinner').classList.remove('d-none');
+            
             var mindData = jm.get_data(); // マインドマップのデータを取得
 
             var mindDataJson = JSON.stringify(mindData); // マインドマップのデータをJSON形式に変換
@@ -273,9 +275,13 @@
                 if(response.data.status === 'success'){
                     // tempImageNamesを初期化
                     tempImageNames = [];
+                    // ローディング画面を非表示
+                    document.getElementById('spinner').classList.add('d-none');
                     alert(response.data.message)
                 }
                 else{
+                    // ローディング画面を非表示
+                    document.getElementById('spinner').classList.add('d-none');
                     alert(response.data.message)
                 }
             })
