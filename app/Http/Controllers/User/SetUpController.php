@@ -40,21 +40,24 @@ class SetUpController extends Controller
     // マインドマップの保存
     public function storeMindMap(Request $request): RedirectResponse
     {
-        if (auth()->user()->is_mind_map_create === false) {
-            MindMap::create([
-                'user_id' => auth()->id(),
-                'mind_data_json' => $request->mind_data_json,
-            ]);
-
-            auth()->user()->update([
-                'is_mind_map_create' => true,
-            ]);
-        } else {
-            MindMap::where('user_id', auth()->id())->first()->update([
-                'mind_data_json' => $request->mind_data_json,
-            ]);
-        }
-
+        \DB::transaction( function () use ($request) {
+            if (auth()->user()->is_mind_map_create === false) {
+                MindMap::create([
+                    'user_id' => auth()->id(),
+                    'mind_data_json' => $request->mind_data_json,
+                    'is_favorite' => true,
+                ]);
+    
+                auth()->user()->update([
+                    'is_mind_map_create' => true,
+                ]);
+            } else {
+                MindMap::where('user_id', auth()->id())->first()->update([
+                    'mind_data_json' => $request->mind_data_json,
+                ]);
+            }
+        });
+        
         return to_route('user.set_ups.create_daily_goal');
     }
 

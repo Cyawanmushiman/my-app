@@ -17,9 +17,20 @@
         @csrf
 
         <input type="hidden" id="mindDataJson" name="mind_data_json">
-        {{-- <button type="submit" id="store_button" class="btn btn-sm btn-primary text-white"><i class="fa-regular fa-floppy-disk"></i></button> --}}
         <button type="button" id="store_button" class="btn btn-sm btn-primary text-white"><i class="fa-regular fa-floppy-disk"></i></button>
     </form>
 @endif
+
+{{-- セットアップ画面なら表示 --}}
+@if (url()->current() === route('user.set_ups.create_mind_map'))
+    {{-- マインドマップ新規登録 --}}
+    <form action="{{ route('user.set_ups.store_mind_map') }}" method="post" id="registerMindMap">
+        @csrf
+
+        <input type="hidden" id="mindDataJson" name="mind_data_json">
+        <button type="submit" id="store_button" class="btn btn-sm btn-primary text-white"><i class="fa-regular fa-floppy-disk"></i></button>
+    </form>
+@endif
+
 {{-- 画像ノード追加 --}}
 <button type="button" class="btn  btn-sm btn-outline-dark" id="add_image_node"><i class="fa-solid fa-code-commit fa-xs"></i><i class="fa-regular fa-image"></i></button>

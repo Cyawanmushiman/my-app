@@ -1,4 +1,4 @@
-<div class="d-flex flex-wrap pt-2 ps-3 pe-3 z-3 position-fixed bg-white">
+<div class="d-flex flex-wrap pt-2 ps-3 pe-3 z-3 position-fixed" style="background-color: #fffaf4;">
     <div class="me-3">
         {{-- 一覧へ戻るボタン --}}
         <a href="{{ route('user.mind_maps.index') }}" class="btn  btn-sm btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i></a>
