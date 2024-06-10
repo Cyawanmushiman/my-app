@@ -2,7 +2,7 @@
 
 @section('content')
     @include('components.parts.mind_maps.control_buttons')
-    <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem"></div>
+    <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem; background-color: #fffaf4;"></div>
     <div style="display: none">
         <input class="file" type="file" id="image-chooser" accept="image/*" />
     </div>
@@ -27,7 +27,7 @@
                     "id":"root", 
                     "isroot":true, 
                     "topic":firstGoalText,
-                    "leading-line-color":"#1abc9c"
+                    "leading-line-color":"#787878cf"
                 },
             ]
         };
@@ -52,12 +52,18 @@
                 handles:{
                     'customdelete': function (jm,e){
                         removeNode();
-                    }
+                    },
+                    'customAddChild': function (jm,e){
+                        addNewNode();
+                    },
+                    'customAddBrother': function (jm,e){
+                        addBrotherNode();
+                    },
                 }, 			// Named shortcut key event processor
                 mapping:{ 			// shortcut key mapping
-                    addchild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
-                    addchild : 9, 	// <Tab>
-                    addbrother : 13, // <Enter>
+                    customAddChild : [45, 4096+13], 	// <Insert>, <Ctrl> + <Enter>
+                    customAddChild : 9, 	// <Tab>
+                    customAddBrother : 13, // <Enter>
                     customdelete : 9, 	// <Delete>
                     customdelete : 8, 	// <Delete>
                     left : 37, 		// <Left>
@@ -128,7 +134,26 @@
             }
             var nodeid = jsMind.util.uuid.newid(); // 新しいノードのIDを生成
             var topic = '新しいノード ' + nodeid.substr(0, 5); // ノードのトピック
-            var node = jm.add_node(selected_node, nodeid, topic); // ノードを追加
+            var data = {
+                'leading-line-color': '#787878cf'
+            };
+            var node = jm.add_node(selected_node, nodeid, topic, data); // ノードを追加
+            jm.select_node(nodeid); // 追加したノードを選択
+            jm.begin_edit(nodeid); // 追加したノードを編集状態にする
+        }
+        
+        function addBrotherNode() {
+            var selected_node = jm.get_selected_node(); // 選択されたノードを取得
+            if (!selected_node) {
+                alert('ノードを選択してください');
+                return;
+            }
+            var nodeid = jsMind.util.uuid.newid(); // 新しいノードのIDを生成
+            var topic = '新しいノード ' + nodeid.substr(0, 5); // ノードのトピック
+            var data = {
+                'leading-line-color': '#787878cf'
+            };
+            var node = jm.add_node(selected_node.parent, nodeid, topic, data); // ノードを追加
             jm.select_node(nodeid); // 追加したノードを選択
             jm.begin_edit(nodeid); // 追加したノードを編集状態にする
         }
