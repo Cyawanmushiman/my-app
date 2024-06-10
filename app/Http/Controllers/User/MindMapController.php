@@ -83,4 +83,19 @@ class MindMapController extends Controller
         }
         return $results;
     }
+    
+    // お気に入りの切り替え
+    public function toggleFavorite(MindMap $mindMap): RedirectResponse
+    {
+        $mindMap->update([
+            'is_favorite' => ! $mindMap->is_favorite,
+        ]);
+        
+        // 他のお気に入りを解除
+        auth()->user()->mindMaps()->where('id', '!=', $mindMap->id)->update([
+            'is_favorite' => false,
+        ]);
+        
+        return to_route('user.mind_maps.index')->with('status', 'お気に入りを切り替えました。');
+    }
 }

@@ -25,7 +25,7 @@ class HomeController extends Controller
         }
         
         return view('user.home', [
-            'mindMap' => MindMap::find(auth()->user()->id),
+            'mindMap' => MindMap::where('user_id', auth()->id())->where('is_favorite', true)->first(),
         ]);
     }
 
