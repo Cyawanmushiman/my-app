@@ -34,7 +34,7 @@
                                                 @csrf
                                                 
                                                 @if ($mindMap->is_favorite)
-                                                    <button type="button" class="btn btn-sm btn-outline-primary">
+                                                    <button type="button" class="btn btn-sm btn-primary text-white">
                                                         <i class="fa-solid fa-star"></i>    
                                                     </button>
                                                 @else
