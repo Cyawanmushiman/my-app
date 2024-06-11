@@ -60,9 +60,122 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.7.5/style/jsmind.css"/>
 </head>
 
-<body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+<body id="page-top" class="d-flex">
+    <!-- 狭いナビバー-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary narrowNav" id="sideNav">
+        <div id="toWideButton" class="d-none d-lg-block" style="cursor:pointer; color:white;">
+            <i class="fa-solid fa-right-left"></i>
+        </div>
+        @guest
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                <h5 class="d-none d-lg-block text-white">M</h5>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    @if (Route::has('user.login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.login') }}"> 
+                                @if (Str::contains(request()->url(), '/login'))
+                                    <i class="fas fa-sign-in-alt text-info"></i>
+                                @else
+                                    <i class="fas fa-sign-in-alt"></i>
+                                @endif
+                            </a>
+                        </li>
+                    @endif
+                    @if (Route::has('user.register'))
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
+                                @if (Str::contains(request()->url(), '/register'))
+                                    <i class="fas fa-user-plus text-info"></i>
+                                @else
+                                    <i class="fas fa-user-plus"></i>
+                                @endif
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        @else
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                <h5 class="d-none d-lg-block text-white">M</h5>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">
+                            @if (Str::contains(request()->url(), '/home'))
+                                <i class="fa-solid fa-house text-info"></i>
+                            @else
+                                <i class="fa-solid fa-house"></i>
+                            @endif
+                        </a>
+                    </li>
+                    @if (auth()->user()->isFinishedSetUp())
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.mind_maps.index') }}" id="MindMap">
+                                @if (Str::contains(request()->url(), '/mind_maps'))
+                                    <i class="bi bi-diagram-3-fill text-info"></i>    
+                                @else
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">
+                                @if (Str::contains(request()->url(), '/daily_run_goals'))
+                                    <i class="fa-solid fa-flag text-info"></i>    
+                                @else
+                                    <i class="fa-solid fa-flag"></i>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">
+                                @if (Str::contains(request()->url(), '/inspires'))
+                                    <i class="fa-solid fa-fire-flame-curved text-info"></i>
+                                @else
+                                    <i class="fa-solid fa-fire-flame-curved"></i>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">
+                                @if (Str::contains(request()->url(), '/histories'))
+                                    <i class="fas fa-history text-info"></i>
+                                @else
+                                    <i class="fas fa-history"></i>
+                                @endif
+                            </a>
+                        </li>
+                        @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}"><i class="fa-solid fa-bell"></i></a></li>
+                        @endif
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </a>
+
+                        <form id="logout-form" action="{{ url('user/logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endguest
+    </nav>
+    {{-- 広いナビバー --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary wideNav" id="sideNav">
+        <div id="toNarrowButton" class="d-none d-lg-block" style="cursor:pointer; color:white;">
+            <i class="fa-solid fa-right-left"></i>
+        </div>
         @guest
             <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
                 <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
@@ -74,16 +187,28 @@
                 <ul class="navbar-nav text-end">
                     @if (Route::has('user.login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.login') }}">
-                                Login<i class="fas fa-sign-in-alt ms-2"></i>
-                            </a>
+                            @if (Str::contains(request()->url(), '/login'))
+                                <a class="nav-link text-info" href="{{ route('user.login') }}">
+                                    Login<i class="fas fa-sign-in-alt ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.login') }}">
+                                    Login<i class="fas fa-sign-in-alt ms-2"></i>
+                                </a>
+                            @endif
                         </li>
                     @endif
                     @if (Route::has('user.register'))
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
-                                Register<i class="fas fa-user-plus ms-2"></i>
-                            </a>
+                            @if (Str::contains(request()->url(), '/register'))
+                                <a class="nav-link text-info" href="{{ route('user.register') }}">
+                                    Register<i class="fas fa-user-plus ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
+                                    Register<i class="fas fa-user-plus ms-2"></i>
+                                </a>
+                            @endif
                         </li>
                     @endif
                 </ul>
@@ -97,14 +222,208 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-end">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">HOME<i class="fa-solid fa-house ms-2"></i></a></li>
+                    <li class="nav-item">
+                        @if (Str::contains(request()->url(), '/home'))
+                            <a class="nav-link text-info" href="{{ route('user.home') }}" id="HOME">
+                                HOME<i class="fa-solid fa-house ms-2"></i>
+                            </a>
+                        @else
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">
+                                HOME<i class="fa-solid fa-house ms-2"></i>
+                            </a>
+                        @endif
+                    </li>
                     @if (auth()->user()->isFinishedSetUp())
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.mind_maps.index') }}" id="MindMap">Mind Map<i class="bi bi-diagram-3-fill ms-2"></i></a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">Daily Goals<i class="fa-solid fa-flag ms-2"></i></a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i></a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">Histories<i class="fas fa-history ms-2"></i></a></li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/mind_maps'))
+                                <a class="nav-link text-info" href="{{ route('user.mind_maps.index') }}" id="MindMap">
+                                    Mind Map<i class="bi bi-diagram-3-fill ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.mind_maps.index') }}" id="MindMap">
+                                    Mind Map<i class="bi bi-diagram-3-fill ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/daily_run_goals'))
+                                <a class="nav-link text-info" href="{{ route('user.daily_run_goals.index') }}">
+                                    Daily Goals<i class="fa-solid fa-flag ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">
+                                    Daily Goals<i class="fa-solid fa-flag ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/inspires'))
+                                <a class="nav-link text-info" href="{{ route('user.inspires.index') }}">
+                                    Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">
+                                    Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/histories'))
+                                <a class="nav-link text-info" href="{{ route('user.histories.index') }}">
+                                    Histories<i class="fas fa-history ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">
+                                    Histories<i class="fas fa-history ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
                         @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}">Notifications<i class="fa-solid fa-bell ms-2"></i></a></li>
+                            <li class="nav-item">
+                                @if (Str::contains(request()->url(), '/notification_settings'))
+                                    <a class="nav-link text-info" href="{{ route('user.notification_settings.edit') }}">
+                                        Notifications<i class="fa-solid fa-bell ms-2"></i>
+                                    </a>
+                                @else
+                                    <a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}">
+                                        Notifications<i class="fa-solid fa-bell ms-2"></i>
+                                    </a>
+                                @endif
+                            </li>
+                        @endif
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            logout
+                            <i class="fa-solid fa-right-from-bracket ms-1"></i>
+                        </a>
+
+                        <form id="logout-form" action="{{ url('user/logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endguest
+    </nav>
+    {{-- 992px以下のサイドバー --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary d-lg-none px-3 fixed-top" id="sideNav">
+        @guest
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
+                <h2 class="d-none d-lg-block text-white">MyApp</h2>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-end">
+                    @if (Route::has('user.login'))
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/login'))
+                                <a class="nav-link text-info" href="{{ route('user.login') }}">
+                                    Login<i class="fas fa-sign-in-alt ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.login') }}">
+                                    Login<i class="fas fa-sign-in-alt ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                    @if (Route::has('user.register'))
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/register'))
+                                <a class="nav-link text-info" href="{{ route('user.register') }}">
+                                    Register<i class="fas fa-user-plus ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.register') }}">
+                                    Register<i class="fas fa-user-plus ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        @else
+            <a class="navbar-brand js-scroll-trigger" href="{{ route('user.home') }}">
+                <h3 class="d-block d-lg-none text-white mb-0">MyApp</h3>
+                <h2 class="d-none d-lg-block text-white">MyApp</h2>
+            </a>
+            {{-- ログインしていれば表示 --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-end">
+                    <li class="nav-item">
+                        @if (Str::contains(request()->url(), '/home'))
+                            <a class="nav-link text-info" href="{{ route('user.home') }}" id="HOME">
+                                HOME<i class="fa-solid fa-house ms-2"></i>
+                            </a>
+                        @else
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.home') }}" id="HOME">
+                                HOME<i class="fa-solid fa-house ms-2"></i>
+                            </a>
+                        @endif
+                    </li>
+                    @if (auth()->user()->isFinishedSetUp())
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/mind_maps'))
+                                <a class="nav-link text-info" href="{{ route('user.mind_maps.index') }}" id="MindMap">
+                                    Mind Map<i class="bi bi-diagram-3-fill ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.mind_maps.index') }}" id="MindMap">
+                                    Mind Map<i class="bi bi-diagram-3-fill ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/daily_run_goals'))
+                                <a class="nav-link text-info" href="{{ route('user.daily_run_goals.index') }}">
+                                    Daily Goals<i class="fa-solid fa-flag ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.daily_run_goals.index') }}">
+                                    Daily Goals<i class="fa-solid fa-flag ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/inspires'))
+                                <a class="nav-link text-info" href="{{ route('user.inspires.index') }}">
+                                    Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">
+                                    Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/histories'))
+                                <a class="nav-link text-info" href="{{ route('user.histories.index') }}">
+                                    Histories<i class="fas fa-history ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">
+                                    Histories<i class="fas fa-history ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
+                            <li class="nav-item">
+                                @if (Str::contains(request()->url(), '/notification_settings'))
+                                    <a class="nav-link text-info" href="{{ route('user.notification_settings.edit') }}">
+                                        Notifications<i class="fa-solid fa-bell ms-2"></i>
+                                    </a>
+                                @else
+                                    <a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}">
+                                        Notifications<i class="fa-solid fa-bell ms-2"></i>
+                                    </a>
+                                @endif
+                            </li>
                         @endif
                     @endif
                     <li class="nav-item">
@@ -139,5 +458,36 @@
     <script type="text/javascript" src="https://unpkg.com/jsmind@0.7.5/es6/jsmind.draggable-node.js"></script>
     @yield('script')
     @yield('flash_message_script')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ナビバーの表示切り替え
+            const narrowNav = document.querySelector('.narrowNav');
+            const wideNav = document.querySelector('.wideNav');
+            const toNarrowButton = document.querySelector('#toNarrowButton');
+            const toWideButton = document.querySelector('#toWideButton');
+            
+            // セッションに保存されたナビバーの表示状態を取得
+            const navState = sessionStorage.getItem('navState');
+            if (navState === 'narrow') {
+                narrowNav.classList.remove('d-none');
+                wideNav.classList.add('d-none');
+            } else {
+                narrowNav.classList.add('d-none');
+                wideNav.classList.remove('d-none');
+            }
+            
+            toNarrowButton.addEventListener('click', () => {
+                narrowNav.classList.remove('d-none');
+                wideNav.classList.add('d-none');
+                sessionStorage.setItem('navState', 'narrow');
+            });
+            
+            toWideButton.addEventListener('click', () => {
+                narrowNav.classList.add('d-none');
+                wideNav.classList.remove('d-none');
+                sessionStorage.setItem('navState', 'wide');
+            });            
+        });
+    </script>
 </body>
 </html>
