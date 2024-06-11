@@ -24,9 +24,7 @@ class HomeController extends Controller
             return to_route('user.set_ups.create_first_goal');
         }
         
-        return view('user.home', [
-            'mindMap' => MindMap::where('user_id', auth()->id())->where('is_favorite', true)->first(),
-        ]);
+        return view('user.home');
     }
 
     public function store(StoreRequest $request): RedirectResponse

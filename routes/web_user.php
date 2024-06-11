@@ -71,7 +71,6 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::resource('inspires', InspireController::class)->except(['show']);
 
     // ノード管理
-    Route::post('mind_maps/toggle_favorite/{mindMap}', [MindMapController::class, 'toggleFavorite'])->name('mind_maps.toggle_favorite');
     Route::resource('mind_maps', MindMapController::class)->except(['show', 'update']);
 
     // daily_scoreの履歴

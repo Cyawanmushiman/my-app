@@ -14,7 +14,6 @@
                         <x-slot name="thead">
                             <tr>
                                 <th scope="col" class="text-nowrap">タイトル</th>
-                                <th scope="col" class="text-nowrap">ホームに表示</th>
                                 <th scope="col" class="text-nowrap">削除</th>
                             </tr>
                         </x-slot>
@@ -29,21 +28,6 @@
                                         <td class="text-nowrap px-2">
                                             <a href="{{ route('user.mind_maps.edit', $mindMap) }}">{{ $mindMap->title }}</a>
                                         </td>
-                                        <td class="text-nowrap px-2">
-                                            <form action="{{ route('user.mind_maps.toggle_favorite', $mindMap) }}" method="POST">
-                                                @csrf
-                                                
-                                                @if ($mindMap->is_favorite)
-                                                    <button type="button" class="btn btn-sm btn-primary text-white">
-                                                        <i class="fa-solid fa-star"></i>    
-                                                    </button>
-                                                @else
-                                                    <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                                        <i class="fa-regular fa-star"></i>
-                                                    </button>
-                                                @endif
-                                            </form>
-                                            
                                         <td class="text-nowrap px-2">
                                             <form action="{{ route('user.mind_maps.destroy', $mindMap) }}" method="POST">
                                                 @csrf
