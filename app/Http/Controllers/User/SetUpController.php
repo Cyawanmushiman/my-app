@@ -45,7 +45,6 @@ class SetUpController extends Controller
                 MindMap::create([
                     'user_id' => auth()->id(),
                     'mind_data_json' => $request->mind_data_json,
-                    'is_favorite' => true,
                 ]);
     
                 auth()->user()->update([
