@@ -1,14 +1,14 @@
 @extends('layouts.user.app')
 
 @section('content')
-    @include('components.parts.mind_maps.control_buttons')
-    <div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem; background-color: #fffaf4;"></div>
-    <div style="display: none">
-        <input class="file" type="file" id="image-chooser" accept="image/*" />
-    </div>
-    
-    @include('components.parts.mind_maps.expand_image_modal')
-    @include('components.parts.loading')
+@include('components.parts.mind_maps.control_buttons')
+<div class="mx-auto mindmap-size" id="jsmind_container" style="padding-top: 4rem; background-color: #fffaf4;"></div>
+<div style="display: none">
+    <input class="file" type="file" id="image-chooser" accept="image/*" />
+</div>
+
+@include('components.parts.mind_maps.expand_image_modal')
+@include('components.parts.loading')
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -70,10 +70,10 @@
             
             // 拡大・縮小ボタン
             $('#zoomIn').on('click', function() {
-                jm.view.zoomIn();
+                jm.view.zoom_in();
             });
             $('#zoomOut').on('click', function() {
-                jm.view.zoomOut();
+                jm.view.zoom_out();
             });
     
             // ボタンをクリックしたら新しいノードを追加
