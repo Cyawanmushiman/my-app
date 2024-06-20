@@ -146,7 +146,12 @@ class LineLoginController extends Controller
             ]);
             
             Auth::login($user);
-            return to_route('user.notification_settings.line_notification_guide')->with('status', 'LINEと連携しました。通知設定を行ってください。');
+            
+            if (url()->previous() === route('user.notification_settings.line_alignment')) {
+                return to_route('user.notification_settings.line_notification_guide')->with('status', 'LINEと連携しました。通知設定を行ってください。');
+            }
+            
+            return to_route('user.home');
         }
         
         // なければ登録してからログイン
