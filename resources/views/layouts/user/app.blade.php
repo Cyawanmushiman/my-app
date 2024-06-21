@@ -153,7 +153,15 @@
                             </a>
                         </li>
                         @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}"><i class="fa-solid fa-bell"></i></a></li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.notification_settings.edit') }}">
+                                    @if (Str::contains(request()->url(), '/notification_settings'))
+                                        <i class="fa-solid fa-bell text-info"></i>
+                                    @else
+                                        <i class="fa-solid fa-bell"></i>
+                                    @endif
+                                </a>
+                            </li>
                         @endif
                     @endif
                     <li class="nav-item">
