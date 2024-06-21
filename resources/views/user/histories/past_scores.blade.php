@@ -44,9 +44,6 @@
                         @endif
                     </x-slot>
                 </x-parts.basic_table_layout>
-                <div class="row justify-content-center">
-                    {{ $dailyScores->appends(request()->query())->links('pagination::bootstrap-4') }}
-                </div>
             </x-slot>
         </x-parts.basic_card_layout>
     </div>
