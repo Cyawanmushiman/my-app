@@ -42,7 +42,7 @@ class MindMapController extends Controller
     public function edit(MindMap $mindMap): View
     {
         // /storage/images/tempMindMaps/ディレクトリ内のファイルを削除
-        Storage::deleteDirectory('public/images/tempMindMaps');
+        \Storage::deleteDirectory('public/images/tempMindMaps');
         return view('user.mindMaps.edit', [
             'mindMap' => $mindMap,
         ]);

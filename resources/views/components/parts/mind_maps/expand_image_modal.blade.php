@@ -21,7 +21,7 @@
     }
 
     #modal-content {
-        margin: 15% auto;
+        margin: 80px auto;
         padding: 2%;
         width: 80%;
         max-width: 700px;
