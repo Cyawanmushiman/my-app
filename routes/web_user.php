@@ -71,6 +71,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::resource('inspires', InspireController::class)->except(['show']);
 
     // ノード管理
+    Route::get('mind_maps/edit_sort', [MindMapController::class, 'editSort'])->name('mind_maps.edit_sort');
+    Route::post('mind_maps/update_sort', [MindMapController::class, 'updateSort'])->name('mind_maps.update_sort');
     Route::resource('mind_maps', MindMapController::class)->except(['show', 'update']);
 
     // daily_scoreの履歴

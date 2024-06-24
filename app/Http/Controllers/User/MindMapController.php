@@ -7,6 +7,7 @@ use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Library\FileLibrary;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,7 +16,7 @@ class MindMapController extends Controller
     public function index(): View
     {
         return view('user.mindMaps.index', [
-            'mindMaps' => auth()->user()->mindMaps,
+            'mindMaps' => MindMap::where('user_id', auth()->id())->orderBy('sort_number')->get(),
         ]);
     }
     
@@ -82,5 +83,24 @@ class MindMapController extends Controller
             }
         }
         return $results;
+    }
+    
+    public function editSort(): View
+    {
+        return view('user.mindMaps.edit_sort', [
+            'mindMaps' => MindMap::where('user_id', auth()->id())->orderBy('sort_number')->get(),
+        ]);
+    }
+    
+    public function updateSort(Request $request): Response
+    {
+        \DB::transaction(function () use ($request) {
+            foreach ($request->mindMaps as $index => $mindMap) {
+                $sortNumber = $index + 1;
+                MindMap::where('id', $mindMap['id'])->update(['sort_number' => $sortNumber]);
+            }
+        });
+        
+        return response('success', 200);
     }
 }

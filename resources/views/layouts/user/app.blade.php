@@ -451,7 +451,7 @@
         @endguest
     </nav>
     <!-- Page Content-->
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0" id="container">
         {{-- フラッシュメッセージ --}}
         @include('components.parts.flash_message')
         @yield('content')
