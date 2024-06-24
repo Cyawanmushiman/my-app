@@ -12,13 +12,13 @@
                     @csrf
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="title">タイトル</label>
+                        <label class="" for="title">title</label>
                         @include('components.form.text', ['name' => 'title', 'required' => true])
                         @include('components.form.error', ['name' => 'title'])
                     </div>
 
                     <div class="text-center my-4">
-                        <a href="{{ route('user.daily_run_goals.index') }}" class="btn btn-outline-dark">back to list</a>
+                        <a href="{{ route('user.daily_run_goals.index') }}" class="btn btn-outline-dark"><i class="fa-solid fa-reply"></i></a>
                         <button type="submit" class="btn btn-dark">
                             register
                         </button>
