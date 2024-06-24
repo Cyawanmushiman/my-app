@@ -12,7 +12,7 @@
                     @csrf
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="title">タイトル</label>
+                        <label class="" for="title">title</label>
                         @include('components.form.text', ['name' => 'title', 'required' => true])
                         @include('components.form.error', ['name' => 'title'])
                     </div>

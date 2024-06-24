@@ -15,13 +15,14 @@
                     <input type="hidden" name="long_run_goal_id" value="{{ $longRunGoal->id }}">
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="title">タイトル</label>
+                        <label class="" for="title">title</label>
                         @include('components.form.text', ['name' => 'title', 'required' => true])
                         @include('components.form.error', ['name' => 'title'])
                     </div>
 
                     <div class="text-center my-4">
-                        <a href="{{ route('user.middle_run_goals.index') }}" class="btn btn-outline-dark">一覧画面へ戻る</a>
+                        <a href="{{ route('user.middle_run_goals.index') }}" class="btn btn-outline-dark"><i
+                                class="fa-solid fa-reply"></i></a>
                         <button type="submit" class="btn btn-primary text-white">
                             <i class="fa-regular fa-floppy-disk me-2"></i>
                             <span class="vertical-align-middle">Save</span>

@@ -8,13 +8,15 @@
                 <h4 class="my-2">Edit Long Term</h4>
             </x-slot>
             <x-slot name="cardBody">
-                <form method="POST" action="{{ route('user.long_run_goals.update', $longRunGoal) }}"  enctype="multipart/form-data">
+                <form method="POST" action="{{ route('user.long_run_goals.update', $longRunGoal) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="title">タイトル</label>
-                        @include('components.form.text', ['name' => 'title', 'value' => $longRunGoal->title, 'required' => true])
+                        <label class="" for="title">title</label>
+                        @include('components.form.text', ['name' => 'title', 'value' => $longRunGoal->title, 'required'
+                        => true])
                         @include('components.form.error', ['name' => 'title'])
                     </div>
 

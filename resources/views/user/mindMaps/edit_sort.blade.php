@@ -17,8 +17,7 @@
             <x-parts.basic_card_layout>
                 <x-slot name="cardHeader">
                     <h4 class="my-2">Sort Mind Map</h4>
-                    {{-- <a href="{{ route('user.mind_maps.index') }}" class="btn btn-primary text-white">back</a> --}}
-                    <a href="{{ route('user.mind_maps.index') }}" class="btn btn-primary text-white"><i class="fa-solid fa-reply"></i></a>
+                    <a href="{{ route('user.mind_maps.index') }}" class="btn btn-outline-dark"><i class="fa-solid fa-reply"></i></a>
                 </x-slot>
                 <x-slot name="cardBody">
                     <p>※You can sort by drag and drop</p>
