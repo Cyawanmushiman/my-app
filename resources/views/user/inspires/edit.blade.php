@@ -33,8 +33,9 @@
                     <div class="text-center my-4">
                         <a href="{{ route('user.inspires.index') }}" class="btn btn-outline-dark"><i
                                 class="fa-solid fa-reply"></i></a>
-                        <button type="submit" class="btn btn-dark">
-                            更新する
+                        <button type="submit" class="btn btn-primary text-white">
+                            <i class="fa-regular fa-floppy-disk me-2"></i>
+                            <span class="vertical-align-middle">Update</span>
                         </button>
                     </div>
                 </form>
