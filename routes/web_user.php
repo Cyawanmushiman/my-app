@@ -6,6 +6,7 @@ use App\Http\Controllers\User\SetUpController;
 use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
+use App\Http\Controllers\User\PurposeController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\LongRunGoalController;
@@ -53,6 +54,9 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('create_daily_goal', [SetUpController::class, 'createDailyGoal'])->name('create_daily_goal');
         Route::post('store_daily_goal', [SetUpController::class, 'storeDailyGoal'])->name('store_daily_goal');
     });
+    
+    // 目的管理
+    Route::resource('purposes', PurposeController::class)->except(['show']);
 
     // 長期目標
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show']);
@@ -60,8 +64,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     // 中期目標
     Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show']);
 
-    // 短期目標
-    Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
+    // // 短期目標
+    // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
 
     // 今日の目標
     Route::resource('daily_run_goals', DailyRunGoalController::class)->except(['show']);

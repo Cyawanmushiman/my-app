@@ -235,6 +235,8 @@ return [
     */
     
     'attributes' => [
-        'title' => 'タイトル',
+        'title' => 'title',
+        'content' => 'content',
+        'shcedule_on' => 'schedule',
     ],
 ];

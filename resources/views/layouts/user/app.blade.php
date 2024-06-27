@@ -144,6 +144,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.purposes.index') }}">
+                                @if (Str::contains(request()->url(), '/purposes'))
+                                    <i class="fa-solid fa-bullseye text-info"></i>
+                                @else
+                                    <i class="fa-solid fa-bullseye"></i>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{{ route('user.histories.index') }}">
                                 @if (Str::contains(request()->url(), '/histories'))
                                     <i class="fas fa-history text-info"></i>
@@ -272,6 +281,17 @@
                             @else
                                 <a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">
                                     Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/purposes'))
+                                <a class="nav-link text-info" href="{{ route('user.purposes.index') }}">
+                                    Purpose<i class="fa-solid fa-bullseye ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.purposes.index') }}">
+                                    Purpose<i class="fa-solid fa-bullseye ms-2"></i>
                                 </a>
                             @endif
                         </li>
@@ -406,6 +426,17 @@
                             @else
                                 <a class="nav-link js-scroll-trigger" href="{{ route('user.inspires.index') }}">
                                     Inspires<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li class="nav-item">
+                            @if (Str::contains(request()->url(), '/purposes'))
+                                <a class="nav-link text-info" href="{{ route('user.purposes.index') }}">
+                                    Purpose<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                </a>
+                            @else
+                                <a class="nav-link js-scroll-trigger" href="{{ route('user.purposes.index') }}">
+                                    Purpose<i class="fa-solid fa-fire-flame-curved ms-2"></i>
                                 </a>
                             @endif
                         </li>
