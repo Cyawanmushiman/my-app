@@ -60,10 +60,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     //////// リレーションエリア ////////
-    public function longRunGoal(): HasOne
+    public function purpose(): HasOne
     {
-        return $this->hasOne(LongRunGoal::class);
+        return $this->hasOne(Purpose::class);
     }
+    
+    // public function longRunGoal(): HasOne
+    // {
+    //     return $this->hasOne(LongRunGoal::class);
+    // }
 
     // ユーザーに関連する中期目標を取得する。
     public function middleRunGoals(): HasManyThrough

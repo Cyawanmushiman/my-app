@@ -19,4 +19,7 @@
     @isset ($placeholder)
         placeholder="{{ $placeholder }}"
     @endif
+    @isset ($min)
+        min = "{{ $min }}"
+    @endif
 >

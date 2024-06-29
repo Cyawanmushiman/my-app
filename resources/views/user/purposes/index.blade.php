@@ -10,6 +10,13 @@
                     <div class="progress" role="progressbar" aria-label="Example 20px high" aria-valuenow="{{ $progressbarPer }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
                         <div class="progress-bar bg-info" style="width: {{ $progressbarPer }}%"></div>
                     </div>
+                    @if ($purpose->longRunGoal)
+                        <div class="long-run-tooltip"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title={{ $purpose->longRunGoal->title }}>
+                        </div>
+                        <label class="long-run-tooltip-lobel"
+                        >{{ $purpose->longRunGoal->schedule_on->format('Y/m/d') }}</label>
+                    @endif
                 </div>
                 <div class="col-1 d-flex justify-content-end">
                     <div class="purpose-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title={{ $purpose->content }}>
@@ -25,7 +32,7 @@
             @endif            
             <span class="mx-2">></span>
             @if ($purpose)
-                <a href="{{ route('user.long_run_goals.create') }}">LongRunGoal</a>
+                <a href="{{ route('user.long_run_goals.create', $purpose) }}">LongRunGoal</a>
             @else
                 <a tabindex="-1">LongRunGoal</a>
             @endif

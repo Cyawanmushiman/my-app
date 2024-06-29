@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Purpose;
+use App\Models\LongRunGoal;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LongRunGoalController\StoreRequest;
 use App\Http\Requests\User\LongRunGoalController\UpdateRequest;
-use App\Models\LongRunGoal;
-use Illuminate\Http\Request;
 
 class LongRunGoalController extends Controller
 {
@@ -27,9 +28,11 @@ class LongRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(Purpose $purpose)
     {        
-        return view('user.long_run_goals.create');
+        return view('user.long_run_goals.create', [
+            'purpose' => $purpose,
+        ]);
     }
 
     /**
@@ -41,12 +44,9 @@ class LongRunGoalController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $params = array_merge($request->substitutable(), [
-            'user_id' => auth()->id(),
-        ]);
-        LongRunGoal::create($params);
+        LongRunGoal::create($request->substitutable());
 
-        return to_route('user.long_run_goals.index')->with('status', '作成しました');
+        return to_route('user.purposes.index')->with('status', 'success create'); 
     }
 
     /**

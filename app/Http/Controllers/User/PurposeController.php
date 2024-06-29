@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use DateTime;
 use App\Models\Purpose;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -18,6 +19,17 @@ class PurposeController extends Controller
     {
         $purpose = Purpose::with(['longRunGoal', 'longRunGoal.middleRunGoals'])->where('user_id', auth()->id())->first();
         $progressbarPer = 0;
+        
+        // 未来の最終ゴールまでの進捗を計算
+        if ($purpose->longRunGoal) {
+            // 未来の日付を取得
+            $scheduleDate = $purpose->longRunGoal->schedule_on;
+            $interval = today()->diff($scheduleDate);
+            $daysUntilSchedule = $interval->days;
+            
+            $progressbarPer = 100 / $daysUntilSchedule;
+        }
+        
         return view('user.purposes.index', [
             'purpose' => $purpose,
             'progressbarPer' => $progressbarPer,

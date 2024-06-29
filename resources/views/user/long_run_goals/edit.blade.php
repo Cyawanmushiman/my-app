@@ -21,8 +21,8 @@
                     </div>
 
                     <div class="text-center my-4">
-                        <a href="{{ route('user.long_run_goals.index') }}" class="btn btn-outline-dark me-4">
-                            一覧に戻る
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-dark">
+                            <i class="fa-solid fa-reply"></i>
                         </a>
                         <button type="submit" class="btn btn-primary text-white">
                             <i class="fa-regular fa-floppy-disk me-2"></i>

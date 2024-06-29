@@ -26,7 +26,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'purpose_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'max:255', 'unique:long_run_goals,title,'],
+            'schedule_on' => ['required', 'date'],
         ];
     }
 
@@ -34,7 +36,7 @@ class StoreRequest extends FormRequest
     public function withValidator(Validator $validator): void
     {
         $validator->after(function ($validator) {
-            if (LongRunGoal::where('user_id', auth()->id())->count() >= 1) {
+            if (LongRunGoal::where('purpose_id', auth()->user()->purpose->id)->count() >= 1) {
                 $validator->errors()->add('title', '登録できるのは1つまでです');
             }
         });
@@ -46,7 +48,9 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
+            'purpose_id',
             'title',
+            'schedule_on',
         ]);
     }
 }

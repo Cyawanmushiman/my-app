@@ -11065,8 +11065,8 @@ section.resume-section .resume-section-content {
 }
 
 .purpose-tooltip {
-    width: 15px; 
-    height: 15px; 
+    width: 20px;
+    height: 20px;
     background-color: #fff;
     border: 2px solid #bd5d38;
     border-radius: 50%;
@@ -11075,4 +11075,27 @@ section.resume-section .resume-section-content {
     width: 17px;
     height: 17px;
     background-color: #bd5d38;
+}
+.long-run-tooltip {
+    width: 15px; 
+    height: 15px; 
+    background-color: #fff;
+    border: 2px solid #7ecafc;
+    border-radius: 50%;
+    position:absolute;
+    top: 2px;
+    left: 100%;
+    transform: translate(-50%, -50%);
+}
+.long-run-tooltip:hover {
+    width: 17px;
+    height: 17px;
+    background-color: #7ecafc;
+}
+.long-run-tooltip-lobel {
+    position: absolute;
+    font-size: 10px;
+    top: 20px;
+    left: 100%;
+    transform: translate(-50%, -50%);
 }
