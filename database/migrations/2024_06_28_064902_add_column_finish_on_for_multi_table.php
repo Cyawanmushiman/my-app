@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // long_run_goalsテーブルにschedule_onカラムを追加
+        // long_run_goalsテーブルにfinish_onカラムを追加
         Schema::table('long_run_goals', static function (Blueprint $table) {
-            $table->date('schedule_on')->comment('目的達成予定日')->after('title');
+            $table->date('finish_on')->comment('目的達成予定日')->after('title');
         });
         
-        // middle_run_goalsテーブルにschedule_onカラムを追加
+        // middle_run_goalsテーブルにfinish_onカラムを追加
         Schema::table('middle_run_goals', static function (Blueprint $table) {
-            $table->date('schedule_on')->comment('目的達成予定日')->after('title');
+            $table->date('finish_on')->comment('目的達成予定日')->after('title');
         });
     }
 
@@ -27,14 +27,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // long_run_goalsテーブルのschedule_onカラムを削除
+        // long_run_goalsテーブルのfinish_onカラムを削除
         Schema::table('long_run_goals', static function (Blueprint $table) {
-            $table->dropColumn('schedule_on');
+            $table->dropColumn('finish_on');
         });
         
-        // middle_run_goalsテーブルのschedule_onカラムを削除
+        // middle_run_goalsテーブルのfinish_onカラムを削除
         Schema::table('middle_run_goals', static function (Blueprint $table) {
-            $table->dropColumn('schedule_on');
+            $table->dropColumn('finish_on');
         });
     }
 };
