@@ -10,7 +10,7 @@
             <x-slot name="cardBody">
                 <form method="POST" action="{{ route('user.long_run_goals.store') }}" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <input type="hidden" name="purpose_id" value="{{ $purpose->id }}">
 
                     <div class="col-md-8 mb-3 mx-auto">
@@ -20,9 +20,10 @@
                     </div>
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="schedule_on">target date</label>
-                        @include('components.form.date', ['name' => 'schedule_on', 'required' => true, 'min' => today()->format('Y-m-d')])
-                        @include('components.form.error', ['name' => 'schedule_on'])
+                        <label class="" for="finish_on">finish date</label>
+                        @include('components.form.date', ['name' => 'finish_on', 'required' => true, 'min' =>
+                        today()->format('Y-m-d')])
+                        @include('components.form.error', ['name' => 'finish_on'])
                     </div>
 
                     <div class="text-center my-4">

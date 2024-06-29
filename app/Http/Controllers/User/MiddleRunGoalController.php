@@ -13,9 +13,7 @@ class MiddleRunGoalController extends Controller
 {
     public function __construct(
         private MiddleRunGoal $middleRunGoal,
-    )
-    {
-        
+    ) {
     }
 
     /**
@@ -31,7 +29,7 @@ class MiddleRunGoalController extends Controller
                 $query->where('user_id', auth()->id());
             })
             ->get();
-        
+
         return view('user.middle_run_goals.index', [
             'longRunGoal' => auth()->user()->longRunGoal,
             'middleRunGoals' => $middleRunGoals,
@@ -44,7 +42,7 @@ class MiddleRunGoalController extends Controller
      * @return \Illuminate\View\View
      */
     public function create(LongRunGoal $longRunGoal)
-    {        
+    {
         return view('user.middle_run_goals.create', [
             'longRunGoal' => $longRunGoal,
         ]);
@@ -65,7 +63,7 @@ class MiddleRunGoalController extends Controller
             $bulkInsert[] = [
                 'long_run_goal_id' => $params['long_run_goal_id'],
                 'title' => $title,
-                'schedule_on' => $params['schedule_ons'][$index],
+                'finish_on' => $params['finish_ons'][$index],
             ];
         }
         \DB::table('middle_run_goals')->insert($bulkInsert);

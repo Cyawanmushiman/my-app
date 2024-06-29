@@ -28,8 +28,8 @@ class StoreRequest extends FormRequest
             'long_run_goal_id' => ['required', 'integer', 'exists:long_run_goals,id'],
             'titles' => ['nullable', 'array'],
             'titles.*' => ['nullable', 'string', 'max:255'],
-            'schedule_ons' => ['nullable', 'array'],
-            'schedule_ons.*' => ['nullable', 'date'],
+            'finish_ons' => ['nullable', 'array'],
+            'finish_ons.*' => ['nullable', 'date'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StoreRequest extends FormRequest
         return $this->only([
             'long_run_goal_id',
             'titles',
-            'schedule_ons',
+            'finish_ons',
         ]);
     }
 }

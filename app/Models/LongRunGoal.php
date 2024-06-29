@@ -11,9 +11,9 @@ class LongRunGoal extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     protected $casts = [
-        'schedule_on' => 'date',
+        'finish_on' => 'date',
     ];
 
     public function middleRunGoals(): HasMany

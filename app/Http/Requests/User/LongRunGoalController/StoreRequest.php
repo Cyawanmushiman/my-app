@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
         return [
             'purpose_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'max:255'],
-            'schedule_on' => ['required', 'date'],
+            'finish_on' => ['required', 'date'],
         ];
     }
 
@@ -50,7 +50,7 @@ class StoreRequest extends FormRequest
         return $this->only([
             'purpose_id',
             'title',
-            'schedule_on',
+            'finish_on',
         ]);
     }
 }
