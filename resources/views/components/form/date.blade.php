@@ -22,4 +22,7 @@
     @isset ($min)
         min = "{{ $min }}"
     @endif
+    @isset ($max)
+        max = "{{ $max }}"
+    @endif
 >

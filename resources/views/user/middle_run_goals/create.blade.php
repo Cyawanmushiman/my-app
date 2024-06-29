@@ -14,14 +14,23 @@
 
                     <input type="hidden" name="long_run_goal_id" value="{{ $longRunGoal->id }}">
 
-                    <div class="col-md-8 mb-3 mx-auto">
-                        <label class="" for="title">title</label>
-                        @include('components.form.text', ['name' => 'title', 'required' => true])
-                        @include('components.form.error', ['name' => 'title'])
-                    </div>
+                    @for ($i = 0; $i < 3; $i++)
+                        <div class="mb-5">
+                            <div class="col-md-8 mx-auto">
+                                <label class="" for="titles[{{ $i }}]">title</label>
+                                @include('components.form.text', ['name' => "titles[$i]"])
+                                @include('components.form.error', ['name' => "titles.$i"])
+                            </div>
+                            <div class="col-md-8 mx-auto">
+                                <label class="" for="schedule_ons[{{ $i }}]">target date</label>
+                                @include('components.form.date', ['name' => "schedule_ons[$i]", 'min' => today()->format('Y-m-d'),  'max' => $longRunGoal->schedule_on->format('Y-m-d')])
+                                @include('components.form.error', ['name' => "schedule_ons"])
+                            </div>
+                        </div>
+                    @endfor
 
                     <div class="text-center my-4">
-                        <a href="{{ route('user.middle_run_goals.index') }}" class="btn btn-outline-dark"><i
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-dark"><i
                                 class="fa-solid fa-reply"></i></a>
                         <button type="submit" class="btn btn-primary text-white">
                             <i class="fa-regular fa-floppy-disk me-2"></i>

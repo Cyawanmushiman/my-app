@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\MiddleRunGoalController\StoreRequest;
 use App\Http\Requests\User\MiddleRunGoalController\UpdateRequest;
+use App\Models\LongRunGoal;
 use App\Models\MiddleRunGoal;
 use Illuminate\Http\Request;
 
@@ -42,10 +43,10 @@ class MiddleRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(LongRunGoal $longRunGoal)
     {        
         return view('user.middle_run_goals.create', [
-            'longRunGoal' => auth()->user()->longRunGoal,
+            'longRunGoal' => $longRunGoal,
         ]);
     }
 
@@ -58,9 +59,18 @@ class MiddleRunGoalController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->middleRunGoal->fill($request->substitutable())->save();
+        $bulkInsert = [];
+        $params = $request->substitutable();
+        foreach ($params['titles'] as $index => $title) {
+            $bulkInsert[] = [
+                'long_run_goal_id' => $params['long_run_goal_id'],
+                'title' => $title,
+                'schedule_on' => $params['schedule_ons'][$index],
+            ];
+        }
+        \DB::table('middle_run_goals')->insert($bulkInsert);
 
-        return to_route('user.middle_run_goals.index')->with('status', '作成しました');
+        return to_route('user.purposes.index')->with('status', 'success create middle run goal');
     }
 
     /**
