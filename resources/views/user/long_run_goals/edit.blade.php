@@ -12,12 +12,20 @@
                     enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
+                    
+                    <input type="hidden" name="purpose_id" value="{{ $longRunGoal->purpose_id }}">
 
                     <div class="col-md-8 mb-3 mx-auto">
                         <label class="" for="title">title</label>
                         @include('components.form.text', ['name' => 'title', 'value' => $longRunGoal->title, 'required'
                         => true])
                         @include('components.form.error', ['name' => 'title'])
+                    </div>
+                    
+                    <div class="col-md-8 mb-3 mx-auto">
+                        <label class="" for="schedule_on">target date</label>
+                        @include('components.form.date', ['name' => 'schedule_on', 'required' => true, 'min' => today()->format('Y-m-d'), 'value' => $longRunGoal->schedule_on->format('Y-m-d')])
+                        @include('components.form.error', ['name' => 'schedule_on'])
                     </div>
 
                     <div class="text-center my-4">

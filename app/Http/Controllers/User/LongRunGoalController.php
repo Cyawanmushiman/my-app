@@ -73,7 +73,7 @@ class LongRunGoalController extends Controller
     {
         $longRunGoal->fill($request->substitutable())->save();
 
-        return back()->with('status', '更新しました');
+        return to_route('user.purposes.index')->with('status', 'success update');
     }
 
     /**

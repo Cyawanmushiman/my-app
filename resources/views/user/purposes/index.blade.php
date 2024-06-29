@@ -31,8 +31,10 @@
                 <a href="{{ route('user.purposes.create') }}">Purposes</a>
             @endif            
             <span class="mx-2">></span>
-            @if ($purpose)
+            @if ($purpose->longRunGoal === null)
                 <a href="{{ route('user.long_run_goals.create', $purpose) }}">LongRunGoal</a>
+            @elseif ($purpose->longRunGoal)
+                <a href="{{ route('user.long_run_goals.edit', $purpose->longRunGoal) }}">LongRunGoal</a>
             @else
                 <a tabindex="-1">LongRunGoal</a>
             @endif

@@ -25,7 +25,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:255', Rule::unique('long_run_goals')->ignore($this->long_run_goal)],
+            'purpose_id' => ['required', 'integer'],
+            'title' => ['required', 'string', 'max:255'],
+            'schedule_on' => ['required', 'date'],
         ];
     }
 
@@ -35,7 +37,9 @@ class UpdateRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
+            'purpose_id',
             'title',
+            'schedule_on',
         ]);
     }
 }

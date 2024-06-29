@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'purpose_id' => ['required', 'integer'],
-            'title' => ['required', 'string', 'max:255', 'unique:long_run_goals,title,'],
+            'title' => ['required', 'string', 'max:255'],
             'schedule_on' => ['required', 'date'],
         ];
     }
