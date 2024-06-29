@@ -27,14 +27,10 @@
                 background-color: #fff;
                 border: 2px solid #bd5d38;
                 border-radius: 50%;
-                ">
+                " data-bs-toggle="tooltip" data-bs-placement="top" title="上に出るツールチップ">
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-secondary mb-2 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="上に出るツールチップ">ツールチップ(上)</button>
-        {{-- <div class="col-3 mt-3 mb-5">
-            海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる海賊になる
-        </div> --}}
         <a href="{{ route('user.purposes.create') }}">purposes</a>
     </div>
 </section>
