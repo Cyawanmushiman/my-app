@@ -2,8 +2,8 @@
 
 @section('content')
 <section class="resume-section">
-    <div class="resume-section-content">
-        <div class="d-flex mb-5 align-items-center px-4">
+    <div class="resume-section-content px-4">
+        <div class="d-flex mb-5 align-items-center">
             <div class="col-11 position-relative">
                 <img src="{{ asset('images/gifs/cat-8915_128.gif') }}" alt="" style="width: 30px; height: 30px; top: -14px; left: 25%" class="position-absolute translate-middle">
                 {{-- <div style=
@@ -31,7 +31,27 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('user.purposes.create') }}">purposes</a>
+        {{-- @dd($purpose) --}}
+        <div class="d-flex">
+            @if ($purpose)
+                <a href="{{ route('user.purposes.edit', $purpose) }}">Purposes</a>
+            @else
+                <a href="{{ route('user.purposes.create') }}">Purposes</a>
+            @endif            
+            <span class="mx-2">></span>
+            @if ($purpose)
+                <a href="{{ route('user.long_run_goals.create') }}">LongRunGoal</a>
+            @else
+                <a tabindex="-1">LongRunGoal</a>
+            @endif
+            <span class="mx-2">></span>
+            @if ($purpose->longRunGoal)
+                <a href="{{ route('user.middle_run_goals.create') }}">MiddleRunGoal</a>
+            @else
+                <a tabindex="-1">MiddleRunGoal</a>
+            @endif
+        </div>
+        
     </div>
 </section>
 @endsection

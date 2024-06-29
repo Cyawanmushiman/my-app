@@ -16,9 +16,8 @@ class PurposeController extends Controller
      */
     public function index(): View
     {
-        $purpose = Purpose::where('user_id', auth()->id())->first();
         return view('user.purposes.index', [
-            'purpose' => $purpose
+            'purpose' => Purpose::with(['longRunGoal', 'longRunGoal.middleRunGoals'])->where('user_id', auth()->id())->first(),
         ]);
     }
     

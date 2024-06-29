@@ -19,7 +19,7 @@ class Purpose extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function longRunGoals(): HasOne
+    public function longRunGoal(): HasOne
     {
         return $this->hasOne(LongRunGoal::class);
     }
