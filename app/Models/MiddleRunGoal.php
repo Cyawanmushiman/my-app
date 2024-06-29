@@ -12,6 +12,10 @@ class MiddleRunGoal extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
+    protected $casts = [
+        'schedule_on' => 'date',
+    ];
 
     /////// リレーションエリア　////////
     public function longRunGoal(): BelongsTo

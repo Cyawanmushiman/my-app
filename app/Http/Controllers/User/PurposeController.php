@@ -31,9 +31,27 @@ class PurposeController extends Controller
             $progressbarPer = 100 / $daysUntilSchedule;
         }
         
+        // 中期目標の座標を取得
+        $middleGoalMap = [];
+        if ($purpose->middleRunGoals) {
+            foreach ($purpose->middleRunGoals as $middleRunGoal) {
+                // 最終ゴールの日付を取得
+                $finalScheduleDate = $middleRunGoal->longRunGoal->schedule_on;
+                // 目標の日付を取得
+                $middleScheduleDate = $middleRunGoal->schedule_on;
+                // 最終ゴールまでの日数を取得
+                $middleInterval = $middleScheduleDate->diff($finalScheduleDate);
+                $daysUntilMiddleSchedule = $middleInterval->days;
+                $middleProgressbarPer = 100 / $daysUntilMiddleSchedule;
+                
+                $middleGoalMap[$middleProgressbarPer] = $middleRunGoal;
+            }
+        }
+
         return view('user.purposes.index', [
             'purpose' => $purpose,
             'progressbarPer' => $progressbarPer,
+            'middleGoalMap' => $middleGoalMap,
         ]);
     }
     

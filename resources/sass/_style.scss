@@ -11099,3 +11099,27 @@ section.resume-section .resume-section-content {
     left: 100%;
     transform: translate(-50%, -50%);
 }
+
+.middle-run-popover {
+    width: 15px; 
+    height: 15px; 
+    background-color: #fff;
+    border: 2px solid #f7b924;
+    border-radius: 50%;
+    position:absolute;
+    top: 2px;
+    // left: 100%;
+    transform: translate(-50%, -50%);
+}
+.middle-run-popover:hover {
+    width: 17px;
+    height: 17px;
+    background-color: #f7b924;
+}
+.middle-run-popover-lobel {
+    position: absolute;
+    font-size: 10px;
+    top: 20px;
+    // left: 100%;
+    transform: translate(-50%, -50%);
+}

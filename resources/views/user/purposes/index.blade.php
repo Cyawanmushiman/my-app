@@ -17,6 +17,15 @@
                         <label class="long-run-popover-lobel"
                         >{{ $purpose->longRunGoal->schedule_on->format('Y/m/d') }}</label>
                     @endif
+                    @if ($middleGoalMap)
+                        @foreach ($middleGoalMap as $per => $middleGoal)
+                            <div class="middle-run-popover" style="left: {{ $per }}%;"
+                            data-bs-toggle="popover" data-bs-placement="top" data-bs-content={{ $middleGoal->title }}>
+                            </div>
+                            <label class="middle-run-popover-lobel" style="left: {{ $per }}%;"
+                            >{{ $middleGoal->schedule_on->format('Y/m/d') }}</label>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="col-1 d-flex justify-content-end">
                     <div class="purpose-popover" data-bs-toggle="popover"   data-bs-placement="top" data-bs-content="{{ $purpose->content }}">
