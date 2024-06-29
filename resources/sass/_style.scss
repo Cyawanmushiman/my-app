@@ -11064,19 +11064,19 @@ section.resume-section .resume-section-content {
   background-color: #0070BD;
 }
 
-.purpose-tooltip {
+.purpose-popover {
     width: 20px;
     height: 20px;
     background-color: #fff;
     border: 2px solid #bd5d38;
     border-radius: 50%;
 }
-.purpose-tooltip:hover {
+.purpose-popover:hover {
     width: 17px;
     height: 17px;
     background-color: #bd5d38;
 }
-.long-run-tooltip {
+.long-run-popover {
     width: 15px; 
     height: 15px; 
     background-color: #fff;
@@ -11087,12 +11087,12 @@ section.resume-section .resume-section-content {
     left: 100%;
     transform: translate(-50%, -50%);
 }
-.long-run-tooltip:hover {
+.long-run-popover:hover {
     width: 17px;
     height: 17px;
     background-color: #7ecafc;
 }
-.long-run-tooltip-lobel {
+.long-run-popover-lobel {
     position: absolute;
     font-size: 10px;
     top: 20px;

@@ -11,15 +11,15 @@
                         <div class="progress-bar bg-info" style="width: {{ $progressbarPer }}%"></div>
                     </div>
                     @if ($purpose->longRunGoal)
-                        <div class="long-run-tooltip"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title={{ $purpose->longRunGoal->title }}>
+                        <div class="long-run-popover"
+                        data-bs-toggle="popover" data-bs-placement="top" data-bs-content={{ $purpose->longRunGoal->title }}>
                         </div>
-                        <label class="long-run-tooltip-lobel"
+                        <label class="long-run-popover-lobel"
                         >{{ $purpose->longRunGoal->schedule_on->format('Y/m/d') }}</label>
                     @endif
                 </div>
                 <div class="col-1 d-flex justify-content-end">
-                    <div class="purpose-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title={{ $purpose->content }}>
+                    <div class="purpose-popover" data-bs-toggle="popover"   data-bs-placement="top" data-bs-content="{{ $purpose->content }}">
                     </div>
                 </div>
             </div>

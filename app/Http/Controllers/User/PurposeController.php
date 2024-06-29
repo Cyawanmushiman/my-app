@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\PurposeController\StoreRequest;
+use App\Http\Requests\User\PurposeController\UpdateRequest;
 
 class PurposeController extends Controller
 {
@@ -59,17 +60,21 @@ class PurposeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Purpose $purpose): View
     {
-        //
+        return view('user.purposes.edit', [
+            'purpose' => $purpose,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Purpose $purpose): RedirectResponse
     {
-        //
+        $purpose->update($request->substitutable());
+        
+        return to_route('user.purposes.index')->with('status', 'success update purpose');
     }
 
     /**
