@@ -16,7 +16,10 @@ class PurposeController extends Controller
      */
     public function index(): View
     {
-        return view('user.purposes.index');
+        $purpose = Purpose::where('user_id', auth()->id())->first();
+        return view('user.purposes.index', [
+            'purpose' => $purpose
+        ]);
     }
     
     
