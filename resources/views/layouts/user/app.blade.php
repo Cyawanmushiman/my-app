@@ -435,11 +435,11 @@
                         <li class="nav-item">
                             @if (Str::contains(request()->url(), '/purposes'))
                                 <a class="nav-link text-info" href="{{ route('user.purposes.index') }}">
-                                    Purpose<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                    Purpose<i class="fa-solid fa-bullseye ms-2"></i>
                                 </a>
                             @else
                                 <a class="nav-link js-scroll-trigger" href="{{ route('user.purposes.index') }}">
-                                    Purpose<i class="fa-solid fa-fire-flame-curved ms-2"></i>
+                                    Purpose<i class="fa-solid fa-bullseye ms-2"></i>
                                 </a>
                             @endif
                         </li>
