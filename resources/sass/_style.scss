@@ -11063,3 +11063,16 @@ section.resume-section .resume-section-content {
 .progressbar li.complete:after {
   background-color: #0070BD;
 }
+
+.purpose-tooltip {
+    width: 15px; 
+    height: 15px; 
+    background-color: #fff;
+    border: 2px solid #bd5d38;
+    border-radius: 50%;
+}
+.purpose-tooltip:hover {
+    width: 17px;
+    height: 17px;
+    background-color: #bd5d38;
+}
