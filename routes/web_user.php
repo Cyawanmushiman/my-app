@@ -63,7 +63,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show', 'create']);
 
     // 中期目標
-    Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show']);
+    Route::get('middle_run_goals/{long_run_goal}/edit', [MiddleRunGoalController::class, 'edit'])->name('middle_run_goals.edit');
+    Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show', 'edit']);
 
     // // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
