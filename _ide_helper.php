@@ -18706,7 +18706,18 @@
      
 }
 
-        namespace Barryvdh\Debugbar\Facades { 
+        namespace App\Util { 
+            /**
+     * 
+     *
+     */ 
+        class GoalProgress {
+         
+    }
+     
+}
+
+    namespace Barryvdh\Debugbar\Facades { 
             /**
      * 
      *
@@ -31447,6 +31458,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class GoalProgress extends \App\Util\GoalProgress {}
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class LINEChannelAccessTokenApi extends \LINE\Laravel\Facades\LINEChannelAccessTokenApi {}

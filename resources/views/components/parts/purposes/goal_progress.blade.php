@@ -4,7 +4,7 @@
         <label class="long-run-popover-today-label" style="left: {{ $progressbarPerForLong }}%">{{ today()->format('Y/m/d') }}</label>
         <img src="{{ $gifImageUrl }}" alt=""
             style="left: {{ $progressbarPerForLong }}%"
-            class="walking-gif-popover">
+            class="walking-gif-popover" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="{{ GoalProgress::getSupportComment() }}">
         <div class="progress" role="progressbar" aria-label="Example 20px high"
             aria-valuenow="{{ $progressbarPerForLong }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
             <div class="progress-bar bg-info" style="width: {{ $progressbarPerForLong }}%"></div>

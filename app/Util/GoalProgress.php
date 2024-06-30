@@ -17,6 +17,20 @@ class GoalProgress
         'walking-speed.gif',
     ];
     
+    const SUPPORT_COMMENTS = [
+        'なんか頑張れそうな気がする',
+        '不本意だが今日だけがんばってみる',
+        '今日が終わったら絶対に自分を褒めてあげたい',
+        'このアプリを使っている時点でもう今日は素敵',
+    ];
+    
+    // ランダムでサポートコメントを取得
+    public static function getSupportComment(): string
+    {
+        $commentKey = array_rand(self::SUPPORT_COMMENTS);
+        return self::SUPPORT_COMMENTS[$commentKey];
+    }
+    
     // 進捗バー用のデータを取得
     public static function getProgressData(Purpose $purpose)
     {
