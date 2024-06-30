@@ -6,13 +6,13 @@
         @if ($purpose)
             <div class="d-flex mb-5 align-items-center">
                 <div class="col-11 position-relative">
-                    <label class="long-run-popover-today-label" style="left: {{ $progressbarPer }}%">{{ today()->format('Y/m/d') }}</label>
+                    <label class="long-run-popover-today-label" style="left: {{ $progressbarPerForLong }}%">{{ today()->format('Y/m/d') }}</label>
                     <img src="{{ $gifImageUrl }}" alt=""
-                        style="left: {{ $progressbarPer }}%"
+                        style="left: {{ $progressbarPerForLong }}%"
                         class="walking-gif-popover">
                     <div class="progress" role="progressbar" aria-label="Example 20px high"
-                        aria-valuenow="{{ $progressbarPer }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
-                        <div class="progress-bar bg-info" style="width: {{ $progressbarPer }}%"></div>
+                        aria-valuenow="{{ $progressbarPerForLong }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
+                        <div class="progress-bar bg-info" style="width: {{ $progressbarPerForLong }}%"></div>
                     </div>
                     @if ($longRunGoal)
                         <div class="long-run-popover-start" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="start!!">
