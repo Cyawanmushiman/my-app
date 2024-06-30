@@ -9,29 +9,24 @@
             </x-slot>
             <x-slot name="cardBody">
                 <p>{{ $longRunGoal->title }}を達成するために必要な中期的な目標を登録して下さい</p>
-                <form method="POST" action="{{ route('user.middle_run_goals.update', $longRunGoal) }}"
+                <form method="POST" action="{{ route('user.middle_run_goals.update', $middleRunGoal) }}"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
                     <input type="hidden" name="long_run_goal_id" value="{{ $longRunGoal->id }}">
 
-                    @foreach ($longRunGoal->middleRunGoals as $middleRunGoal)
-                        <div class="mb-5">
-                            <input type="hidden" name="middle_run_ids[]" value="{{ $middleRunGoal->id }}">
-                            <div class="col-md-8 mx-auto">
-                                <label class="" for="titles[]">title</label>
-                                @include('components.form.text', ['name' => "titles[]", 'value' => $middleRunGoal->title])
-                                @include('components.form.error', ['name' => "titles"])
-                            </div>
-                            <div class="col-md-8 mx-auto">
-                                <label class="" for="finish_ons[]">finish date</label>
-                                @include('components.form.date', ['name' => "finish_ons[]", 'min' =>
-                                $longRunGoal->start_on->format('Y-m-d'), 'max' => $longRunGoal->finish_on->format('Y-m-d'), 'value' => $middleRunGoal->finish_on->format('Y-m-d')])
-                                @include('components.form.error', ['name' => "finish_ons"])
-                            </div>
-                        </div>
-                    @endforeach
+                    <div class="col-md-8 mx-auto">
+                        <label class="" for="title">title</label>
+                        @include('components.form.text', ['name' => "title", 'value' => $middleRunGoal->title])
+                        @include('components.form.error', ['name' => "titles"])
+                    </div>
+                    <div class="col-md-8 mx-auto">
+                        <label class="" for="finish_on">finish date</label>
+                        @include('components.form.date', ['name' => "finish_on", 'min' =>
+                        $longRunGoal->start_on->format('Y-m-d'), 'max' => $longRunGoal->finish_on->format('Y-m-d'), 'value' => $middleRunGoal->finish_on->format('Y-m-d')])
+                        @include('components.form.error', ['name' => "finish_ons"])
+                    </div>
 
                     <div class="text-center my-4">
                         <a href="{{ url()->previous() }}" class="btn btn-outline-dark"><i

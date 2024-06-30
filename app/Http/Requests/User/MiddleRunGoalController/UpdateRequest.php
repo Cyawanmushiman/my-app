@@ -25,12 +25,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {    
         return [
-            'long_run_goal_id' => ['required', 'integer', 'exists:long_run_goals,id'],
-            'middle_run_ids' => ['nullable', 'array'],
-            'titles' => ['nullable', 'array'],
-            'titles.*' => ['nullable', 'string', 'max:255'],
-            'finish_ons' => ['nullable', 'array'],
-            'finish_ons.*' => ['nullable', 'date'],
+            'long_run_goal_id' => ['required', 'exists:long_run_goals,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'finish_on' => ['required', 'date'],
         ];
     }
 
@@ -41,9 +38,8 @@ class UpdateRequest extends FormRequest
     {
         return $this->only([
             'long_run_goal_id',
-            'middle_run_ids',
-            'titles',
-            'finish_ons',
+            'title',
+            'finish_on',
         ]);
     }
 }

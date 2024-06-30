@@ -66,8 +66,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::get('middle_run_goals/index/{long_run_goal}', [MiddleRunGoalController::class, 'index'])->name('middle_run_goals.index');
     Route::get('middle_run_goals/{long_run_goal}/create', [MiddleRunGoalController::class, 'create'])->name('middle_run_goals.create');
     Route::post('middle_run_goals', [MiddleRunGoalController::class, 'store'])->name('middle_run_goals.store');
-    Route::get('middle_run_goals/{long_run_goal}/edit', [MiddleRunGoalController::class, 'edit'])->name('middle_run_goals.edit');
-    Route::patch('middle_run_goals/update', [MiddleRunGoalController::class, 'update'])->name('middle_run_goals.update');
+    Route::get('middle_run_goals/{middle_run_goal}/edit', [MiddleRunGoalController::class, 'edit'])->name('middle_run_goals.edit');
+    Route::patch('middle_run_goals/update/{middle_run_goal}', [MiddleRunGoalController::class, 'update'])->name('middle_run_goals.update');
     Route::delete('middle_run_goals/{middle_run_goal}', [MiddleRunGoalController::class, 'destroy'])->name('middle_run_goals.destroy');
     // Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show',  'create' ,'edit', 'update']);
 

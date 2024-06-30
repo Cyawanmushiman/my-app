@@ -23,18 +23,9 @@ class MiddleRunGoalController extends Controller
      */
     public function index(LongRunGoal $longRunGoal)
     {
-        // // 親テーブルでグループ化
-        // $middleRunGoals = MiddleRunGoal::with('longRunGoal')
-        //     ->whereHas('longRunGoal', function ($query) {
-        //         $query->where('user_id', auth()->id());
-        //     })
-        //     ->get();
-
         return view('user.middle_run_goals.index', [
-            // 'longRunGoal' => auth()->user()->longRunGoal,
-            // 'middleRunGoals' => $middleRunGoals,
             'longRunGoal' => $longRunGoal,
-            'middleRunGoals' => $longRunGoal->middleRunGoals,
+            'middleRunGoals' => $longRunGoal->middleRunGoals->sortBy('finish_on'),
         ]);
     }
 
@@ -59,18 +50,9 @@ class MiddleRunGoalController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $bulkInsert = [];
-        $params = $request->substitutable();
-        foreach ($params['titles'] as $index => $title) {
-            $bulkInsert[] = [
-                'long_run_goal_id' => $params['long_run_goal_id'],
-                'title' => $title,
-                'finish_on' => $params['finish_ons'][$index],
-            ];
-        }
-        \DB::table('middle_run_goals')->insert($bulkInsert);
+        MiddleRunGoal::create($request->substitutable());
 
-        return to_route('user.purposes.index')->with('status', 'success create middle run goal');
+        return to_route('user.middle_run_goals.index')->with('status', 'success create middle run goal');
     }
 
     /**
@@ -78,10 +60,11 @@ class MiddleRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(LongRunGoal $longRunGoal)
+    public function edit(MiddleRunGoal $middleRunGoal)
     {
         return view('user.middle_run_goals.edit', [
-            'longRunGoal' => $longRunGoal,
+            'middleRunGoal' => $middleRunGoal,
+            'longRunGoal' => $middleRunGoal->longRunGoal,
         ]);
     }
 
@@ -93,18 +76,11 @@ class MiddleRunGoalController extends Controller
      * 
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request)
+    public function update(MiddleRunGoal $middleRunGoal ,UpdateRequest $request)
     {
-        $params = $request->substitutable();
-        foreach ($params['middle_run_ids'] as $index => $middleRunId) {
-            $middleRunGoal = MiddleRunGoal::find($middleRunId);
-            $middleRunGoal->update([
-                'title' => $params['titles'][$index],
-                'finish_on' => $params['finish_ons'][$index],
-            ]);
-        }
+        $middleRunGoal->update($request->substitutable());
 
-        return to_route('user.purposes.index')->with('status', 'success update middle run goal');
+        return to_route('user.middle_run_goals.index')->with('status', 'success update middle run goal');
     }
 
     /**
