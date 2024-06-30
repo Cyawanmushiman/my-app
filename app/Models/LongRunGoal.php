@@ -14,6 +14,7 @@ class LongRunGoal extends Model
 
     protected $casts = [
         'finish_on' => 'date',
+        'start_on' => 'date',
     ];
 
     public function middleRunGoals(): HasMany

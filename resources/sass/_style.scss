@@ -11070,13 +11070,46 @@ section.resume-section .resume-section-content {
     background-color: #fff;
     border: 2px solid #bd5d38;
     border-radius: 50%;
+    cursor: pointer;
 }
 .purpose-popover:hover {
     width: 17px;
     height: 17px;
     background-color: #bd5d38;
 }
-.long-run-popover {
+.long-run-popover-start {
+    width: 15px; 
+    height: 15px; 
+    background-color: #fff;
+    border: 2px solid #7ecafc;
+    border-radius: 50%;
+    position:absolute;
+    top: 2px;
+    left: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.long-run-popover-start:hover {
+    width: 17px;
+    height: 17px;
+    background-color: #7ecafc;
+}
+.long-run-popover-start-label {
+    position: absolute;
+    font-size: 10px;
+    top: 20px;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+.walking-gif-popover {
+    width: 30px; 
+    height: 30px; 
+    top: -14px; 
+    position:absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.long-run-popover-finish {
     width: 15px; 
     height: 15px; 
     background-color: #fff;
@@ -11086,13 +11119,14 @@ section.resume-section .resume-section-content {
     top: 2px;
     left: 100%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
-.long-run-popover:hover {
+.long-run-popover-finish:hover {
     width: 17px;
     height: 17px;
     background-color: #7ecafc;
 }
-.long-run-popover-lobel {
+.long-run-popover-finish-label {
     position: absolute;
     font-size: 10px;
     top: 20px;
@@ -11110,16 +11144,23 @@ section.resume-section .resume-section-content {
     top: 2px;
     // left: 100%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 .middle-run-popover:hover {
     width: 17px;
     height: 17px;
     background-color: #f7b924;
 }
-.middle-run-popover-lobel {
+.middle-run-popover-label {
     position: absolute;
     font-size: 10px;
     top: 20px;
     // left: 100%;
+    transform: translate(-50%, -50%);
+}
+.long-run-popover-today-label {
+    position: absolute;
+    font-size: 10px; 
+    top: -35px; 
     transform: translate(-50%, -50%);
 }

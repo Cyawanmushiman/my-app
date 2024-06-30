@@ -4,37 +4,42 @@
 <section class="resume-section">
     <div class="resume-section-content px-4">
         @if ($purpose)
-        <div class="d-flex mb-5 align-items-center">
-            <div class="col-11 position-relative">
-                <img src="{{ asset('images/gifs/cat-8915_128.gif') }}" alt=""
-                    style="width: 30px; height: 30px; top: -14px; left: {{ $progressbarPer }}%"
-                    class="position-absolute translate-middle">
-                <div class="progress" role="progressbar" aria-label="Example 20px high"
-                    aria-valuenow="{{ $progressbarPer }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
-                    <div class="progress-bar bg-info" style="width: {{ $progressbarPer }}%"></div>
-                </div>
-                @if ($longRunGoal)
-                    <div class="long-run-popover" data-bs-toggle="popover" data-bs-placement="top" data-bs-content={{
-                        $longRunGoal->title }}>
+            <div class="d-flex mb-5 align-items-center">
+                <div class="col-11 position-relative">
+                    <label class="long-run-popover-today-label" style="left: {{ $progressbarPer }}%">{{ today()->format('Y/m/d') }}</label>
+                    <img src="{{ asset('images/gifs/cat-8915_128.gif') }}" alt=""
+                        style="left: {{ $progressbarPer }}%"
+                        class="walking-gif-popover">
+                    <div class="progress" role="progressbar" aria-label="Example 20px high"
+                        aria-valuenow="{{ $progressbarPer }}" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
+                        <div class="progress-bar bg-info" style="width: {{ $progressbarPer }}%"></div>
                     </div>
-                    <label class="long-run-popover-lobel">{{ $longRunGoal->finish_on->format('Y/m/d') }}</label>
-                @endif
-                @if ($middleGoalMap)
-                    @foreach ($middleGoalMap as $per => $middleGoal)
-                        <div class="middle-run-popover" style="left: {{ $per }}%;" data-bs-toggle="popover"
-                            data-bs-placement="top" data-bs-content={{ $middleGoal->title }}>
+                    @if ($longRunGoal)
+                        <div class="long-run-popover-start" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="start!!">
                         </div>
-                        <label class="middle-run-popover-lobel" style="left: {{ $per }}%;">{{
-                            $middleGoal->finish_on->format('Y/m/d') }}</label>
-                    @endforeach
-                @endif
-            </div>
-            <div class="col-1 d-flex justify-content-end">
-                <div class="purpose-popover" data-bs-toggle="popover" data-bs-placement="top"
-                    data-bs-content="{{ $purpose->content }}">
+                        <label class="long-run-popover-start-label">{{ $longRunGoal->start_on->format('Y/m/d') }}</label>
+                        
+                        <div class="long-run-popover-finish" data-bs-toggle="popover" data-bs-placement="top" data-bs-content={{
+                            $longRunGoal->title }}>
+                        </div>
+                        <label class="long-run-popover-finish-label">{{ $longRunGoal->finish_on->format('Y/m/d') }}</label>
+                    @endif
+                    @if ($middleGoalMap)
+                        @foreach ($middleGoalMap as $per => $middleGoal)
+                            <div class="middle-run-popover" style="left: {{ $per }}%;" data-bs-toggle="popover"
+                                data-bs-placement="top" data-bs-content={{ $middleGoal->title }}>
+                            </div>
+                            <label class="middle-run-popover-label" style="left: {{ $per }}%;">{{
+                                $middleGoal->finish_on->format('Y/m/d') }}</label>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="col-1 d-flex justify-content-end">
+                    <div class="purpose-popover" data-bs-toggle="popover" data-bs-placement="top"
+                        data-bs-content="{{ $purpose->content }}">
+                    </div>
                 </div>
             </div>
-        </div>
         @endif
         <div class="d-flex">
             @if ($purpose)

@@ -26,6 +26,13 @@
                         @include('components.form.error', ['name' => 'finish_on'])
                     </div>
 
+                    <div class="col-md-8 mb-3 mx-auto">
+                        <label class="" for="start_on">start date</label>
+                        @include('components.form.date', ['name' => 'start_on', 'required' => true, 'min' =>
+                        today()->format('Y-m-d'), 'value' => today()->format('Y-m-d')])
+                        @include('components.form.error', ['name' => 'start_on'])
+                    </div>
+
                     <div class="text-center my-4">
                         <a href="{{ url()->previous() }}" class="btn btn-outline-dark">
                             <i class="fa-solid fa-reply"></i>

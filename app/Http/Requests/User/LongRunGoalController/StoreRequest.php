@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'purpose_id' => ['required', 'integer'],
             'title' => ['required', 'string', 'max:255'],
             'finish_on' => ['required', 'date'],
+            'start_on' => ['required', 'date'],
         ];
     }
 
@@ -51,6 +52,7 @@ class StoreRequest extends FormRequest
             'purpose_id',
             'title',
             'finish_on',
+            'start_on',
         ]);
     }
 }

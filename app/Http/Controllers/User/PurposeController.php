@@ -32,11 +32,9 @@ class PurposeController extends Controller
         // 未来の最終ゴールまでの進捗を計算
         if ($purpose->longRunGoal) {
             // 未来の日付を取得
-            $scheduleDate = $purpose->longRunGoal->finish_on;
-            $interval = today()->diff($scheduleDate);
-            $daysUntilSchedule = $interval->days;
-
-            $progressbarPer = 100 / $daysUntilSchedule;
+            $totalDayCount = $purpose->longRunGoal->start_on->diff($purpose->longRunGoal->finish_on)->days;
+            $todayDayCount = $purpose->longRunGoal->start_on->diff(today())->days;
+            $progressbarPer = $todayDayCount / $totalDayCount * 100;
         }
 
         // 中期目標の座標を取得
