@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class MiddleRunGoalController extends Controller
 {
-    public function __construct(
-        private MiddleRunGoal $middleRunGoal,
-    ) {
-    }
-
     /**
      * 一覧
      *
