@@ -20,6 +20,14 @@ class PurposeController extends Controller
     {
         $purpose = Purpose::with(['longRunGoal', 'longRunGoal.middleRunGoals'])->where('user_id', auth()->id())->first();
         $progressbarPer = 0;
+        
+        if ($purpose === null) {
+            return view('user.purposes.index', [
+                'purpose' => $purpose,
+                'longRunGoal' => null,
+                'progressbarPer' => $progressbarPer,
+            ]);
+        }
 
         // 未来の最終ゴールまでの進捗を計算
         if ($purpose->longRunGoal) {
@@ -50,6 +58,7 @@ class PurposeController extends Controller
 
         return view('user.purposes.index', [
             'purpose' => $purpose,
+            'longRunGoal' => $purpose->longRunGoal,
             'progressbarPer' => $progressbarPer,
             'middleGoalMap' => $middleGoalMap,
         ]);
