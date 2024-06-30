@@ -63,10 +63,13 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::resource('long_run_goals', LongRunGoalController::class)->except(['show', 'create']);
 
     // 中期目標
+    Route::get('middle_run_goals/index/{long_run_goal}', [MiddleRunGoalController::class, 'index'])->name('middle_run_goals.index');
     Route::get('middle_run_goals/{long_run_goal}/create', [MiddleRunGoalController::class, 'create'])->name('middle_run_goals.create');
+    Route::post('middle_run_goals', [MiddleRunGoalController::class, 'store'])->name('middle_run_goals.store');
     Route::get('middle_run_goals/{long_run_goal}/edit', [MiddleRunGoalController::class, 'edit'])->name('middle_run_goals.edit');
     Route::patch('middle_run_goals/update', [MiddleRunGoalController::class, 'update'])->name('middle_run_goals.update');
-    Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show',  'create' ,'edit', 'update']);
+    Route::delete('middle_run_goals/{middle_run_goal}', [MiddleRunGoalController::class, 'destroy'])->name('middle_run_goals.destroy');
+    // Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show',  'create' ,'edit', 'update']);
 
     // // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);

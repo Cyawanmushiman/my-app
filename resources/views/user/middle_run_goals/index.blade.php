@@ -6,7 +6,12 @@
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
                 <h4 class="my-2">Middle Term List</h4>
-                <a href="{{ route('user.middle_run_goals.create') }}" class="btn btn-primary text-white">create</a>
+                <div class="d-flex">
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-dark me-1">
+                        <i class="fa-solid fa-reply"></i>
+                    </a>
+                    <a href="{{ route('user.middle_run_goals.create', $longRunGoal) }}" class="btn btn-primary text-white">create</a>
+                </div>
             </x-slot>
             <x-slot name="cardBody">
                 <div class="mb-4">
@@ -14,9 +19,9 @@
                     <x-parts.basic_table_layout>
                         <x-slot name="thead">
                             <tr>
-                                <th scope="col" class="text-nowrap">タイトル</th>
-                                <th scope="col" class="text-nowrap">作成日</th>
-                                <th scope="col" class="text-nowrap">削除</th>
+                                <th scope="col" class="text-nowrap">title</th>
+                                <th scope="col" class="text-nowrap">finish date</th>
+                                <th scope="col" class="text-nowrap"></th>
                             </tr>
                         </x-slot>
                         <x-slot name="tbody">
@@ -24,14 +29,16 @@
                                 @foreach($middleRunGoals as $middleRunGoal)
                                     <tr>
                                         <td class="text-nowrap px-2"><a href="{{ route('user.middle_run_goals.edit', $middleRunGoal) }}">{{ $middleRunGoal->title }}</a></td>
-                                        <td class="text-nowrap px-2">{{ $middleRunGoal->created_at }}</td>
-                                        <td class="text-nowrap px-2">
+                                        <td class="text-nowrap px-2">{{ $middleRunGoal->finish_on->format('Y-m-d') }}</td>
+                                        <td class="text-nowrap px-2 text-center">
                                             <form action="{{ route('user.middle_run_goals.destroy', $middleRunGoal) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                
+                                                <input type="hidden" name="long_run_goal_id" value="{{ $longRunGoal->id }}">
                                                 <button class="btn btn-sm btn-outline-danger"
                                                     onclick="return confirm('本当に削除しますか？')"
-                                                >削除</button>
+                                                ><i class="fa-solid fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

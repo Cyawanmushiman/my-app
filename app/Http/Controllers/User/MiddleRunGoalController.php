@@ -21,18 +21,20 @@ class MiddleRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(LongRunGoal $longRunGoal)
     {
-        // 親テーブルでグループ化
-        $middleRunGoals = MiddleRunGoal::with('longRunGoal')
-            ->whereHas('longRunGoal', function ($query) {
-                $query->where('user_id', auth()->id());
-            })
-            ->get();
+        // // 親テーブルでグループ化
+        // $middleRunGoals = MiddleRunGoal::with('longRunGoal')
+        //     ->whereHas('longRunGoal', function ($query) {
+        //         $query->where('user_id', auth()->id());
+        //     })
+        //     ->get();
 
         return view('user.middle_run_goals.index', [
-            'longRunGoal' => auth()->user()->longRunGoal,
-            'middleRunGoals' => $middleRunGoals,
+            // 'longRunGoal' => auth()->user()->longRunGoal,
+            // 'middleRunGoals' => $middleRunGoals,
+            'longRunGoal' => $longRunGoal,
+            'middleRunGoals' => $longRunGoal->middleRunGoals,
         ]);
     }
 
@@ -112,10 +114,11 @@ class MiddleRunGoalController extends Controller
      * 
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(MiddleRunGoal $middleRunGoal)
+    public function destroy(MiddleRunGoal $middleRunGoal, Request $request)
     {
         $middleRunGoal->delete();
-
-        return to_route('user.middle_run_goals.index')->with('status', '削除しました');
+        
+        $longRunGoal = LongRunGoal::find($request->long_run_goal_id);
+        return to_route('user.middle_run_goals.index', $longRunGoal)->with('status', 'success delete middle run goal');
     }
 }
