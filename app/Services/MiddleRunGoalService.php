@@ -11,5 +11,4 @@ use Illuminate\Database\Eloquent\Builder;
 
 class MiddleRunGoalService
 {
-
 }

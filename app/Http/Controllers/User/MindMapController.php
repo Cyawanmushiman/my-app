@@ -71,7 +71,7 @@ class MindMapController extends Controller
     // 再起的に画像名を取得する
     private function findImageIds($array, &$results = []) {
         foreach ($array as $key => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 // 配列の場合は再帰的に探索
                 self::findImageIds($value, $results);
             } else {

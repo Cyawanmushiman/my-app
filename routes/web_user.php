@@ -72,7 +72,6 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::delete('{middle_run_goal}', [MiddleRunGoalController::class, 'destroy'])->name('destroy');
     });
         
-
     // // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
 

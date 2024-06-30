@@ -17,41 +17,16 @@ use App\Http\Requests\User\PurposeController\UpdateRequest;
 use App\Util\GoalProgress;
 
 class PurposeController extends Controller
-{
-    public function __construct(
-        public PurposeService $purposeService,
-        public LongRunGoalService $longRunGoalService,
-        public MiddleRunGoalService $middleRunGoalService
-    )
-    {
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $purpose = Purpose::with(['longRunGoal', 'longRunGoal.middleRunGoals'])->where('user_id', auth()->id())->first();
-        
-        $progressbarPerForLong = 0;
-        if ($purpose === null) {
-            return view('user.purposes.index', [
-                'purpose' => $purpose,
-                'longRunGoal' => null,
-                'progressbarPerForLong' => $progressbarPerForLong,
-            ]);
-        }
-        
-        $progressData = GoalProgress::getProgressData($purpose);
         return view('user.purposes.index', [
-            'purpose' => $purpose,
-            'longRunGoal' => $purpose->longRunGoal,
-            'progressbarPerForLong' => $progressData['progressbarPerForLong'],
-            'middleGoalMap' => $progressData['middleGoalMap'],
-            'gifImageUrl' => $progressData['gifImageUrl'],
+            'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.

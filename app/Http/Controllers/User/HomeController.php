@@ -25,23 +25,8 @@ class HomeController extends Controller
             return to_route('user.set_ups.create_first_goal');
         }
         
-        $purpose = auth()->user()->purpose;
-        $longRunGoal = $purpose->longRunGoal ?? null;
-        $progressData = [
-            'progressbarPerForLong' => 0,
-            'middleGoalMap' => [],
-            'gifImageUrl' => null,
-        ];
-        if ($purpose) {
-            $progressData = GoalProgress::getProgressData($purpose);
-        }
-        
         return view('user.home', [
-            'purpose' => $purpose,
-            'longRunGoal' => $longRunGoal,
-            'progressbarPerForLong' => $progressData['progressbarPerForLong'],
-            'middleGoalMap' => $progressData['middleGoalMap'],
-            'gifImageUrl' => $progressData['gifImageUrl'],
+            'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
         ]);
     }
 

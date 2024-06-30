@@ -32,24 +32,28 @@ class GoalProgress
     }
     
     // 進捗バー用のデータを取得
-    public static function getProgressData(Purpose $purpose)
+    public static function getGoalProgressData(?Purpose $purpose): array
     {
         // gif画像のurlをランダムで取得
         $gifImageUrl = self::getRandumGifImageUrl();
 
+        $longRunGoal = $purpose->longRunGoal ?? null;
         // 長期目標の進捗率を取得
         $progressbarPerForLong = 0;
-        if ($purpose->longRunGoal) {
-            $progressbarPerForLong = self::getProgressPerForLong($purpose->longRunGoal);
+        if ($longRunGoal) {
+            $progressbarPerForLong = self::getProgressPerForLong($longRunGoal);
         }
 
         // 中期目標の進捗バー用のデータを作成
         $middleGoalMap = [];
-        if ($purpose->middleRunGoals) {
+        $middleRunGoals = $purpose->middleRunGoals ?? null;
+        if ($middleRunGoals) {
             $middleGoalMap = self::getMiddleGoalMapData($purpose);
         }
        
         return [
+            'purpose' => $purpose,
+            'longRunGoal' => $longRunGoal,
             'gifImageUrl' => $gifImageUrl,
             'progressbarPerForLong' => $progressbarPerForLong,
             'middleGoalMap' => $middleGoalMap,
@@ -67,7 +71,7 @@ class GoalProgress
         return $gifImageUrl;
     }
     
-    private static function getProgressPerForLong(LongRunGoal $longRunGoal)
+    private static function getProgressPerForLong(LongRunGoal $longRunGoal): float
     {
         // 最終日までの日数を取得
         $totalDayCount = $longRunGoal->start_on->diff($longRunGoal->finish_on)->days;
@@ -79,7 +83,7 @@ class GoalProgress
     }
     
     // 進捗バー用のデータを取得
-    private static function getMiddleGoalMapData(Purpose $purpose)
+    private static function getMiddleGoalMapData(Purpose $purpose): array
     {
         $middleGoalMap = [];
         foreach ($purpose->middleRunGoals as $middleRunGoal) {
@@ -94,7 +98,7 @@ class GoalProgress
     }
     
     // 中期目標の進捗率を取得
-    private static function getProgressPerForMiddle(LongRunGoal $longRunGoal, MiddleRunGoal $middleRunGoal)
+    private static function getProgressPerForMiddle(LongRunGoal $longRunGoal, MiddleRunGoal $middleRunGoal): float
     {
         // 最終日までの日数を取得
         $totalDayCount = $longRunGoal->start_on->diff($longRunGoal->finish_on)->days;
