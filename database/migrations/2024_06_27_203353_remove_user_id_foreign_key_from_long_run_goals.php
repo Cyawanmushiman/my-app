@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('long_run_goals', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            // $table->dropForeign(['user_id']);
+            // $table->dropColumn('user_id');
         
             // purpose_idカラム追加
             $table->unsignedBigInteger('purpose_id')->after('id');
