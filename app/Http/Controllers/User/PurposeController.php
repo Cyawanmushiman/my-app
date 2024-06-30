@@ -20,7 +20,7 @@ class PurposeController extends Controller
     {
         $purpose = Purpose::with(['longRunGoal', 'longRunGoal.middleRunGoals'])->where('user_id', auth()->id())->first();
         $progressbarPer = 0;
-        
+
         if ($purpose === null) {
             return view('user.purposes.index', [
                 'purpose' => $purpose,
@@ -47,16 +47,21 @@ class PurposeController extends Controller
                 $middleGoalCount = $purpose->longRunGoal->start_on->diff($middleRunGoal->finish_on)->days;
                 // 進捗率を計算
                 $middleProgressbarPer = $middleGoalCount / $totalDayCount * 100;
-                
+
                 $middleGoalMap[$middleProgressbarPer] = $middleRunGoal->finish_on->format('Y/m/d') . "　" . $middleRunGoal->title;
             }
         }
 
+        // ランダムでgifを取得
+        $gifKey = array_rand(Purpose::GIF_IMAGE_NAMES);
+        // urlを取得
+        $gifImageUrl = asset('images/gifs/' . Purpose::GIF_IMAGE_NAMES[$gifKey]);
         return view('user.purposes.index', [
             'purpose' => $purpose,
             'longRunGoal' => $purpose->longRunGoal,
             'progressbarPer' => $progressbarPer,
             'middleGoalMap' => $middleGoalMap,
+            'gifImageUrl' => $gifImageUrl,
         ]);
     }
 

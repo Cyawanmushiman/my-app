@@ -7,7 +7,7 @@
             <div class="d-flex mb-5 align-items-center">
                 <div class="col-11 position-relative">
                     <label class="long-run-popover-today-label" style="left: {{ $progressbarPer }}%">{{ today()->format('Y/m/d') }}</label>
-                    <img src="{{ asset('images/gifs/cat-8915_128.gif') }}" alt=""
+                    <img src="{{ $gifImageUrl }}" alt=""
                         style="left: {{ $progressbarPer }}%"
                         class="walking-gif-popover">
                     <div class="progress" role="progressbar" aria-label="Example 20px high"

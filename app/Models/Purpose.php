@@ -14,6 +14,12 @@ class Purpose extends Model
     
     protected $guarded = [];
     
+    const GIF_IMAGE_NAMES = [
+        'dark-human.gif',
+        'cat-8915_128.gif',
+        'walking-speed.gif',
+    ];
+    
     /////// リレーションエリア ↓ //////
     public function user(): BelongsTo
     {
