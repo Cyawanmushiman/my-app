@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
+use App\Util\GoalProgress;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +25,24 @@ class HomeController extends Controller
             return to_route('user.set_ups.create_first_goal');
         }
         
-        return view('user.home');
+        $purpose = auth()->user()->purpose;
+        $longRunGoal = $purpose->longRunGoal ?? null;
+        $progressData = [
+            'progressbarPerForLong' => 0,
+            'middleGoalMap' => [],
+            'gifImageUrl' => null,
+        ];
+        if ($purpose) {
+            $progressData = GoalProgress::getProgressData($purpose);
+        }
+        
+        return view('user.home', [
+            'purpose' => $purpose,
+            'longRunGoal' => $longRunGoal,
+            'progressbarPerForLong' => $progressData['progressbarPerForLong'],
+            'middleGoalMap' => $progressData['middleGoalMap'],
+            'gifImageUrl' => $progressData['gifImageUrl'],
+        ]);
     }
 
     public function store(StoreRequest $request): RedirectResponse

@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="resume-section">
-    <div class="resume-section-content px-4">
+    <div class="resume-section-content px-5">
         @include('components.parts.purposes.goal_progress')
     </div>
 </section>

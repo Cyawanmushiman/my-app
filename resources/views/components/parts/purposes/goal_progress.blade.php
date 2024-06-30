@@ -1,5 +1,5 @@
 @if ($purpose)
-<div class="d-flex mb-5 align-items-center">
+<div class="d-flex mb-3 align-items-center">
     <div class="col-11 position-relative">
         <label class="long-run-popover-today-label" style="left: {{ $progressbarPerForLong }}%">{{ today()->format('Y/m/d') }}</label>
         <img src="{{ $gifImageUrl }}" alt=""
@@ -36,23 +36,22 @@
 @endif
 <div class="d-flex">
 @if ($purpose)
-    <a href="{{ route('user.purposes.edit', $purpose) }}">Purposes</a>
+    <a href="{{ route('user.purposes.edit', $purpose) }}" class="goal-breadcrumb">Purposes</a>
 @else
-    <a href="{{ route('user.purposes.create') }}">Purposes</a>
+    <a href="{{ route('user.purposes.create') }}" class="goal-breadcrumb">Purposes</a>
 @endif
-<span class="mx-2">></span>
+<span class="mx-2 goal-breadcrumb">></span>
 @if ($purpose && $longRunGoal === null)
-    <a href="{{ route('user.long_run_goals.create', $purpose) }}">LongRunGoal</a>
+    <a href="{{ route('user.long_run_goals.create', $purpose) }}" class="goal-breadcrumb">LongRunGoal</a>
 @elseif ($longRunGoal)
-    <a href="{{ route('user.long_run_goals.edit', $longRunGoal) }}">LongRunGoal</a>
+    <a href="{{ route('user.long_run_goals.edit', $longRunGoal) }}" class="goal-breadcrumb">LongRunGoal</a>
 @else
-    <a tabindex="-1">LongRunGoal</a>
+    <a tabindex="-1" style="font-size: 10px">LongRunGoal</a>
 @endif
-<span class="mx-2">></span>
+<span class="mx-2 goal-breadcrumb">></span>
 @if ($longRunGoal)
-    {{-- <a href="{{ route('user.middle_run_goals.create', $longRunGoal) }}">MiddleRunGoal</a> --}}
-    <a href="{{ route('user.middle_run_goals.index', $longRunGoal) }}">MiddleRunGoal</a>
+    <a href="{{ route('user.middle_run_goals.index', $longRunGoal) }}" class="goal-breadcrumb">MiddleRunGoal</a>
 @else
-    <a tabindex="-1">MiddleRunGoal</a>
+    <a tabindex="-1" style="font-size: 10px">MiddleRunGoal</a>
 @endif
 </div>

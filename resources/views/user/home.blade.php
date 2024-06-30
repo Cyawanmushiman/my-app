@@ -3,7 +3,8 @@
 @section('title', 'Home')
 @section('content')
 <section class="resume-section pt-0" id="home">
-    <div class="resume-section-content">
+    <div class="resume-section-content px-4">
+        @include('components.parts.purposes.goal_progress')
         <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data">
             @csrf
             @error('daily_run_goal_ids')
