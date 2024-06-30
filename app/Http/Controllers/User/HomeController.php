@@ -55,7 +55,6 @@ class HomeController extends Controller
         if ($userInspires->count() > 0) {
             // 循環カウント
             $index = $inspireCount % \count($userInspires);
-            // dd($userInspires, $count);
             $inspire = $userInspires[$index];
         }
         
