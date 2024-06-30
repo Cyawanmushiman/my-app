@@ -76,10 +76,10 @@ class MiddleRunGoalController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(MiddleRunGoal $middleRunGoal)
+    public function edit(LongRunGoal $longRunGoal)
     {
         return view('user.middle_run_goals.edit', [
-            'middleRunGoal' => $middleRunGoal,
+            'longRunGoal' => $longRunGoal,
         ]);
     }
 
@@ -91,11 +91,18 @@ class MiddleRunGoalController extends Controller
      * 
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, MiddleRunGoal $middleRunGoal)
+    public function update(UpdateRequest $request)
     {
-        $middleRunGoal->fill($request->substitutable())->save();
+        $params = $request->substitutable();
+        foreach ($params['middle_run_ids'] as $index => $middleRunId) {
+            $middleRunGoal = MiddleRunGoal::find($middleRunId);
+            $middleRunGoal->update([
+                'title' => $params['titles'][$index],
+                'finish_on' => $params['finish_ons'][$index],
+            ]);
+        }
 
-        return back()->with('status', '更新しました');
+        return to_route('user.purposes.index')->with('status', 'success update middle run goal');
     }
 
     /**

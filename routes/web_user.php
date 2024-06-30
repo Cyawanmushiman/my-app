@@ -65,7 +65,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     // 中期目標
     Route::get('middle_run_goals/{long_run_goal}/create', [MiddleRunGoalController::class, 'create'])->name('middle_run_goals.create');
     Route::get('middle_run_goals/{long_run_goal}/edit', [MiddleRunGoalController::class, 'edit'])->name('middle_run_goals.edit');
-    Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show',  'create' ,'edit']);
+    Route::patch('middle_run_goals/update', [MiddleRunGoalController::class, 'update'])->name('middle_run_goals.update');
+    Route::resource('middle_run_goals', MiddleRunGoalController::class)->except(['show',  'create' ,'edit', 'update']);
 
     // // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);

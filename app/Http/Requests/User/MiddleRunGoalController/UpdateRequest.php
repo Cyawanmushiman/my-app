@@ -25,8 +25,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {    
         return [
-            'long_run_goal_id' => ['required', 'exists:long_run_goals,id'],
-            'title' => ['required', 'string', 'max:255', Rule::unique('middle_run_goals')->ignore($this->middle_run_goal)],
+            'long_run_goal_id' => ['required', 'integer', 'exists:long_run_goals,id'],
+            'middle_run_ids' => ['nullable', 'array'],
+            'titles' => ['nullable', 'array'],
+            'titles.*' => ['nullable', 'string', 'max:255'],
+            'finish_ons' => ['nullable', 'array'],
+            'finish_ons.*' => ['nullable', 'date'],
         ];
     }
 
@@ -37,7 +41,9 @@ class UpdateRequest extends FormRequest
     {
         return $this->only([
             'long_run_goal_id',
-            'title',
+            'middle_run_ids',
+            'titles',
+            'finish_ons',
         ]);
     }
 }
