@@ -54,4 +54,9 @@
 @else
     <a tabindex="-1" style="font-size: 10px">MiddleRunGoal</a>
 @endif
+@if ($gpData['nextGoalCount'])
+    <span class="mx-2 goal-breadcrumb">
+        <span class="text-danger">{{ $gpData['nextGoalCount'] }}</span> days left until the next goal
+    </span>
+@endif
 </div>

@@ -24,40 +24,37 @@ class GoalProgress
         'このアプリを使っている時点でもう今日は素敵',
     ];
     
-    // ランダムでサポートコメントを取得
-    public static function getSupportComment(): string
-    {
-        $commentKey = array_rand(self::SUPPORT_COMMENTS);
-        return self::SUPPORT_COMMENTS[$commentKey];
-    }
-    
     // 進捗バー用のデータを取得
     public static function getGoalProgressData(?Purpose $purpose): array
     {
         // gif画像のurlをランダムで取得
         $gifImageUrl = self::getRandumGifImageUrl();
 
-        $longRunGoal = $purpose->longRunGoal ?? null;
         // 長期目標の進捗率を取得
-        $progressbarPerForLong = 0;
-        if ($longRunGoal) {
-            $progressbarPerForLong = self::getProgressPerForLong($longRunGoal);
-        }
+        $longRunGoal = $purpose->longRunGoal ?? null;
+        $progressbarPerForLong = self::getProgressPerForLong($longRunGoal);
 
         // 中期目標の進捗バー用のデータを作成
-        $middleGoalMap = [];
-        $middleRunGoals = $purpose->middleRunGoals ?? null;
-        if ($middleRunGoals) {
-            $middleGoalMap = self::getMiddleGoalMapData($purpose);
-        }
-       
+        $middleGoalMap = self::getMiddleGoalMapData($purpose);
+        
+        // 次の目標までの残り日数を取得
+        $nextGoalCount = self::getDayCountToNextGoal($purpose);
+        
         return [
             'purpose' => $purpose,
             'longRunGoal' => $longRunGoal,
             'gifImageUrl' => $gifImageUrl,
             'progressbarPerForLong' => $progressbarPerForLong,
             'middleGoalMap' => $middleGoalMap,
+            'nextGoalCount' => $nextGoalCount,
         ];
+    }
+    
+    // ランダムでサポートコメントを取得
+    public static function getSupportComment(): string
+    {
+        $commentKey = array_rand(self::SUPPORT_COMMENTS);
+        return self::SUPPORT_COMMENTS[$commentKey];
     }
     
     // ランダムでgif画像のurlを取得
@@ -71,27 +68,35 @@ class GoalProgress
         return $gifImageUrl;
     }
     
-    private static function getProgressPerForLong(LongRunGoal $longRunGoal): float
+    private static function getProgressPerForLong(?LongRunGoal $longRunGoal): float
     {
-        // 最終日までの日数を取得
-        $totalDayCount = $longRunGoal->start_on->diff($longRunGoal->finish_on)->days;
-        $todayDayCount = $longRunGoal->start_on->diff(today())->days;
-        // 座標を取得
-        $progressbarPer = $todayDayCount / $totalDayCount * 100;
+        $progressbarPer = 0;
+        
+        if ($longRunGoal) {
+            // 最終日までの日数を取得
+            $totalDayCount = $longRunGoal->start_on->diff($longRunGoal->finish_on)->days;
+            $startFromTodayCount = $longRunGoal->start_on->diff(today())->days;
+            // 座標を取得
+            $progressbarPer = $startFromTodayCount / $totalDayCount * 100;
+        }
         
         return $progressbarPer;
     }
     
     // 進捗バー用のデータを取得
-    private static function getMiddleGoalMapData(Purpose $purpose): array
+    private static function getMiddleGoalMapData(?Purpose $purpose): array
     {
         $middleGoalMap = [];
-        foreach ($purpose->middleRunGoals as $middleRunGoal) {
-            // 中期目標の座標を取得
-            $middleProgressbarPer = self::getProgressPerForMiddle($purpose->longRunGoal, $middleRunGoal);
-
-            // 進捗率と目標をマップに格納
-            $middleGoalMap[$middleProgressbarPer] = $middleRunGoal->finish_on->format('Y/m/d') . "　" . $middleRunGoal->title;
+        
+        $middleRunGoals = $purpose->middleRunGoals ?? null;
+        if ($middleRunGoals && $middleRunGoals->isNotEmpty()) {
+            foreach ($purpose->middleRunGoals as $middleRunGoal) {
+                // 中期目標の座標を取得
+                $middleProgressbarPer = self::getProgressPerForMiddle($purpose->longRunGoal, $middleRunGoal);
+    
+                // 進捗率と目標をマップに格納
+                $middleGoalMap[$middleProgressbarPer] = $middleRunGoal->finish_on->format('Y/m/d') . "　" . $middleRunGoal->title;
+            }
         }
         
         return $middleGoalMap;
@@ -107,5 +112,23 @@ class GoalProgress
         $middleProgressbarPer = $middleGoalCount / $totalDayCount * 100;
         
         return $middleProgressbarPer;
+    }
+
+    // 次の目標までの残り日数を取得
+    private static function getDayCountToNextGoal(?Purpose $purpose): int|null
+    {
+        $nextGoalCount = null;
+        
+        $longRunGoal = $purpose->longRunGoal ?? null;
+        if ($longRunGoal) {
+            $nextGoalCount = $longRunGoal->finish_on->diff(today())->days;
+        }
+        
+        $middleRunGoals = $purpose->middleRunGoals ?? null;
+        if ($middleRunGoals && $middleRunGoals->isNotEmpty()) {
+            $nextGoalCount = $middleRunGoals->sortBy('finish_on')->first()->finish_on->diff(today())->days;
+        }
+        
+        return $nextGoalCount;
     }
 }
