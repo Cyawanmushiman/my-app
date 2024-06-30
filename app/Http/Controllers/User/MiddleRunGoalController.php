@@ -50,9 +50,9 @@ class MiddleRunGoalController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        MiddleRunGoal::create($request->substitutable());
+        $middleRunGoal = MiddleRunGoal::create($request->substitutable());
 
-        return to_route('user.middle_run_goals.index')->with('status', 'success create middle run goal');
+        return to_route('user.middle_run_goals.index', $middleRunGoal->longRunGoal)->with('status', 'success create middle run goal');
     }
 
     /**
@@ -80,7 +80,7 @@ class MiddleRunGoalController extends Controller
     {
         $middleRunGoal->update($request->substitutable());
 
-        return to_route('user.middle_run_goals.index')->with('status', 'success update middle run goal');
+        return to_route('user.middle_run_goals.index', $middleRunGoal->longRunGoal)->with('status', 'success update middle run goal');
     }
 
     /**
