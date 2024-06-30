@@ -25,12 +25,10 @@
                         <label class="long-run-popover-finish-label">{{ $longRunGoal->finish_on->format('Y/m/d') }}</label>
                     @endif
                     @if ($middleGoalMap)
-                        @foreach ($middleGoalMap as $per => $middleGoal)
+                        @foreach ($middleGoalMap as $per => $middleGoalContent)
                             <div class="middle-run-popover" style="left: {{ $per }}%;" data-bs-toggle="popover"
-                                data-bs-placement="top" data-bs-content={{ $middleGoal->title }}>
+                                data-bs-placement="top" data-bs-content="{{ $middleGoalContent }}">
                             </div>
-                            <label class="middle-run-popover-label" style="left: {{ $per }}%;">{{
-                                $middleGoal->finish_on->format('Y/m/d') }}</label>
                         @endforeach
                     @endif
                 </div>

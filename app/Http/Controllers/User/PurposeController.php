@@ -31,9 +31,10 @@ class PurposeController extends Controller
 
         // 未来の最終ゴールまでの進捗を計算
         if ($purpose->longRunGoal) {
-            // 未来の日付を取得
+            // 最終日までの日数を取得
             $totalDayCount = $purpose->longRunGoal->start_on->diff($purpose->longRunGoal->finish_on)->days;
             $todayDayCount = $purpose->longRunGoal->start_on->diff(today())->days;
+            // 進捗率を計算
             $progressbarPer = $todayDayCount / $totalDayCount * 100;
         }
 
@@ -41,16 +42,13 @@ class PurposeController extends Controller
         $middleGoalMap = [];
         if ($purpose->middleRunGoals) {
             foreach ($purpose->middleRunGoals as $middleRunGoal) {
-                // 最終ゴールの日付を取得
-                $finalScheduleDate = $middleRunGoal->longRunGoal->finish_on;
-                // 目標の日付を取得
-                $middleScheduleDate = $middleRunGoal->finish_on;
-                // 最終ゴールまでの日数を取得
-                $middleInterval = $middleScheduleDate->diff($finalScheduleDate);
-                $daysUntilMiddleSchedule = $middleInterval->days;
-                $middleProgressbarPer = 100 / $daysUntilMiddleSchedule;
-
-                $middleGoalMap[$middleProgressbarPer] = $middleRunGoal;
+                // 最終日までの日数を取得
+                $totalDayCount = $purpose->longRunGoal->start_on->diff($purpose->longRunGoal->finish_on)->days;
+                $middleGoalCount = $purpose->longRunGoal->start_on->diff($middleRunGoal->finish_on)->days;
+                // 進捗率を計算
+                $middleProgressbarPer = $middleGoalCount / $totalDayCount * 100;
+                
+                $middleGoalMap[$middleProgressbarPer] = $middleRunGoal->finish_on->format('Y/m/d') . "　" . $middleRunGoal->title;
             }
         }
 

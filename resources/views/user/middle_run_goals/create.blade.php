@@ -24,7 +24,7 @@
                             <div class="col-md-8 mx-auto">
                                 <label class="" for="finish_ons[{{ $i }}]">finish date</label>
                                 @include('components.form.date', ['name' => "finish_ons[$i]", 'min' =>
-                                today()->format('Y-m-d'), 'max' => $longRunGoal->finish_on->format('Y-m-d')])
+                                $longRunGoal->start_on->format('Y-m-d'), 'max' => $longRunGoal->finish_on->format('Y-m-d')])
                                 @include('components.form.error', ['name' => "finish_ons"])
                             </div>
                         </div>
