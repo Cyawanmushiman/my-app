@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Util\GoalProgress;
+use App\Models\LongRunGoal;
+use Illuminate\Http\Request;
+use App\Models\MiddleRunGoal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\MiddleRunGoalController\StoreRequest;
 use App\Http\Requests\User\MiddleRunGoalController\UpdateRequest;
-use App\Models\LongRunGoal;
-use App\Models\MiddleRunGoal;
-use Illuminate\Http\Request;
 
 class MiddleRunGoalController extends Controller
 {
@@ -21,6 +22,7 @@ class MiddleRunGoalController extends Controller
         return view('user.middle_run_goals.index', [
             'longRunGoal' => $longRunGoal,
             'middleRunGoals' => $longRunGoal->middleRunGoals->sortBy('finish_on'),
+            'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
         ]);
     }
 
