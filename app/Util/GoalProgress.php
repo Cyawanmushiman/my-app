@@ -40,6 +40,9 @@ class GoalProgress
         // 次の目標までの残り日数を取得
         $nextGoalCount = self::getDayCountToNextGoal($purpose);
         
+        // ショートレンジ進捗バー用のデータを作成
+        $shortRangeData = self::shortRangeGoalProgress($purpose);
+        
         return [
             'purpose' => $purpose,
             'longRunGoal' => $longRunGoal,
@@ -47,6 +50,7 @@ class GoalProgress
             'progressbarPerForLong' => $progressbarPerForLong,
             'middleGoalMap' => $middleGoalMap,
             'nextGoalCount' => $nextGoalCount,
+            'shortRangeData' => $shortRangeData,
         ];
     }
     
@@ -130,5 +134,39 @@ class GoalProgress
         }
         
         return $nextGoalCount;
+    }
+    
+    private static function shortRangeGoalProgress(? Purpose $purpose): array
+    {
+        // 全ての目標を取得
+        $longRunGoal = $purpose->longRunGoal ?? null;
+        $middleRunGoals = $purpose->middleRunGoals ?? null;
+
+        $allGoals = [];
+        $shortRangeData = [];
+        if ($middleRunGoals && $middleRunGoals->isNotEmpty()) {
+            foreach ($middleRunGoals as $middleRunGoal) {
+                $allGoals[$middleRunGoal->finish_on->format('Y/m/d')] = $middleRunGoal;
+            }
+            // dd($allGoals);
+            $allGoals = array_merge($allGoals, [
+                $longRunGoal->start_on->format('Y/m/d') => $longRunGoal,
+                $longRunGoal->finish_on->format('Y/m/d') => $longRunGoal,
+                today()->format('Y/m/d') => null,
+            ]);
+            
+            // 日付順にソート
+            ksort($allGoals);   
+            dump($allGoals);
+            // 今日の日付の前後の目標を取得
+            $shortRangeData = [];
+            $todayKey = today()->format('Y/m/d');
+            $todayIndex = array_search($todayKey, array_keys($allGoals));
+            $allGoals = array_values($allGoals);
+            $shortRangeData['before'] = $allGoals[$todayIndex - 1] ?? null;
+            $shortRangeData['after'] = $allGoals[$todayIndex + 1] ?? null;
+        }
+        
+        return $shortRangeData;
     }
 }

@@ -27,7 +27,9 @@ class StoreRequest extends FormRequest
         return [
             'long_run_goal_id' => ['required', 'integer', 'exists:long_run_goals,id'],
             'title' => ['required', 'string', 'max:255'],
-            'finish_on' => ['required', 'date'],
+            // 'finish_on' => ['required', 'date'],
+            // 同じ長期目標内での中期目標の締め切り日は一意である必要がある
+            'finish_on' => ['required', 'date', Rule::unique('middle_run_goals')->where('long_run_goal_id', $this->long_run_goal_id)],
         ];
     }
 

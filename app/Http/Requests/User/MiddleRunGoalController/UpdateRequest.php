@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
         return [
             'long_run_goal_id' => ['required', 'exists:long_run_goals,id'],
             'title' => ['required', 'string', 'max:255'],
-            'finish_on' => ['required', 'date'],
+            'finish_on' => ['required', 'date', Rule::unique('middle_run_goals')->where('long_run_goal_id', $this->long_run_goal_id)->ignore($this->middle_run_goal)],
         ];
     }
 

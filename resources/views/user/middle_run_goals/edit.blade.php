@@ -19,13 +19,13 @@
                     <div class="col-md-8 mx-auto">
                         <label class="" for="title">title</label>
                         @include('components.form.text', ['name' => "title", 'value' => $middleRunGoal->title])
-                        @include('components.form.error', ['name' => "titles"])
+                        @include('components.form.error', ['name' => "title"])
                     </div>
                     <div class="col-md-8 mx-auto">
                         <label class="" for="finish_on">finish date</label>
                         @include('components.form.date', ['name' => "finish_on", 'min' =>
                         $longRunGoal->start_on->format('Y-m-d'), 'max' => $longRunGoal->finish_on->format('Y-m-d'), 'value' => $middleRunGoal->finish_on->format('Y-m-d')])
-                        @include('components.form.error', ['name' => "finish_ons"])
+                        @include('components.form.error', ['name' => "finish_on"])
                     </div>
 
                     <div class="text-center my-4">

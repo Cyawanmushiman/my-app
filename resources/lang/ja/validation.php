@@ -238,5 +238,7 @@ return [
         'title' => 'title',
         'content' => 'content',
         'shcedule_on' => 'schedule',
+        'start_on' => 'start date',
+        'finish_on' => 'finish date',
     ],
 ];
