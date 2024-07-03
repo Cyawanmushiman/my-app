@@ -240,6 +240,12 @@
             </div>
         </div>
 
+        <div class="row mb-5">
+            <div class="col-12 mt-3 text-center">
+                <a href="https://calendar.google.com/calendar/u/0/r/week" class="text-decoration-none">Let's make plans for tomorrow!</a>
+            </div>
+        </div>
+
         {{-- <div role="region" aria-labelledby="Cap1" tabindex="0">
             <table>
                 <caption id="Cap1">56 contributions in the last year</caption>
