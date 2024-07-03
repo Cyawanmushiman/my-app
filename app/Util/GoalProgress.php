@@ -157,7 +157,6 @@ class GoalProgress
             
             // 日付順にソート
             ksort($allGoals);   
-            dump($allGoals);
             // 今日の日付の前後の目標を取得
             $shortRangeData = [];
             $todayKey = today()->format('Y/m/d');
