@@ -242,7 +242,7 @@
 
         <div class="row mb-5">
             <div class="col-12 mt-3 text-center">
-                <a href="https://calendar.google.com/calendar/u/0/r/week" class="text-decoration-none">Let's make plans for tomorrow!</a>
+                <a href="https://calendar.google.com/calendar/u/0/r/week" class="text-decoration-none"><i class="bi bi-calendar-date me-2"></i>Let's make plans for tomorrow!</a>
             </div>
         </div>
 
