@@ -51,7 +51,7 @@ class DailyScoreService
             ->where('user_id', auth()->id())
             ->latest();
             
-        if ($params['search_diary']) {
+        if ( ! empty($params['search_diary'])) {
             $query->where('diary', 'like', "%{$params['search_diary']}%");
         }
         
