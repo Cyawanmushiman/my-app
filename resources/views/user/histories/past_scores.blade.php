@@ -25,6 +25,11 @@
                         <button type="submit" class="btn btn-primary text-white">
                             <i class="fa-solid fa-search"></i>
                         </button>
+                        <a href="{{ route('user.histories.past_scores') }}">
+                            <button type="button" class="btn btn-outline-dark">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                        </a>
                     </div>
                 </form>
                 <div class="row justify-content-center">
