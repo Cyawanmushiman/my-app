@@ -44,4 +44,17 @@ class DailyScoreService
 
         return $consecutiveDays;
     }
+    
+    public static function search(array $params): Builder
+    {
+        $query = DailyScore::with(['dailyRunGoals'])
+            ->where('user_id', auth()->id())
+            ->latest();
+            
+        if ($params['search_diary']) {
+            $query->where('diary', 'like', "%{$params['search_diary']}%");
+        }
+        
+        return $query;
+    }
 }

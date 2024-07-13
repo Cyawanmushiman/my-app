@@ -10,15 +10,32 @@
                         class="fa-solid fa-reply"></i></a>
             </x-slot>
             <x-slot name="cardBody">
+                <form action="{{ route('user.histories.past_scores') }}" method="get">
+                    @csrf
+                    
+                    {{-- 日記のフォーム --}}
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <div class="col-2">
+                            <label for="search_diary">search diary</label>
+                        </div>
+                        <div class="col-8">
+                            @include('components.form.text', ['name' => "search_diary", 'value' => \Request::get('search_diary') ?? ''])
+                            @include('components.form.error', ['name' => "search_diary"])
+                        </div>
+                        <button type="submit" class="btn btn-primary text-white">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </div>
+                </form>
                 <div class="row justify-content-center">
                     {{ $dailyScores->appends(request()->query())->links('pagination::bootstrap-4') }}
                 </div>
                 <x-parts.basic_table_layout>
                     <x-slot name="thead">
                         <tr>
-                            <th scope="col" class="text-nowrap text-center">登録日</th>
-                            <th scope="col" class="text-nowrap text-center">スコア</th>
-                            <th scope="col" class="text-nowrap text-center">日記</th>
+                            <th scope="col" class="text-nowrap text-center">save date</th>
+                            <th scope="col" class="text-nowrap text-center">score</th>
+                            <th scope="col" class="text-nowrap text-center">diary</th>
                         </tr>
                     </x-slot>
                     <x-slot name="tbody">
