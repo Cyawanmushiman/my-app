@@ -3,6 +3,7 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
+        @include('components.parts.purposes.goal_progress')
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
                 <h4 class="my-2">Edit Long Term</h4>

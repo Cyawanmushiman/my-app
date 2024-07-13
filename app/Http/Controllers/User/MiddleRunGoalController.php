@@ -35,6 +35,7 @@ class MiddleRunGoalController extends Controller
     {
         return view('user.middle_run_goals.create', [
             'longRunGoal' => $longRunGoal,
+            'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
         ]);
     }
 
