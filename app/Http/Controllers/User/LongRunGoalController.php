@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Purpose;
+use App\Util\GoalProgress;
 use App\Models\LongRunGoal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -58,6 +59,7 @@ class LongRunGoalController extends Controller
     {
         return view('user.long_run_goals.edit', [
             'longRunGoal' => $longRunGoal,
+            'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
         ]);
     }
 

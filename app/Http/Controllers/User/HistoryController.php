@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use App\Models\DailyScore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\DailyScoreService;
 
 class HistoryController extends Controller
 {
@@ -26,12 +27,11 @@ class HistoryController extends Controller
     }
     
     // ユーザーの過去のスコアを表示する
-    public function pastScores(): View
+    public function pastScores(Request $request): View
     {
-        $dailyScores = DailyScore::with(['dailyRunGoals'])
-            ->where('user_id', auth()->id())
-            ->latest()
-            ->paginate(12);
+        $dailyScores = DailyScoreService::search($request->all())
+            ->paginate(12)->appends($request->query());
+            
         return view('user.histories.past_scores', [
             'dailyScores' => $dailyScores,
         ]);
