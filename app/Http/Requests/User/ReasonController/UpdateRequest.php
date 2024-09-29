@@ -59,6 +59,5 @@ class UpdateRequest extends FormRequest
         return $this->only([
             'content',
         ]);
-    }
-    
+    }    
 }
