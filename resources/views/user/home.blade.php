@@ -25,7 +25,7 @@
                         @endforeach
                     </div>
                 </div>
-                
+{{--                 
                 <div class="d-flex flex-column align-items-center">
                     <div class="form-body mt-5">
                         <div class="row">
@@ -48,7 +48,7 @@
                             @include('components.form.error', ['name' => 'score'])
                         </div>
                     </div>
-                </div>
+                </div> --}}
     
     
     

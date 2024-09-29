@@ -39,12 +39,12 @@ class HomeController extends Controller
         // ユーザーのインスパイア回数を更新
         auth()->user()->increment('inspire_count');
 
-        // 今日の点数を登録
-        $dailyScore = DailyScore::create($params);
+        // // 今日の点数を登録
+        // $dailyScore = DailyScore::create($params);
 
-        // 今日の点数に紐づく今日の目標を登録
-        $dailyRunGoalIds = $request['daily_run_goal_ids'];
-        $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
+        // // 今日の点数に紐づく今日の目標を登録
+        // $dailyRunGoalIds = $request['daily_run_goal_ids'];
+        // $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
 
         return to_route('user.home.show_good_job');
     }

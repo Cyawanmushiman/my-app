@@ -298,7 +298,7 @@
                                 </a>
                             @endif
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             @if (Str::contains(request()->url(), '/histories'))
                                 <a class="nav-link text-info" href="{{ route('user.histories.index') }}">
                                     Histories<i class="fas fa-history ms-2"></i>
@@ -308,7 +308,7 @@
                                     Histories<i class="fas fa-history ms-2"></i>
                                 </a>
                             @endif
-                        </li>
+                        </li> --}}
                         @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
                             <li class="nav-item">
                                 @if (Str::contains(request()->url(), '/notification_settings'))
@@ -443,7 +443,7 @@
                                 </a>
                             @endif
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             @if (Str::contains(request()->url(), '/histories'))
                                 <a class="nav-link text-info" href="{{ route('user.histories.index') }}">
                                     Histories<i class="fas fa-history ms-2"></i>
@@ -453,7 +453,7 @@
                                     Histories<i class="fas fa-history ms-2"></i>
                                 </a>
                             @endif
-                        </li>
+                        </li> --}}
                         @if (auth()->user()->email === 'smallriver1878@gmail.com' || app()->environment('local'))
                             <li class="nav-item">
                                 @if (Str::contains(request()->url(), '/notification_settings'))
