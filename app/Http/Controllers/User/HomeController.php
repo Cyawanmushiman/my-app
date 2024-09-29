@@ -27,6 +27,9 @@ class HomeController extends Controller
         
         return view('user.home', [
             'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
+            'reason' => auth()->user()->reason,
+            'tip' => auth()->user()->tip,
+            'reward' => auth()->user()->reward,
         ]);
     }
 

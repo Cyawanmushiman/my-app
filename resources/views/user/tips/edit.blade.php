@@ -5,16 +5,16 @@
     <div class="resume-section-content">
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
-                <h4 class="my-2">why do you want to achieve this goal?</h4>
+                <h4 class="my-2">what's the tips?</h4>
             </x-slot>
             <x-slot name="cardBody">
-                <form method="POST" action="{{ route('user.reasons.update') }}"
+                <form method="POST" action="{{ route('user.tips.update') }}"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
                     <div class="col-md-8 mb-3 mx-auto">
-                        @include('components.form.textarea', ['name' => 'content', 'value' => $reason->content ?? ''])
+                        @include('components.form.textarea', ['name' => 'content', 'value' => $tip->content ?? ''])
                         @include('components.form.error', ['name' => 'content'])
                     </div>
 
