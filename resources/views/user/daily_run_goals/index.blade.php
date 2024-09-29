@@ -6,14 +6,14 @@
         <x-parts.basic_card_layout>
             <x-slot name="cardHeader">
                 <h4 class="my-2">Daily Goal List</h4>
-                <a href="{{ route('user.reasons.edit') }}" class="text-primary text-decoration-none">
-                    why do you want to achieve this goal ?
-                </a>
                 <a href="{{ route('user.daily_run_goals.create') }}" class="btn btn-primary text-white">
                     <i class="fa-solid fa-plus fa-xs me-1"></i><i class="fa-solid fa-flag"></i>
                 </a>
             </x-slot>
             <x-slot name="cardBody">
+                <a href="{{ route('user.reasons.edit') }}" class="text-primary text-decoration-none d-block mb-3">
+                    why do you want to achieve this goal ?
+                </a>
                 <div class="mb-4">
                     <x-parts.basic_table_layout>
                         <x-slot name="thead">
