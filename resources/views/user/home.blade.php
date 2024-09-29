@@ -25,7 +25,7 @@
                         @endforeach
                     </div>
                 </div>
-                
+{{--                 
                 <div class="d-flex flex-column align-items-center">
                     <div class="form-body mt-5">
                         <div class="row">
@@ -48,9 +48,43 @@
                             @include('components.form.error', ['name' => 'score'])
                         </div>
                     </div>
+                </div> --}}
+    
+                <div class="accordion accordion-flush" id="accordionFlushReason">
+                    @if ($reason && $reason->content !== null)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingReason">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-reason" aria-expanded="false" aria-controls="flush-reason">
+                                Why do you want to achieve this goal ?
+                            </button>
+                            </h2>
+                            <div id="flush-reason" class="accordion-collapse collapse" aria-labelledby="flush-headingReason" data-bs-parent="#accordionFlushReason">
+                            <div class="accordion-body">{!! nl2br(e($reason->content)) !!}</div>
+                        </div>
+                    @endif
+                    @if ($tip && $tip->content !== null)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTip">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-tip" aria-expanded="false" aria-controls="flush-tip">
+                                What's the tips ?
+                            </button>
+                            </h2>
+                            <div id="flush-tip" class="accordion-collapse collapse" aria-labelledby="flush-headingTip" data-bs-parent="#accordionFlushReason">
+                            <div class="accordion-body">{!! nl2br(e($tip->content)) !!}</div>
+                        </div>
+                    @endif
+                    @if ($reward && $reward->content !== null)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingReward">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-reward" aria-expanded="false" aria-controls="flush-reward">
+                                What do you want ?
+                            </button>
+                            </h2>
+                            <div id="flush-reward" class="accordion-collapse collapse" aria-labelledby="flush-headingReward" data-bs-parent="#accordionFlushReason">
+                            <div class="accordion-body">{!! nl2br(e($reward->content)) !!}</div>
+                        </div>
+                    @endif
                 </div>
-    
-    
     
                 <div class="text-center my-4">
                     <button type="submit" class="btn btn-primary text-white">

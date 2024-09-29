@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\TipController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\SetUpController;
+use App\Http\Controllers\User\ReasonController;
+use App\Http\Controllers\User\RewardController;
 use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
@@ -92,6 +95,18 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('/', [HistoryController::class, 'index'])->name('index');
         Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
     });
+    
+    // 動機管理
+    Route::get('reasons/edit', [ReasonController::class, 'edit'])->name('reasons.edit');
+    Route::patch('reasons/update', [ReasonController::class, 'update'])->name('reasons.update');
+    
+    // コツ管理
+    Route::get('tips/edit', [TipController::class, 'edit'])->name('tips.edit');
+    Route::patch('tips/update', [TipController::class, 'update'])->name('tips.update');
+    
+    // 報酬管理
+    Route::get('rewards/edit', [RewardController::class, 'edit'])->name('rewards.edit');
+    Route::patch('rewards/update', [RewardController::class, 'update'])->name('rewards.update');
 
     // 通知設定
     Route::prefix('notification_settings')->name('notification_settings.')->group(function () {

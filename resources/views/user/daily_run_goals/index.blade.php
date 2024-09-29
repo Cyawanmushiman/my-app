@@ -11,6 +11,15 @@
                 </a>
             </x-slot>
             <x-slot name="cardBody">
+                <a href="{{ route('user.reasons.edit') }}" class="text-primary text-decoration-none d-block mb-3">
+                    why do you want to achieve this goal ?
+                </a>
+                <a href="{{ route('user.tips.edit') }}" class="text-primary text-decoration-none d-block mb-3">
+                    what's the tips ?
+                </a>
+                <a href="{{ route('user.rewards.edit') }}" class="text-primary text-decoration-none d-block mb-3">
+                    what do you want ?
+                </a>
                 <div class="mb-4">
                     <x-parts.basic_table_layout>
                         <x-slot name="thead">
