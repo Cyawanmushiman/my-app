@@ -136,7 +136,7 @@ class GoalProgress
         return $nextGoalCount;
     }
     
-    private static function shortRangeGoalProgress(? Purpose $purpose): array
+    private static function shortRangeGoalProgress(?Purpose $purpose): array
     {
         // 全ての目標を取得
         $longRunGoal = $purpose->longRunGoal ?? null;
@@ -160,7 +160,7 @@ class GoalProgress
             // 今日の日付の前後の目標を取得
             $shortRangeData = [];
             $todayKey = today()->format('Y/m/d');
-            $todayIndex = array_search($todayKey, array_keys($allGoals));
+            $todayIndex = array_search($todayKey, array_keys($allGoals), true);
             $allGoals = array_values($allGoals);
             $shortRangeData['before'] = $allGoals[$todayIndex - 1] ?? null;
             $shortRangeData['after'] = $allGoals[$todayIndex + 1] ?? null;

@@ -34,5 +34,4 @@ class TipController extends Controller
         
         return back()->with('status', 'success');
     }
-
 }

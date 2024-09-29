@@ -34,5 +34,4 @@ class RewardController extends Controller
         
         return back()->with('status', 'success');
     }
-
 }
