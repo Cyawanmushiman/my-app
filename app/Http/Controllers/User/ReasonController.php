@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Reason;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\ReasonController\UpdateRequest;
 
 class ReasonController extends Controller
@@ -12,7 +14,7 @@ class ReasonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(): View
     {
         $reason = Reason::where('user_id', auth()->id())->first() ?? new Reason();
         
@@ -24,7 +26,7 @@ class ReasonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): RedirectResponse
     {
         $reason = Reason::where('user_id', auth()->id())->first() ?? new Reason();
         

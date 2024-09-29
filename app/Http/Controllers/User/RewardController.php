@@ -6,13 +6,15 @@ use App\Models\Reward;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\RewardController\UpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class RewardController extends Controller
 {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(): View
     {
         $reward = Reward::where('user_id', auth()->id())->first() ?? new Reward();
         
@@ -24,7 +26,7 @@ class RewardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): RedirectResponse
     {
         $reward = Reward::where('user_id', auth()->id())->first() ?? new Reward();
         
