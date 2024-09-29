@@ -116,4 +116,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(MindMap::class);
     }
+    
+    // reasonsテーブルとのリレーション
+    public function reason(): HasOne
+    {
+        return $this->hasOne(Reason::class);
+    }
 }
