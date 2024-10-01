@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\DailyRunGoal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MindMapController;
+use App\Http\Controllers\Api\DailyRunGoalController;
 use App\Http\Controllers\Api\LineRegistrationController;
 
 /*
@@ -27,3 +29,6 @@ Route::prefix('mindMaps')->name('mindMaps.')->group(function () {
     Route::post('upload_images', [MindMapController::class, 'uploadImages']);
     Route::post('delete_images', [MindMapController::class, 'deleteImages']);
 });
+
+// 毎日の目標のステータスを更新する
+Route::post('daily_run_goals/update', [DailyRunGoalController::class, 'update']);
