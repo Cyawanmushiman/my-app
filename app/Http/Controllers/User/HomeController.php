@@ -44,9 +44,9 @@ class HomeController extends Controller
 
     public function store(StoreRequest $request): RedirectResponse
     {
-        $params = array_merge($request->substitutable(), [
-            'user_id' => auth()->id(),
-        ]);
+        // $params = array_merge($request->substitutable(), [
+        //     'user_id' => auth()->id(),
+        // ]);
 
         // ユーザーのインスパイア回数を更新
         auth()->user()->increment('inspire_count');
