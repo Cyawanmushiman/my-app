@@ -14,6 +14,9 @@ class Kernel extends ConsoleKernel
     {
         // 1分ごとに実行
         $schedule->command('command:SendMessage')->everyMinute();
+        
+        // 毎日午前0時に実行
+        $schedule->command('app:reset-daily-run-goal-status')->dailyAt('00:00');
     }
 
     /**
