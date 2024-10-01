@@ -16,7 +16,7 @@
                         <div class="form-body" v-for="goal in goals" :key="goal.id">
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="checkbox" v-model="goal.is_finished" @change="updateGoal(goal)" :id="'goal-' + goal.id">
+                                    <input type="checkbox" v-model="goal.is_finished" @change="updateGoal(goal)" :id="'goal-' + goal.id" name="daily_run_goal_ids[]">
                                     <label :class="{ 'text-decoration-line-through': goal.is_finished }" class="h5" :for="'goal-' + goal.id">
                                         @{{ goal.title }}
                                     </label>
