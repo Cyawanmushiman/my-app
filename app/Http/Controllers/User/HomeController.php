@@ -25,8 +25,17 @@ class HomeController extends Controller
             return to_route('user.set_ups.create_first_goal');
         }
         
+        $goals = auth()->user()->dailyRunGoals->map(function($goal) {
+            return [
+                'id' => $goal->id,
+                'title' => $goal->title,
+                'is_finished' => (bool) $goal->is_finished,
+            ];
+        });
+        
         return view('user.home', [
             'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
+            'goals' => $goals,
             'reason' => auth()->user()->reason,
             'tip' => auth()->user()->tip,
             'reward' => auth()->user()->reward,

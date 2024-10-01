@@ -12,6 +12,10 @@ class DailyRunGoal extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
+    public $casts = [
+        'is_finished' => 'boolean',
+    ];
 
     //// リレーションエリア ////
     public function user(): BelongsTo

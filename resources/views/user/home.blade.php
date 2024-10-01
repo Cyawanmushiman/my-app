@@ -13,42 +13,18 @@
                 @enderror
                 <div class="d-flex justify-content-center">
                     <div class="d-flex flex-column justify-content-start">
-                        @foreach (auth()->user()->dailyRunGoals as $dailyRunGoal)
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="checkbox" name="daily_run_goal_ids[]" value="{{ $dailyRunGoal->id }}" id="{{ $dailyRunGoal->id }}">
-                                        <label class="h5" for="{{ $dailyRunGoal->id }}">{{ $dailyRunGoal->title }}</label>
-                                    </div>
+                        <div class="form-body" v-for="goal in goals" :key="goal.id">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="checkbox" v-model="goal.is_finished" @change="updateGoal(goal)" :id="'goal-' + goal.id">
+                                    <label :class="{ 'text-decoration-line-through': goal.is_finished }" class="h5" :for="'goal-' + goal.id">
+                                        @{{ goal.title }}
+                                    </label>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
-{{--                 
-                <div class="d-flex flex-column align-items-center">
-                    <div class="form-body mt-5">
-                        <div class="row">
-                            <div class="col-12 d-flex align-items-center">
-                                @include('components.form.textarea', [
-                                    'name' => 'diary', 
-                                    'rows' => 10,
-                                    'placeholder' => 'Please enter what happened today'
-                                ])
-                            </div>
-                            @include('components.form.error', ['name' => 'diary'])
-                        </div>
-                    </div>
-    
-                    <div class="form-body mt-5">
-                        <div class="row">
-                            <div class="col-12 d-flex align-items-center">
-                                @include('components.form.number', ['name' => 'score', 'placeholder' => "today's score", 'class' => 'text-center'])
-                            </div>
-                            @include('components.form.error', ['name' => 'score'])
-                        </div>
-                    </div>
-                </div> --}}
     
                 <div class="accordion accordion-flush" id="accordionFlushReason">
                     @if ($reason && $reason->content !== null)
@@ -95,4 +71,30 @@
         </div>
     </div>
 </section>
+@endsection
+@section('script')
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                goals: @json($goals),
+            };
+        },
+        methods: {
+            updateGoal(goal) {
+                axios.post('/api/daily_run_goals/update', {
+                    id: goal.id,
+                    is_finished: goal.is_finished,
+                })
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            },
+        }
+    }).mount('#home')
+</script>
+
 @endsection
