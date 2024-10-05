@@ -22,10 +22,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'daily_run_goal_ids' => ['required', 'array'],
-            // 'daily_run_goal_ids.*' => ['nullable', 'integer'],
-            // 'diary' => ['required', 'string', 'max:3000'],
-            // 'score' => ['required', 'integer'],
+            'daily_run_goal_ids' => ['nullable', 'array'],
+            'daily_run_goal_ids.*' => ['nullable', 'integer'],
+            'diary' => ['nullable', 'string', 'max:3000'],
         ];
     }
 
@@ -35,8 +34,7 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
-            // 'diary',
-            // 'score',
+            'diary',
         ]);
     }
 }

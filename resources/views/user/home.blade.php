@@ -16,7 +16,7 @@
                         <div class="form-body" v-for="goal in goals" :key="goal.id">
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="checkbox" v-model="goal.is_finished" @change="updateGoal(goal)" :id="'goal-' + goal.id" name="daily_run_goal_ids[]">
+                                    <input type="checkbox" v-model="goal.is_finished" @change="updateGoal(goal)" :id="'goal-' + goal.id" name="daily_run_goal_ids[]" :value="Number(goal.id)">
                                     <label :class="{ 'text-decoration-line-through': goal.is_finished }" class="h5" :for="'goal-' + goal.id">
                                         @{{ goal.title }}
                                     </label>
@@ -60,6 +60,19 @@
                             <div class="accordion-body">{!! nl2br(e($reward->content)) !!}</div>
                         </div>
                     @endif
+                </div>
+                
+                <div class="form-body mt-5">
+                    <div class="row">
+                        <div class="col-12 d-flex align-items-center">
+                            @include('components.form.textarea', [
+                                'name' => 'diary', 
+                                'rows' => 10,
+                                'placeholder' => 'Please enter what happened today'
+                            ])
+                        </div>
+                        @include('components.form.error', ['name' => 'diary'])
+                    </div>
                 </div>
     
                 <div class="text-center my-4">
