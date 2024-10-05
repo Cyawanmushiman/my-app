@@ -44,19 +44,24 @@ class HomeController extends Controller
 
     public function store(StoreRequest $request): RedirectResponse
     {
-        // $params = array_merge($request->substitutable(), [
-        //     'user_id' => auth()->id(),
-        // ]);
+        $allDailyRunGoals = auth()->user()->dailyRunGoals->pluck('id')->count();
+        $archiveDailyRunGoals = count($request->daily_run_goal_ids);
+        $score = round($archiveDailyRunGoals / $allDailyRunGoals * 100);
+        
+        $params = array_merge($request->substitutable(), [
+            'score' => $score,
+            'user_id' => auth()->id(),
+        ]);
 
         // ユーザーのインスパイア回数を更新
         auth()->user()->increment('inspire_count');
-
+        
         // // 今日の点数を登録
-        // $dailyScore = DailyScore::create($params);
+        $dailyScore = DailyScore::create($params);
 
         // // 今日の点数に紐づく今日の目標を登録
-        // $dailyRunGoalIds = $request['daily_run_goal_ids'];
-        // $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
+        $dailyRunGoalIds = $request['daily_run_goal_ids'];
+        $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
 
         return to_route('user.home.show_good_job');
     }
