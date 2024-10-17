@@ -115,4 +115,8 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
         Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
     });
+    
+    Route::get('test-battle', function () {
+        return view('user.test-battle');
+    });
 });
