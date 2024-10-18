@@ -19,6 +19,7 @@ use App\Http\Controllers\User\DailyRunGoalController;
 use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
+use App\Http\Controllers\User\ChallengingLogController;
 use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\NotificationSettingController;
 
@@ -77,7 +78,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::delete('{middle_run_goal}', [MiddleRunGoalController::class, 'destroy'])->name('destroy');
     });
         
-    // // 短期目標
+    // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
 
     // 今日の目標
@@ -121,6 +122,10 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     // 挑戦内容管理
     Route::get('challengings/create', [ChallengingController::class, 'create'])->name('challengings.create');
     Route::post('challengings/store', [ChallengingController::class, 'store'])->name('challengings.store');
+    
+    // 挑戦ログ管理
+    Route::post('challenging_logs/store', [ChallengingLogController::class, 'store'])->name('challenging_logs.store');
+    Route::get('challenging_logs/display_battle/{challenging_log_id}', [ChallengingLogController::class, 'displayBattle'])->name('challenging_logs.display_battle');
     
     
     Route::get('test-battle', function () {

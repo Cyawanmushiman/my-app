@@ -6,7 +6,8 @@
     <div class="resume-section-content px-5 mt-5">
         @include('components.parts.purposes.goal_progress')
         <div style="max-height: 600px; overflow-y: auto;">
-            <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data" class="mt-4">
+            {{-- <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data" class="mt-4"> --}}
+            <form method="POST" action="{{ route('user.challenging_logs.store') }}" enctype="multipart/form-data" class="mt-4">
                 @csrf
                 @error('daily_run_goal_ids')
                     <p class="text-center text-danger">{{ $message }}</p>

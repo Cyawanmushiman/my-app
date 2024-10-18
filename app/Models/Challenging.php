@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Challenging extends Model
@@ -27,5 +28,10 @@ class Challenging extends Model
     public function challengingOpponentInfo(): HasOne
     {
         return $this->hasOne(ChallengingOpponentInfo::class);
+    }
+    
+    public function challengingLogs(): HasMany
+    {
+        return $this->hasMany(ChallengingLog::class);
     }
 }

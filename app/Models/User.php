@@ -140,4 +140,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(UserAbility::class);
     }
+    
+    // challengingテーブルとのリレーション
+    public function challenging(): HasOne
+    {
+        return $this->hasOne(Challenging::class);
+    }
 }
