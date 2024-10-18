@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Challenging;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TipController;
 use App\Http\Controllers\User\HomeController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\PurposeController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
+use App\Http\Controllers\User\ChallengingController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
 use App\Http\Controllers\User\ShortRunGoalController;
@@ -115,6 +117,11 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
         Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
     });
+    
+    // 挑戦内容管理
+    Route::get('challengings/create', [ChallengingController::class, 'create'])->name('challengings.create');
+    Route::post('challengings/store', [ChallengingController::class, 'store'])->name('challengings.store');
+    
     
     Route::get('test-battle', function () {
         return view('user.test-battle');

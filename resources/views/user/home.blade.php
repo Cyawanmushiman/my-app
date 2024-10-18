@@ -74,7 +74,9 @@
                         @include('components.form.error', ['name' => 'diary'])
                     </div>
                 </div>
-    
+                <div class="text-center my-4">
+                    <a href="{{ route('user.challengings.create') }}">戦いに挑戦する方はこちら</a>
+                </div>
                 <div class="text-center my-4">
                     <button type="submit" class="btn btn-primary text-white">
                         Log today's record
