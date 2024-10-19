@@ -53,7 +53,14 @@
                     </div>
                 </div>
             </div>
-            <div id="damage-display"></div>
+            <div id="damage-display" style="height: 100px"></div>
+        </div>
+        <div class="text-center my-4">
+            @if ($resultOpHitPoint <= 0 && $challenging->reward !== null)
+                
+            @else
+                
+            @endif
         </div>
     </div>
 </section>
