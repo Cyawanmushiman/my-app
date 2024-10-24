@@ -6,7 +6,9 @@ use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
 use App\Util\GoalProgress;
+use App\Models\Challenging;
 use App\Services\HomeService;
+use App\Models\ChallengingLog;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -38,6 +40,13 @@ class HomeController extends Controller
             ];
         });
         
+        // 今日すでに挑戦している場合は、そのログを取得
+        $todayChallengingLogId = null;
+        $challenging = auth()->user()->challengings->where('result_status', Challenging::FIGHTING)->first();
+        if ($challenging) {  
+            $todayChallengingLogId = $challenging->challengingLogs->where('created_at', '>=', now()->startOfDay())->first()?->id;
+        }
+        
         return view('user.home', [
             'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
             'goals' => $goals,
@@ -45,6 +54,8 @@ class HomeController extends Controller
             'tip' => auth()->user()->tip,
             'reward' => auth()->user()->reward,
             'isNotChallenging' => auth()->user()->isNotChallenging(),
+            'latestDailyScore' => DailyScore::where('user_id', auth()->id())->latest()->first(),
+            'todayChallengingLogId' => $todayChallengingLogId,
         ]);
     }
 

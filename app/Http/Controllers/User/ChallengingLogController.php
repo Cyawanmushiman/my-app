@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\View\View;
 use App\Models\DailyScore;
+use App\Models\Challenging;
 use Illuminate\Http\Request;
 use App\Services\HomeService;
 use App\Models\ChallengingLog;
