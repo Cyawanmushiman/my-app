@@ -54,3 +54,7 @@ Route::get('500', function () {
     \Log::error('500エラーのテスト');
     abort(500);
 });
+
+Route::get('test-reward', function () {
+    return view('user.test-reward');
+});
