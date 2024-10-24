@@ -55,10 +55,42 @@
             </div>
             <div id="damage-display" style="height: 100px"></div>
         </div>
-        <div class="text-center my-4">
-            @if ($resultOpHitPoint <= 0 && $challenging->reward !== null)
-                
+        
+        <div class="row mb-5">
+            <div class="col-12 mt-3">
+                <h2 class="text-center">Achieved <span class="text-danger">{{ $consecutiveDays }}</span> consecutive
+                    days</h2>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12 mt-3 text-center">
+                <a href="https://calendar.google.com/calendar/u/0/r/week" class="text-decoration-none"><i class="bi bi-calendar-date me-2"></i>Let's make plans for tomorrow!</a>
+            </div>
+        </div>
+
+        @for ($i = 0; $i < $dailyScores->count(); $i++)
+            @if ($dailyScores[$i]->score >= 80)
+            <i class="fa-solid fa-fire-flame-curved text-danger"></i>
+            @elseif ($dailyScores[$i]->score >= 60)
+            <i class="fa-solid fa-fire-flame-curved text-warning"></i>
+            @elseif ($dailyScores[$i]->score >= 40)
+            <i class="fa-solid fa-fire-flame-curved text-info"></i>
+            @elseif ($dailyScores[$i]->score >= 20)
+            <i class="fa-solid fa-fire-flame-curved text-primary"></i>
             @else
+            <i class="fa-solid fa-fire-flame-curved text-secondary"></i>
+            @endif
+        @endfor
+
+        <div class="text-center my-4">
+            @if ($challenging->result_status === App\Models\Challenging::FIGHTING)
+                <a class="btn btn-primary text-white" href="{{ route('user.home') }}" id="HOME">
+                    <i class="fa-solid fa-house me-2"></i>HOME
+                </a>
+            @elseif ($challenging->result_status === App\Models\Challenging::WIN)
+            
+            @elseif ($challenging->result_status === App\Models\Challenging::LOSE)
                 
             @endif
         </div>

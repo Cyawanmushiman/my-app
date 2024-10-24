@@ -7,6 +7,7 @@ use App\Models\DailyScore;
 use Illuminate\Http\Request;
 use App\Services\HomeService;
 use App\Models\ChallengingLog;
+use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Services\ChallengingLogService;
@@ -16,10 +17,12 @@ class ChallengingLogController extends Controller
 {
     public function __construct(
         private HomeService $homeService,
-        private ChallengingLogService $challengingLogService
+        private ChallengingLogService $challengingLogService,
+        private DailyScoreService $dailyScoreService
     ) {
         $this->homeService = $homeService;
         $this->challengingLogService = $challengingLogService;
+        $this->dailyScoreService = $dailyScoreService;
     }
 
     /**
@@ -41,7 +44,7 @@ class ChallengingLogController extends Controller
     public function displayBattle(int $challengingLogId): View
     {
         $latestChallengingLog = ChallengingLog::findOrFail($challengingLogId);
-        $challenging = $latestChallengingLog->challenging->load(['challengingOpponentInfo', 'challengingLogs', 'user', 'user.userChallengeAbility']);
+        $challenging = $latestChallengingLog->challenging->load(['challengingOpponentInfo', 'challengingLogs', 'user', 'userChallengeAbility']);
 
         // 敵の情報
         $maxOpHitPoint = $challenging->challengingOpponentInfo->max_hit_point; // 敵の最大HP
@@ -52,7 +55,7 @@ class ChallengingLogController extends Controller
         $resultOpHitPoint = $currentOpHitPoint - $thisDamageToOp; // このターン後のHP
 
         // 勇者の情報
-        $maxUserHitPoint = $challenging->user->userChallengeAbility->hit_point; // 勇者の最大HP
+        $maxUserHitPoint = $challenging->userChallengeAbility->hit_point; // 勇者の最大HP
         $totalUserDamage = $challenging->challengingLogs->where('id', '!=', $challengingLogId)->sum('un_archive_count'); // これまでのダメージをサマリー
         $currentUserHitPoint = $maxUserHitPoint - $totalUserDamage; // 現在のHP
         $currentUserHitPointPercentage = $currentUserHitPoint === 0 ? 0 : round($currentUserHitPoint / $maxUserHitPoint * 100); // 現在のHPの%
@@ -74,6 +77,9 @@ class ChallengingLogController extends Controller
             'currentUserHitPointPercentage' => $currentUserHitPointPercentage,
             'thisDamageToUser' => $thisDamageToUser,
             'resultUserHitPoint' => $resultUserHitPoint,
+            
+            'consecutiveDays' => $this->dailyScoreService->getConsecutiveDays(),
+            'dailyScores' => auth()->user()->dailyScores,
         ]);
     }
 }

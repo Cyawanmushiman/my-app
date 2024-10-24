@@ -44,4 +44,9 @@ class Challenging extends Model
     {
         return $this->hasMany(ChallengingLog::class);
     }
+    
+    public function userChallengeAbility(): HasOne
+    {
+        return $this->hasOne(UserChallengeAbility::class);
+    }
 }

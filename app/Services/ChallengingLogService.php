@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Challenging;
 use App\Models\ChallengingLog;
 
 class ChallengingLogService
@@ -15,7 +16,7 @@ class ChallengingLogService
         
         // challengingLogsテーブルにを作成
         $challengingLog = ChallengingLog::create([
-            'challenging_id' => auth()->user()->challenging->id,
+            'challenging_id' => auth()->user()->challengings->where('result_status', Challenging::FIGHTING)->first()->id,
             'archive_count' => $archivedCount,
             'un_archive_count' => $unArchivedCount,
         ]);
