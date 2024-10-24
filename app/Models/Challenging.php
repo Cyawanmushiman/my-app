@@ -14,6 +14,16 @@ class Challenging extends Model
     
     protected $guarded = [];
     
+    const FIGHTING = 10;
+    const WIN = 20;
+    const LOSE = 30;
+    
+    const FIGHTING_STATUS = [
+        self::FIGHTING => '戦闘中',
+        self::WIN => '勝利',
+        self::LOSE => '敗北',
+    ];
+    
     // リレーションエリア↓
     public function user(): BelongsTo
     {

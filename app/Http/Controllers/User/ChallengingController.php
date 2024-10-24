@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\User\ChallengingController\StoreRequest;
 use App\Models\ChallengingOpponentInfo;
-use App\Models\UserAbility;
+use App\Models\UserChallengeAbility;
 
 class ChallengingController extends Controller
 {
@@ -31,21 +31,21 @@ class ChallengingController extends Controller
             'user_id' => auth()->id(),
             'reward' => $request->ForChallenging()['reward'],
         ]);
-        
+
         // challenging_opponent_infoテーブルにを作成
         ChallengingOpponentInfo::create([
             'challenging_id' => $challenging->id,
             'name' => $request->ForChallengingOpponentInfo()['opponent_name'],
             'max_hit_point' => $request->ForChallengingOpponentInfo()['opponent_max_hit_point'],
         ]);
-        
-        // user_abilityテーブルにを作成
-        UserAbility::create([
+
+        // user_challenge_abilityテーブルを作成
+        UserChallengeAbility::create([
             'user_id' => auth()->id(),
-            'hit_point' => $request->ForUserAbility()['user_max_hit_point'],
+            'challenging_id' => $challenging->id,
+            'hit_point' => $request->ForUserChallengeAbility()['user_max_hit_point'],
         ]);
-        
+
         return to_route('user.home')->with('status', 'success');
     }
-
 }

@@ -44,6 +44,7 @@ class HomeController extends Controller
             'reason' => auth()->user()->reason,
             'tip' => auth()->user()->tip,
             'reward' => auth()->user()->reward,
+            'isNotChallenging' => auth()->user()->isNotChallenging(),
         ]);
     }
 

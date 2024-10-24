@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'reward' => ['nullable', 'string', 'max:255'],
         ];
     }
-    
+
     /**
      * @return array
      */
@@ -38,7 +38,7 @@ class StoreRequest extends FormRequest
             'reward',
         ]);
     }
-    
+
     /**
      * @return array
      */
@@ -49,11 +49,11 @@ class StoreRequest extends FormRequest
             'opponent_max_hit_point',
         ]);
     }
-    
+
     /**
      * @return array
      */
-    public function ForUserAbility(): array
+    public function ForUserChallengeAbility(): array
     {
         return $this->only([
             'user_max_hit_point',
