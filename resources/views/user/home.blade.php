@@ -80,7 +80,10 @@
                 </div>
                 @if ($isNotChallenging)
                     <div class="text-center my-4">
-                        <a href="{{ route('user.challengings.create') }}">戦いに挑戦する方はこちら</a>
+                        <a href="{{ route('user.challengings.create') }}">
+                            <i class="fa-solid fa-gem"></i>
+                            Click here to challenge
+                        </a>
                     </div>
                 @endif
                 @if ($latestDailyScore->created_at->isToday() && $todayChallengingLogId)

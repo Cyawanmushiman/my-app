@@ -11,7 +11,7 @@
                 @if ($dailyScores)
                     <canvas id="lineChart"></canvas>
                 @else
-                    <p>まだ学習記録がありません。</p>
+                    <p>No learning records yet.</p>
                 @endif
             </div>
             <div class="col-6">
@@ -19,10 +19,10 @@
                     @if ($challengings)
                         <img src="{{ asset('images/challengings/fighting.svg') }}" alt="fighting" class="img-fluid" style="max-width: 100px;">
                         <p>
-                            <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_challengings') }}">past fight</a>
+                            <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_challengings') }}">past challenge</a>
                         </p>
                     @else
-                        <p>まだ挑戦記録がありません。</p>
+                        <p>No challenge records yet.</p>
                     @endif
                 </div>                
             </div>
