@@ -59,12 +59,22 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new CustomVerifyEmail());
     }
 
+    // 現在チャレンジ中のものがなければtrueを返す
+    public function isNotChallenging(): bool
+    {
+        $allChalleng = $this->challengings;
+        
+        $result = $allChalleng->contains('result_status', Challenging::FIGHTING) ? false : true;
+        
+        return $result;
+    }
+
     //////// リレーションエリア ////////
     public function purpose(): HasOne
     {
         return $this->hasOne(Purpose::class);
     }
-    
+
     // public function longRunGoal(): HasOne
     // {
     //     return $this->hasOne(LongRunGoal::class);
@@ -110,28 +120,40 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(DailyScore::class);
     }
-    
+
     // mind_mapsテーブルとのリレーション
     public function mindMaps(): HasMany
     {
         return $this->hasMany(MindMap::class);
     }
-    
+
     // reasonsテーブルとのリレーション
     public function reason(): HasOne
     {
         return $this->hasOne(Reason::class);
     }
-    
+
     // tipsテーブルとのリレーション
     public function tip(): HasOne
     {
         return $this->hasOne(Tip::class);
     }
-    
+
     // rewardsテーブルとのリレーション
     public function reward(): HasOne
     {
         return $this->hasOne(Reward::class);
+    }
+
+    // user_challenge_abilitiesテーブルとのリレーション
+    public function userChallengeAbilities(): HasMany
+    {
+        return $this->hasMany(UserChallengeAbility::class);
+    }
+
+    // challengingsテーブルとのリレーション
+    public function challengings(): HasMany
+    {
+        return $this->hasMany(Challenging::class);
     }
 }

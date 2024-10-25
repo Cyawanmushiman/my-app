@@ -6,6 +6,9 @@ use App\Models\MindMap;
 use Illuminate\View\View;
 use App\Models\DailyScore;
 use App\Util\GoalProgress;
+use App\Models\Challenging;
+use App\Services\HomeService;
+use App\Models\ChallengingLog;
 use App\Services\DailyScoreService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -13,9 +16,13 @@ use App\Http\Requests\User\HomeController\StoreRequest;
 
 class HomeController extends Controller
 {
-    // コンストラクタ
-    public function __construct(private DailyScoreService $dailyScoreService)
+    public function __construct(
+        private HomeService $homeService,
+        private DailyScoreService $dailyScoreService
+    )
     {
+        $this->homeService = $homeService;
+        $this->dailyScoreService = $dailyScoreService;
     }
 
     // TOPページの表示、または初期目標設定画面へのリダイレクト
@@ -33,35 +40,30 @@ class HomeController extends Controller
             ];
         });
         
+        // 今日すでに挑戦している場合は、そのログを取得
+        $todayChallengingLogId = null;
+        $challenging = auth()->user()->challengings->where('result_status', Challenging::FIGHTING)->first();
+        if ($challenging) {  
+            $todayChallengingLogId = $challenging->challengingLogs->where('created_at', '>=', now()->startOfDay())->first()?->id;
+        }
+        
         return view('user.home', [
             'gpData' => GoalProgress::getGoalProgressData(auth()->user()->purpose),
             'goals' => $goals,
             'reason' => auth()->user()->reason,
             'tip' => auth()->user()->tip,
             'reward' => auth()->user()->reward,
+            'isNotChallenging' => auth()->user()->isNotChallenging(),
+            'latestDailyScore' => DailyScore::where('user_id', auth()->id())->latest()->first(),
+            'todayChallengingLogId' => $todayChallengingLogId,
         ]);
     }
 
     public function store(StoreRequest $request): RedirectResponse
-    {
-        $allDailyRunGoals = auth()->user()->dailyRunGoals->pluck('id')->count();
-        $archiveDailyRunGoals = count($request->daily_run_goal_ids);
-        $score = round($archiveDailyRunGoals / $allDailyRunGoals * 100);
-        
-        $params = array_merge($request->substitutable(), [
-            'score' => $score,
-            'user_id' => auth()->id(),
-        ]);
-
-        // ユーザーのインスパイア回数を更新
-        auth()->user()->increment('inspire_count');
-        
-        // // 今日の点数を登録
-        $dailyScore = DailyScore::create($params);
-
-        // // 今日の点数に紐づく今日の目標を登録
-        $dailyRunGoalIds = $request['daily_run_goal_ids'];
-        $dailyScore->dailyRunGoals()->attach($dailyRunGoalIds);
+    {        
+        \DB::transaction(function () use ($request) {
+            $this->homeService->store($request->daily_run_goal_ids);
+        });
 
         return to_route('user.home.show_good_job');
     }

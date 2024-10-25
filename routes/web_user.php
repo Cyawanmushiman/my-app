@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Challenging;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TipController;
 use App\Http\Controllers\User\HomeController;
@@ -12,11 +13,13 @@ use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\PurposeController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
+use App\Http\Controllers\User\ChallengingController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
 use App\Http\Controllers\User\ShortRunGoalController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\MiddleRunGoalController;
+use App\Http\Controllers\User\ChallengingLogController;
 use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\NotificationSettingController;
 
@@ -75,7 +78,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::delete('{middle_run_goal}', [MiddleRunGoalController::class, 'destroy'])->name('destroy');
     });
         
-    // // 短期目標
+    // 短期目標
     // Route::resource('short_run_goals', ShortRunGoalController::class)->except(['show']);
 
     // 今日の目標
@@ -94,6 +97,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::prefix('histories')->name('histories.')->group(function () {
         Route::get('/', [HistoryController::class, 'index'])->name('index');
         Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
+        Route::get('past_challengings', [HistoryController::class, 'pastChallengings'])->name('past_challengings');
     });
     
     // 動機管理
@@ -114,5 +118,20 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::patch('update', [NotificationSettingController::class, 'update'])->name('update');
         Route::get('line_notification_guide', [NotificationSettingController::class, 'lineNotificationGuide'])->name('line_notification_guide');
         Route::get('line_alignment', [NotificationSettingController::class, 'lineAlignment'])->name('line_alignment');
+    });
+    
+    // 挑戦内容管理
+    Route::get('challengings/create', [ChallengingController::class, 'create'])->name('challengings.create');
+    Route::post('challengings/store', [ChallengingController::class, 'store'])->name('challengings.store');
+    Route::get('challengings/display_win/{challenging}', [ChallengingController::class, 'displayWin'])->name('challengings.display_win');
+    Route::get('challengings/display_lose/{challenging}', [ChallengingController::class, 'displayLose'])->name('challengings.display_lose');
+    
+    // 挑戦ログ管理
+    Route::post('challenging_logs/store', [ChallengingLogController::class, 'store'])->name('challenging_logs.store');
+    Route::get('challenging_logs/display_battle/{challenging_log_id}', [ChallengingLogController::class, 'displayBattle'])->name('challenging_logs.display_battle');
+    
+    
+    Route::get('test-battle', function () {
+        return view('user.test-battle');
     });
 });

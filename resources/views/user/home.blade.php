@@ -6,7 +6,11 @@
     <div class="resume-section-content px-5 mt-5">
         @include('components.parts.purposes.goal_progress')
         <div style="max-height: 600px; overflow-y: auto;">
-            <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data" class="mt-4">
+            @if ($isNotChallenging)
+                <form method="POST" action="{{ route('user.home.store') }}" enctype="multipart/form-data" class="mt-4">
+            @else
+                <form method="POST" action="{{ route('user.challenging_logs.store') }}" enctype="multipart/form-data" class="mt-4">
+            @endif
                 @csrf
                 @error('daily_run_goal_ids')
                     <p class="text-center text-danger">{{ $message }}</p>
@@ -74,12 +78,31 @@
                         @include('components.form.error', ['name' => 'diary'])
                     </div>
                 </div>
-    
-                <div class="text-center my-4">
-                    <button type="submit" class="btn btn-primary text-white">
-                        Log today's record
-                    </button>
-                </div>
+                @if ($isNotChallenging)
+                    <div class="text-center my-4">
+                        <a href="{{ route('user.challengings.create') }}">
+                            <i class="fa-solid fa-gem"></i>
+                            Click here to challenge
+                        </a>
+                    </div>
+                @endif
+                @if ($latestDailyScore->created_at->isToday() && $todayChallengingLogId)
+                    <div class="text-center my-4">
+                        <a href="{{ route('user.challenging_logs.display_battle', $todayChallengingLogId) }}" class="btn btn-info text-white">
+                            today's result
+                        </a>
+                    </div>
+                @elseif ($latestDailyScore->created_at->isToday() === false)
+                    <div class="text-center my-4">
+                        <button type="submit" class="btn btn-primary text-white">
+                            Update today's record
+                        </button>
+                    </div>
+                @else
+                    <div class="text-center my-4">
+                        
+                    </div>
+                @endif
             </form>
         </div>
     </div>

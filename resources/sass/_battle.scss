@@ -1,0 +1,239 @@
+.battle-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.characters {
+    display: flex;
+    align-items: flex-end;
+    gap: 100px;
+    margin-bottom: 20px;
+}
+
+.character {
+    width: 64px;
+    height: 64px;
+    position: relative;
+}
+
+.pixel {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+}
+
+/* 勇者のピクセルアート */
+#hero .pixel:nth-child(1) {
+    background: #FFD700;
+    top: 0;
+    left: 24px;
+}
+
+#hero .pixel:nth-child(2) {
+    background: #FFD700;
+    top: 8px;
+    left: 24px;
+}
+
+#hero .pixel:nth-child(3) {
+    background: #FFA500;
+    top: 16px;
+    left: 24px;
+}
+
+#hero .pixel:nth-child(4) {
+    background: #FFA500;
+    top: 24px;
+    left: 16px;
+}
+
+#hero .pixel:nth-child(5) {
+    background: #FFA500;
+    top: 24px;
+    left: 24px;
+}
+
+#hero .pixel:nth-child(6) {
+    background: #FFA500;
+    top: 24px;
+    left: 32px;
+}
+
+#hero .pixel:nth-child(7) {
+    background: #0000FF;
+    top: 32px;
+    left: 24px;
+}
+
+#hero .pixel:nth-child(8) {
+    background: #0000FF;
+    top: 40px;
+    left: 16px;
+}
+
+#hero .pixel:nth-child(9) {
+    background: #0000FF;
+    top: 40px;
+    left: 32px;
+}
+
+#hero .pixel:nth-child(10) {
+    background: #8B4513;
+    top: 48px;
+    left: 16px;
+}
+
+#hero .pixel:nth-child(11) {
+    background: #8B4513;
+    top: 48px;
+    left: 32px;
+}
+
+#hero .pixel:nth-child(12) {
+    background: #8B4513;
+    top: 56px;
+    left: 16px;
+}
+
+#hero .pixel:nth-child(13) {
+    background: #8B4513;
+    top: 56px;
+    left: 32px;
+}
+
+/* モンスターのピクセルアート */
+#monster .pixel:nth-child(1) {
+    background: #8B0000;
+    top: 8px;
+    left: 24px;
+}
+
+#monster .pixel:nth-child(2) {
+    background: #8B0000;
+    top: 16px;
+    left: 16px;
+}
+
+#monster .pixel:nth-child(3) {
+    background: #8B0000;
+    top: 16px;
+    left: 32px;
+}
+
+#monster .pixel:nth-child(4) {
+    background: #FF0000;
+    top: 24px;
+    left: 8px;
+}
+
+#monster .pixel:nth-child(5) {
+    background: #FF0000;
+    top: 24px;
+    left: 24px;
+}
+
+#monster .pixel:nth-child(6) {
+    background: #FF0000;
+    top: 24px;
+    left: 40px;
+}
+
+#monster .pixel:nth-child(7) {
+    background: #FF0000;
+    top: 32px;
+    left: 16px;
+}
+
+#monster .pixel:nth-child(8) {
+    background: #FF0000;
+    top: 32px;
+    left: 32px;
+}
+
+#monster .pixel:nth-child(9) {
+    background: #8B0000;
+    top: 40px;
+    left: 8px;
+}
+
+#monster .pixel:nth-child(10) {
+    background: #8B0000;
+    top: 40px;
+    left: 24px;
+}
+
+#monster .pixel:nth-child(11) {
+    background: #8B0000;
+    top: 40px;
+    left: 40px;
+}
+
+#monster .pixel:nth-child(12) {
+    background: #8B0000;
+    top: 48px;
+    left: 16px;
+}
+
+#monster .pixel:nth-child(13) {
+    background: #8B0000;
+    top: 48px;
+    left: 32px;
+}
+
+/* 剣エフェクト */
+.sword-effect {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%);
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+/* HPバー */
+.hp-bar {
+    width: 100px;
+    height: 10px;
+    background-color: #555;
+    margin-top: 10px;
+}
+
+.hp-bar-inner {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.3s;
+}
+
+/* ダメージ表示 */
+#damage-display {
+    font-size: 24px;
+    margin-top: 20px;
+    min-height: 30px;
+}
+
+/* アニメーション */
+@keyframes attack {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(25px);
+    }
+}
+
+@keyframes damage {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
