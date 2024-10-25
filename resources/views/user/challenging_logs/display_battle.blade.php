@@ -93,7 +93,9 @@
                     <i class="fa-regular fa-gem me-2"></i>GET REWARD
                 </a>
             @elseif ($challenging->result_status === App\Models\Challenging::LOSE)
-                
+                <a class="btn btn-danger text-white" href="{{ route('user.challengings.display_lose', $challenging) }}">
+                    <i class="fa-solid fa-skull me-2"></i>CONTINUE...
+                </a>
             @endif
         </div>
     </div>

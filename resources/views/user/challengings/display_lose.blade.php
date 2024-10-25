@@ -60,24 +60,22 @@
         
         <div class="overlay">You lose...</div>
 
-        <div class="form-container">
+        {{-- リセットの仕様が未確定なので、一旦保留 --}}
+        {{-- <div class="form-container">
             <form action="" method="POST">
                 @csrf
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" id="option1" value="retry" checked>
-                    <label class="form-check-label" for="option1">
-                        Retry
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" id="option2" value="quit">
-                    <label class="form-check-label" for="option2">
-                        Quit
-                    </label>
-                </div>
+                
+                @foreach (App\Enums\Penalty::cases() as $case)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option" id="{{ $case }}" value="{{ $case }}" {{ $loop->first ? 'checked' : '' }}>
+                        <label class="form-check-label" for="{{ $case }}">
+                            {{ $case }}
+                        </label>
+                    </div>
+                @endforeach
                 <button type="submit" class="btn btn-light mt-3">Submit</button>
             </form>
-        </div>
+        </div> --}}
 
         <a class="btn btn-primary text-white home-link" href="{{ route('user.home') }}" id="HOME">
             <i class="fa-solid fa-house me-2"></i>HOME
