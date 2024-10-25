@@ -3,14 +3,30 @@
 @section('content')
 <section class="resume-section">
     <div class="resume-section-content">
-        <p class="text-end">
-            <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_scores') }}">past scores</a>
-        </p>
-        @if ($dailyScores)
-            <canvas id="lineChart"></canvas>
-        @else
-            <p>まだ学習記録がありません。</p>
-        @endif
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-6">
+                <p class="text-end">
+                    <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_scores') }}">past scores</a>
+                </p>
+                @if ($dailyScores)
+                    <canvas id="lineChart"></canvas>
+                @else
+                    <p>まだ学習記録がありません。</p>
+                @endif
+            </div>
+            <div class="col-6">
+                <div class="d-flex justify-content-center">
+                    @if ($challengings)
+                        <img src="{{ asset('images/challengings/fighting.svg') }}" alt="fighting" class="img-fluid" style="max-width: 100px;">
+                        <p>
+                            <i class="fas fa-history me-2"></i><a href="{{ route('user.histories.past_challengings') }}">past fight</a>
+                        </p>
+                    @else
+                        <p>まだ挑戦記録がありません。</p>
+                    @endif
+                </div>                
+            </div>
+        </div>
     </div>
 </section>
 @endsection

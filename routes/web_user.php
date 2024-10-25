@@ -97,6 +97,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::prefix('histories')->name('histories.')->group(function () {
         Route::get('/', [HistoryController::class, 'index'])->name('index');
         Route::get('past_scores', [HistoryController::class, 'pastScores'])->name('past_scores');
+        Route::get('past_challengings', [HistoryController::class, 'pastChallengings'])->name('past_challengings');
     });
     
     // 動機管理

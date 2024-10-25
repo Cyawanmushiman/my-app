@@ -14,14 +14,18 @@ class Challenging extends Model
     
     protected $guarded = [];
     
+    protected $casts = [
+        'archived_on' => 'date',
+    ];
+    
     const FIGHTING = 10;
     const WIN = 20;
     const LOSE = 30;
     
     const FIGHTING_STATUS = [
-        self::FIGHTING => '戦闘中',
-        self::WIN => '勝利',
-        self::LOSE => '敗北',
+        self::FIGHTING => 'fighting',
+        self::WIN => 'win',
+        self::LOSE => 'lose',
     ];
     
     // リレーションエリア↓

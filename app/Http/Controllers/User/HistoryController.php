@@ -4,9 +4,10 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\View\View;
 use App\Models\DailyScore;
+use App\Models\Challenging;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Services\DailyScoreService;
+use App\Http\Controllers\Controller;
 
 class HistoryController extends Controller
 {
@@ -23,6 +24,7 @@ class HistoryController extends Controller
         
         return view('user.histories.index', [
             'dailyScores' => $sortDailyScores,
+            'challengings' => auth()->user()->challengings,
         ]);
     }
     
@@ -34,6 +36,18 @@ class HistoryController extends Controller
             
         return view('user.histories.past_scores', [
             'dailyScores' => $dailyScores,
+        ]);
+    }
+    
+    // ユーザーの過去のチャレンジを表示する
+    public function pastChallengings(Request $request): View
+    {
+        $challengings = Challenging::where('user_id', auth()->id())
+            ->latest()
+            ->paginate(12);
+            
+        return view('user.histories.past_challengings', [
+            'challengings' => $challengings,
         ]);
     }
 }
