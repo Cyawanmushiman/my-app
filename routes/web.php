@@ -58,3 +58,6 @@ Route::get('500', function () {
 Route::get('test-reward', function () {
     return view('user.test-reward');
 });
+Route::get('test-lose', function () {
+    return view('user.test-lose');
+});

@@ -124,6 +124,7 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::get('challengings/create', [ChallengingController::class, 'create'])->name('challengings.create');
     Route::post('challengings/store', [ChallengingController::class, 'store'])->name('challengings.store');
     Route::get('challengings/display_win/{challenging}', [ChallengingController::class, 'displayWin'])->name('challengings.display_win');
+    Route::get('challengings/display_lose/{challenging}', [ChallengingController::class, 'displayLose'])->name('challengings.display_lose');
     
     // 挑戦ログ管理
     Route::post('challenging_logs/store', [ChallengingLogController::class, 'store'])->name('challenging_logs.store');

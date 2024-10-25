@@ -57,4 +57,12 @@ class ChallengingController extends Controller
             'challenging' => $challenging,
         ]);
     }
+    
+    // 敗北画面の表示
+    public function displayLose(Challenging $challenging): View
+    {
+        return view('user.challengings.display_lose', [
+            'challenging' => $challenging,
+        ]);
+    }
 }

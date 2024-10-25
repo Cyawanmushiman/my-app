@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             MindMapSeeder::class,
             NotificationSettingSeeder::class,
             NotificationMethodSeeder::class,
+            PenaltySeeder::class,
         ]);
     }
 }
