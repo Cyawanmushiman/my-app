@@ -46,38 +46,28 @@ class ChallengingLogController extends Controller
     {
         $latestChallengingLog = ChallengingLog::findOrFail($challengingLogId);
         $challenging = $latestChallengingLog->challenging->load(['challengingOpponentInfo', 'challengingLogs', 'user', 'userChallengeAbility']);
-
+        
         // 敵の情報
-        $maxOpHitPoint = $challenging->challengingOpponentInfo->max_hit_point; // 敵の最大HP
-        $totalOpDamage = $challenging->challengingLogs->where('id', '!=', $challengingLogId)->sum('archive_count'); // これまでのダメージをサマリー
-        $currentOpHitPoint = $maxOpHitPoint - $totalOpDamage; // 現在のHP
-        $currentOpHitPointPercentage = $currentOpHitPoint === 0 ? 0 : round($currentOpHitPoint / $maxOpHitPoint * 100); // 現在のHPの%
-        $thisDamageToOp = $latestChallengingLog->archive_count; // このターンで与えたダメージ
-        $resultOpHitPoint = $currentOpHitPoint - $thisDamageToOp; // このターン後のHP
+        $opponentInfos = $this->challengingLogService->getOpponentInfo($challengingLogId);
 
         // 勇者の情報
-        $maxUserHitPoint = $challenging->userChallengeAbility->hit_point; // 勇者の最大HP
-        $totalUserDamage = $challenging->challengingLogs->where('id', '!=', $challengingLogId)->sum('un_archive_count'); // これまでのダメージをサマリー
-        $currentUserHitPoint = $maxUserHitPoint - $totalUserDamage; // 現在のHP
-        $currentUserHitPointPercentage = $currentUserHitPoint === 0 ? 0 : round($currentUserHitPoint / $maxUserHitPoint * 100); // 現在のHPの%
-        $thisDamageToUser = $latestChallengingLog->un_archive_count; // このターンで受けたダメージ
-        $resultUserHitPoint = $currentUserHitPoint - $thisDamageToUser; // このターン後のHP
+        $userInfos = $this->challengingLogService->getUserInfo($challengingLogId);
 
         return view('user.challenging_logs.display_battle', [
             'latestChallengingLog' => $latestChallengingLog,
             'challenging' => $challenging,
 
-            'maxOpHitPoint' => $maxOpHitPoint,
-            'currentOpHitPoint' => $currentOpHitPoint,
-            'currentOpHitPointPercentage' => $currentOpHitPointPercentage,
-            'thisDamageToOp' => $thisDamageToOp,
-            'resultOpHitPoint' => $resultOpHitPoint,
+            'maxOpHitPoint' => $opponentInfos['maxOpHitPoint'],
+            'currentOpHitPoint' => $opponentInfos['currentOpHitPoint'],
+            'currentOpHitPointPercentage' => $opponentInfos['currentOpHitPointPercentage'],
+            'thisDamageToOp' => $opponentInfos['thisDamageToOp'],
+            'resultOpHitPoint' => $opponentInfos['resultOpHitPoint'],
 
-            'maxUserHitPoint' => $maxUserHitPoint,
-            'currentUserHitPoint' => $currentUserHitPoint,
-            'currentUserHitPointPercentage' => $currentUserHitPointPercentage,
-            'thisDamageToUser' => $thisDamageToUser,
-            'resultUserHitPoint' => $resultUserHitPoint,
+            'maxUserHitPoint' => $userInfos['maxUserHitPoint'],
+            'currentUserHitPoint' => $userInfos['currentUserHitPoint'],
+            'currentUserHitPointPercentage' => $userInfos['currentUserHitPointPercentage'],
+            'thisDamageToUser' => $userInfos['thisDamageToUser'],
+            'resultUserHitPoint' => $userInfos['resultUserHitPoint'],
             
             'consecutiveDays' => $this->dailyScoreService->getConsecutiveDays(),
             'dailyScores' => auth()->user()->dailyScores,

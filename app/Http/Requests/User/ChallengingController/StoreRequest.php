@@ -26,6 +26,7 @@ class StoreRequest extends FormRequest
             'opponent_max_hit_point' => ['required', 'integer', 'min:1'],
             'user_max_hit_point' => ['required', 'integer', 'min:1'],
             'reward' => ['nullable', 'string', 'max:255'],
+            'reward_link' => ['nullable', 'string', 'max:255', 'url'],
         ];
     }
 
@@ -36,6 +37,7 @@ class StoreRequest extends FormRequest
     {
         return $this->only([
             'reward',
+            'reward_link',
         ]);
     }
 

@@ -30,6 +30,7 @@ class ChallengingController extends Controller
         $challenging = Challenging::create([
             'user_id' => auth()->id(),
             'reward' => $request->ForChallenging()['reward'],
+            'reward_link' => $request->ForChallenging()['reward_link'],
         ]);
 
         // challenging_opponent_infoテーブルにを作成

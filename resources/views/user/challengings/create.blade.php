@@ -35,6 +35,12 @@
                         @include('components.form.text', ['name' => 'reward'])
                         @include('components.form.error', ['name' => 'reward'])
                     </div>
+                    
+                    <div class="col-md-8 mb-3 mx-auto">
+                        <label class="" for="reward_link">報酬リンク</label>
+                        @include('components.form.text', ['name' => 'reward_link'])
+                        @include('components.form.error', ['name' => 'reward_link'])
+                    </div>
 
                     <div class="text-center my-4">
                         <a href="{{ route('user.home') }}" class="btn btn-outline-dark"><i

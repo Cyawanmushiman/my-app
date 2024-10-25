@@ -12,6 +12,7 @@ class ChallengingLog extends Model
     
     protected $guarded = [];
     
+    // リレーションエリア↓
     public function challenging(): BelongsTo
     {
         return $this->belongsTo(Challenging::class);
