@@ -64,7 +64,7 @@
                                         </a>
                                     </td>                                    
                                     <td class="text-nowrap px-2 text-start">
-                                        {{ $challenging->archived_on->format('Y/m/d') }}
+                                        {{ $challenging->archived_on?->format('Y/m/d') }}
                                     </td>
                                 </tr>
                             @endforeach

@@ -85,7 +85,7 @@
                 @endif
                 @if ($latestDailyScore->created_at->isToday() && $todayChallengingLogId)
                     <div class="text-center my-4">
-                        <a href="{{ route('user.challenging_logs.display_battle', $todayChallengingLogId) }}" class="btn btn-primary text-white">
+                        <a href="{{ route('user.challenging_logs.display_battle', $todayChallengingLogId) }}" class="btn btn-info text-white">
                             today's result
                         </a>
                     </div>
