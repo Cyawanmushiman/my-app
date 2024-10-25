@@ -57,9 +57,11 @@
         <video src="{{ asset('videos/reward.mov') }}" autoplay muted></video>
         
         <div class="overlay">You win!</div>
-        <a class="btn btn-info text-white reward-link" href="/">
-            <i class="fa-regular fa-gem me-2"></i>GET REWARD
-        </a>
+        @if ($challenging->reward_link)
+            <a class="btn btn-info text-white reward-link" href="{{ $challenging->reward_link }}" target="_blank">
+                <i class="fa-regular fa-gem me-2"></i>GET REWARD
+            </a>
+        @endif
         <a class="btn btn-primary text-white home-link" href="{{ route('user.home') }}" id="HOME">
             <i class="fa-solid fa-house me-2"></i>HOME
         </a>

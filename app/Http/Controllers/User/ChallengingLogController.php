@@ -35,6 +35,24 @@ class ChallengingLogController extends Controller
             $challengingLog = $this->challengingLogService->store($request->daily_run_goal_ids);
 
             $this->homeService->store($request->daily_run_goal_ids);
+            
+            // 敵を倒した場合、challengingテーブルを更新
+            $opponentInfos = $this->challengingLogService->getOpponentInfo($challengingLog->id);
+            if ($opponentInfos['resultOpHitPoint'] <= 0) {
+                $challengingLog->challenging->update([
+                    'result_status' => Challenging::WIN,
+                    'archived_on' => now(),
+                ]);
+            }
+            
+            // 勇者が倒れた場合、challengingテーブルを更新
+            $userInfos = $this->challengingLogService->getUserInfo($challengingLog->id);
+            if ($userInfos['resultUserHitPoint'] <= 0) {
+                $challengingLog->challenging->update([
+                    'result_status' => Challenging::LOSE,
+                    'archived_on' => now(),
+                ]);
+            }
 
             return $challengingLog;
         });

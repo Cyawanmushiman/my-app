@@ -49,4 +49,12 @@ class ChallengingController extends Controller
 
         return to_route('user.home')->with('status', 'success');
     }
+    
+    // 勝利画面の表示
+    public function displayWin(Challenging $challenging): View
+    {
+        return view('user.challengings.display_win', [
+            'challenging' => $challenging,
+        ]);
+    }
 }

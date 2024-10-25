@@ -89,7 +89,9 @@
                     <i class="fa-solid fa-house me-2"></i>HOME
                 </a>
             @elseif ($challenging->result_status === App\Models\Challenging::WIN)
-            
+                <a class="btn btn-info text-white" href="{{ route('user.challengings.display_win', $challenging) }}">
+                    <i class="fa-regular fa-gem me-2"></i>GET REWARD
+                </a>
             @elseif ($challenging->result_status === App\Models\Challenging::LOSE)
                 
             @endif
