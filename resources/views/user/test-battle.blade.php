@@ -12,15 +12,20 @@
                 align-items: center;
                 height: 100vh;
                 margin: 0;
-                background-color: #333;
-                font-family: Arial, sans-serif;
+                background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=1950&q=80');
+                background-size: cover;
+                font-family: 'Press Start 2P', cursive;
                 color: white;
+                overflow: hidden;
             }
 
             .battle-scene {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                backdrop-filter: blur(5px) brightness(0.8);
+                padding: 20px;
+                border-radius: 15px;
             }
 
             .characters {
@@ -31,9 +36,21 @@
             }
 
             .character {
-                width: 64px;
-                height: 64px;
+                width: 128px;
+                height: 128px;
                 position: relative;
+                transform-origin: bottom;
+                transition: transform 0.5s;
+            }
+
+            .character.shake {
+                animation: shake 0.5s;
+            }
+
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
             }
 
             .pixel {
@@ -42,181 +59,35 @@
                 position: absolute;
             }
 
-            /* 勇者のピクセルアート */
-            #hero .pixel:nth-child(1) {
-                background: #FFD700;
-                top: 0;
-                left: 24px;
-            }
-
-            #hero .pixel:nth-child(2) {
-                background: #FFD700;
-                top: 8px;
-                left: 24px;
-            }
-
-            #hero .pixel:nth-child(3) {
-                background: #FFA500;
-                top: 16px;
-                left: 24px;
-            }
-
-            #hero .pixel:nth-child(4) {
-                background: #FFA500;
-                top: 24px;
-                left: 16px;
-            }
-
-            #hero .pixel:nth-child(5) {
-                background: #FFA500;
-                top: 24px;
-                left: 24px;
-            }
-
-            #hero .pixel:nth-child(6) {
-                background: #FFA500;
-                top: 24px;
-                left: 32px;
-            }
-
-            #hero .pixel:nth-child(7) {
-                background: #0000FF;
-                top: 32px;
-                left: 24px;
-            }
-
-            #hero .pixel:nth-child(8) {
-                background: #0000FF;
-                top: 40px;
-                left: 16px;
-            }
-
-            #hero .pixel:nth-child(9) {
-                background: #0000FF;
-                top: 40px;
-                left: 32px;
-            }
-
-            #hero .pixel:nth-child(10) {
-                background: #8B4513;
-                top: 48px;
-                left: 16px;
-            }
-
-            #hero .pixel:nth-child(11) {
-                background: #8B4513;
-                top: 48px;
-                left: 32px;
-            }
-
-            #hero .pixel:nth-child(12) {
-                background: #8B4513;
-                top: 56px;
-                left: 16px;
-            }
-
-            #hero .pixel:nth-child(13) {
-                background: #8B4513;
-                top: 56px;
-                left: 32px;
-            }
-
-            /* モンスターのピクセルアート */
-            #monster .pixel:nth-child(1) {
-                background: #8B0000;
-                top: 8px;
-                left: 24px;
-            }
-
-            #monster .pixel:nth-child(2) {
-                background: #8B0000;
-                top: 16px;
-                left: 16px;
-            }
-
-            #monster .pixel:nth-child(3) {
-                background: #8B0000;
-                top: 16px;
-                left: 32px;
-            }
-
-            #monster .pixel:nth-child(4) {
-                background: #FF0000;
-                top: 24px;
-                left: 8px;
-            }
-
-            #monster .pixel:nth-child(5) {
-                background: #FF0000;
-                top: 24px;
-                left: 24px;
-            }
-
-            #monster .pixel:nth-child(6) {
-                background: #FF0000;
-                top: 24px;
-                left: 40px;
-            }
-
-            #monster .pixel:nth-child(7) {
-                background: #FF0000;
-                top: 32px;
-                left: 16px;
-            }
-
-            #monster .pixel:nth-child(8) {
-                background: #FF0000;
-                top: 32px;
-                left: 32px;
-            }
-
-            #monster .pixel:nth-child(9) {
-                background: #8B0000;
-                top: 40px;
-                left: 8px;
-            }
-
-            #monster .pixel:nth-child(10) {
-                background: #8B0000;
-                top: 40px;
-                left: 24px;
-            }
-
-            #monster .pixel:nth-child(11) {
-                background: #8B0000;
-                top: 40px;
-                left: 40px;
-            }
-
-            #monster .pixel:nth-child(12) {
-                background: #8B0000;
-                top: 48px;
-                left: 16px;
-            }
-
-            #monster .pixel:nth-child(13) {
-                background: #8B0000;
-                top: 48px;
-                left: 32px;
-            }
-
             /* 剣エフェクト */
             .sword-effect {
                 position: absolute;
-                width: 32px;
-                height: 32px;
+                width: 64px;
+                height: 64px;
                 background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%);
                 transform: rotate(45deg);
                 opacity: 0;
                 transition: opacity 0.1s;
+                z-index: 2;
+            }
+
+            /* 爆発エフェクト */
+            .explosion-effect {
+                position: absolute;
+                width: 128px;
+                height: 128px;
+                background: radial-gradient(circle, rgba(255,69,0,1) 0%, rgba(255,140,0,1) 40%, rgba(0,0,0,0) 60%);
+                opacity: 0;
+                transition: opacity 0.2s;
             }
 
             /* HPバー */
             .hp-bar {
-                width: 100px;
-                height: 10px;
+                width: 150px;
+                height: 15px;
                 background-color: #555;
                 margin-top: 10px;
+                border: 2px solid #fff;
             }
 
             .hp-bar-inner {
@@ -230,33 +101,21 @@
                 font-size: 24px;
                 margin-top: 20px;
                 min-height: 30px;
+                text-shadow: 2px 2px 0 #000;
             }
 
             /* アニメーション */
             @keyframes attack {
-
-                0%,
-                100% {
-                    transform: translateX(0);
-                }
-
-                50% {
-                    transform: translateX(25px);
-                }
+                0%, 100% { transform: translateX(0); }
+                50% { transform: translateX(25px); }
             }
 
             @keyframes damage {
-
-                0%,
-                100% {
-                    opacity: 1;
-                }
-
-                50% {
-                    opacity: 0.5;
-                }
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
             }
         </style>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
 
     <body>
@@ -298,6 +157,7 @@
                         <div class="pixel"></div>
                         <div class="pixel"></div>
                         <div class="pixel"></div>
+                        <div class="explosion-effect"></div>
                     </div>
                     <div class="hp-bar">
                         <div id="monster-hp" class="hp-bar-inner" style="width: 100%;"></div>
@@ -311,6 +171,7 @@
             const hero = document.getElementById('hero');
             const monster = document.getElementById('monster');
             const swordEffect = hero.querySelector('.sword-effect');
+            const explosionEffect = monster.querySelector('.explosion-effect');
             const heroHpBar = document.getElementById('hero-hp');
             const monsterHpBar = document.getElementById('monster-hp');
             const damageDisplay = document.getElementById('damage-display');
@@ -335,10 +196,12 @@
             }
 
             function damageEffect() {
-                monster.style.animation = 'damage 0.2s ease-in-out 3';
+                monster.classList.add('shake');
+                explosionEffect.style.opacity = '1';
                 return new Promise(resolve => {
                     setTimeout(() => {
-                        monster.style.animation = '';
+                        monster.classList.remove('shake');
+                        explosionEffect.style.opacity = '0';
                         resolve();
                     }, 600);
                 });
@@ -364,8 +227,7 @@
             async function performAttacks() {
                 for (let i = 0; i < 3; i++) {
                     await attack();
-                    // const damage = Math.floor(Math.random() * 20) + 10; // 10-30のランダムなダメージ
-                    const damage = 40;
+                    const damage = Math.floor(Math.random() * 20) + 20; // 20-40のランダムなダメージ
                     updateHp('monster', damage);
                     displayDamage(damage);
                     await damageEffect();

@@ -2,8 +2,8 @@
 
 @section('content')
 <section class="resume-section">
-    <div class="resume-section-content px-5 mt-5">
-        <div class="battle-scene">
+    <div class="resume-section-content px-5">
+        <div class="battle-scene bg-black p-4">
             <div class="characters">
                 <div>
                     <div id="hero" class="character">
@@ -56,8 +56,8 @@
             <div id="damage-display" style="height: 100px"></div>
         </div>
         
-        <div class="row mb-5">
-            <div class="col-12 mt-3">
+        <div class="row mb-2">
+            <div class="col-12 mt-1">
                 <h2 class="text-center">Achieved <span class="text-danger">{{ $consecutiveDays }}</span> consecutive
                     days</h2>
             </div>

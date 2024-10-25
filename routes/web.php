@@ -55,6 +55,10 @@ Route::get('500', function () {
     abort(500);
 });
 
+Route::get('test-battle', function () {
+    return view('user.test-battle');
+});
+
 Route::get('test-reward', function () {
     return view('user.test-reward');
 });
