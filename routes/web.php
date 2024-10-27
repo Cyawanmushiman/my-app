@@ -65,3 +65,6 @@ Route::get('test-reward', function () {
 Route::get('test-lose', function () {
     return view('user.test-lose');
 });
+Route::get('test-pictogram', function () {
+    return view('user.test-pictogram');
+});
