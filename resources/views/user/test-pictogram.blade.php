@@ -20,13 +20,17 @@
             margin-bottom: 10px;
         }
 
-        textarea {
+        .bubble-input label {
+            font-weight: bold;
+        }
+
+        .bubble-input textarea {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
-            min-height: 60px;
+            min-height: 50px;
             font-size: 14px;
         }
 
@@ -61,6 +65,21 @@
             font-size: 12px;
             word-wrap: break-word;
         }
+
+        .bubble-section {
+            margin-bottom: 5px;
+        }
+
+        /* セパレーターのスタイルを更新 */
+        .separator {
+            background-color: #eee; /* 好みの色に変更可能 */
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -72,10 +91,10 @@
         <div id="bubblesContainer"></div>
         <div class="svg-container">
             <svg id="mainSvg" viewBox="0 0 500 500" width="100%" height="500">
-                <!-- Background -->
+                <!-- 背景 -->
                 <rect width="500" height="500" fill="#ffffff"/>
                 
-                <!-- Stick figure -->
+                <!-- キャラクター画像 -->
                 <image x="175" y="175" width="150" height="150" xlink:href="{{ asset('images/pose_genki03_man.png') }}"/>
             </svg>
         </div>
@@ -85,16 +104,43 @@
         class BubbleManager {
             constructor() {
                 this.bubbles = []; // 吹き出しの情報を格納
+
+                // 吹き出しの新しい位置を計算
                 this.positions = [
-                    { x: 40, y: 40, connect: { x1: 140, y1: 100, x2: 160, y2: 120 } },    // 左上
-                    { x: 200, y: 20, connect: { x1: 250, y1: 120, x2: 250, y2: 140 } },   // 上
-                    { x: 360, y: 40, connect: { x1: 360, y1: 100, x2: 340, y2: 120 } },   // 右上
-                    { x: 360, y: 200, connect: { x1: 360, y1: 250, x2: 340, y2: 250 } },  // 右
-                    { x: 40, y: 200, connect: { x1: 140, y1: 250, x2: 160, y2: 250 } },   // 左
-                    { x: 40, y: 360, connect: { x1: 140, y1: 400, x2: 160, y2: 380 } },   // 左下
-                    { x: 200, y: 380, connect: { x1: 250, y1: 380, x2: 250, y2: 360 } },  // 下
-                    { x: 360, y: 360, connect: { x1: 360, y1: 400, x2: 340, y2: 380 } }   // 右下
+                    { // 左上
+                        x: 10, y: 35,
+                        connect: { x1: 160, y1: 160, x2: 175, y2: 175 }
+                    },
+                    { // 上
+                        x: 160, y: 20,
+                        connect: { x1: 250, y1: 170, x2: 250, y2: 175 }
+                    },
+                    { // 右上
+                        x: 310, y: 35,
+                        connect: { x1: 340, y1: 160, x2: 325, y2: 175 }
+                    },
+                    { // 右
+                        x: 370, y: 160,
+                        connect: { x1: 330, y1: 250, x2: 325, y2: 250 }
+                    },
+                    { // 右下
+                        x: 310, y: 310,
+                        connect: { x1: 340, y1: 340, x2: 325, y2: 325 }
+                    },
+                    { // 下
+                        x: 160, y: 350,
+                        connect: { x1: 250, y1: 330, x2: 250, y2: 325 }
+                    },
+                    { // 左下
+                        x: 10, y: 310,
+                        connect: { x1: 160, y1: 340, x2: 175, y2: 325 }
+                    },
+                    { // 左
+                        x: -50, y: 160,
+                        connect: { x1: 170, y1: 250, x2: 175, y2: 250 }
+                    }
                 ];
+
                 this.usedPositions = Array(8).fill(false); // 使用中の位置を管理
                 this.bubbleCounter = 0; // ユニークなIDを生成
                 this.init();
@@ -121,10 +167,10 @@
                 const inputDiv = document.createElement('div');
                 inputDiv.className = 'bubble-input';
                 inputDiv.innerHTML = `
-                    <div style="display: flex; gap: 10px; align-items: flex-start;">
-                        <textarea id="text_${id}" placeholder="テキストを入力">吹き出し ${this.bubbles.length + 1}</textarea>
-                        ${this.bubbles.length > 0 ? `<button class="remove-btn" data-id="${id}">削除</button>` : ''}
-                    </div>
+                    <label>吹き出し ${this.bubbles.length + 1}</label>
+                    <textarea id="current_${id}" placeholder="現在の自分">現在の自分 ${this.bubbles.length + 1}</textarea>
+                    <textarea id="ideal_${id}" placeholder="理想の自分">理想の自分 ${this.bubbles.length + 1}</textarea>
+                    ${this.bubbles.length > 0 ? `<button class="remove-btn" data-id="${id}">削除</button>` : ''}
                 `;
                 this.bubblesContainer.appendChild(inputDiv);
 
@@ -132,23 +178,37 @@
                 const bubbleGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 bubbleGroup.id = id;
                 bubbleGroup.innerHTML = `
-                    <rect x="${position.x}" y="${position.y}" width="100" height="100" rx="4" fill="white" stroke="black"/>
+                    <rect x="${position.x}" y="${position.y}" width="180" height="130" rx="4" fill="white" stroke="black"/>
                     <line x1="${position.connect.x1}" y1="${position.connect.y1}" 
                           x2="${position.connect.x2}" y2="${position.connect.y2}" stroke="black"/>
-                    <foreignObject x="${position.x + 5}" y="${position.y + 5}" width="90" height="90">
+                    <foreignObject x="${position.x + 5}" y="${position.y + 5}" width="170" height="120">
                         <div xmlns="http://www.w3.org/1999/xhtml" class="bubble-text" id="text_content_${id}">
-                            吹き出し ${this.bubbles.length + 1}
+                            <div class="bubble-section">
+                                <div id="current_text_${id}">現在の自分 ${this.bubbles.length + 1}</div>
+                            </div>
+                            <div class="separator">↓</div>
+                            <div class="bubble-section">
+                                <div id="ideal_text_${id}">理想の自分 ${this.bubbles.length + 1}</div>
+                            </div>
                         </div>
                     </foreignObject>
                 `;
                 this.svg.appendChild(bubbleGroup);
 
                 // イベントリスナーを設定
-                const textarea = document.getElementById(`text_${id}`);
-                const bubbleText = document.getElementById(`text_content_${id}`);
-                textarea.addEventListener('input', (e) => {
+                const currentTextarea = document.getElementById(`current_${id}`);
+                const idealTextarea = document.getElementById(`ideal_${id}`);
+                const currentTextDiv = document.getElementById(`current_text_${id}`);
+                const idealTextDiv = document.getElementById(`ideal_text_${id}`);
+
+                currentTextarea.addEventListener('input', (e) => {
                     const sanitizedText = e.target.value.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-                    bubbleText.innerHTML = sanitizedText;
+                    currentTextDiv.innerHTML = sanitizedText;
+                });
+
+                idealTextarea.addEventListener('input', (e) => {
+                    const sanitizedText = e.target.value.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+                    idealTextDiv.innerHTML = sanitizedText;
                 });
 
                 if (this.bubbles.length > 0) {
@@ -175,7 +235,7 @@
                     bubbleElement.remove();
 
                     // テキストエリアを削除
-                    const inputElement = document.getElementById(`text_${id}`).parentNode.parentNode;
+                    const inputElement = document.getElementById(`current_${id}`).parentNode;
                     inputElement.remove();
 
                     // 吹き出し情報を削除
