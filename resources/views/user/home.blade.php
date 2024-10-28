@@ -39,7 +39,11 @@
                             </button>
                             </h2>
                             <div id="flush-reason" class="accordion-collapse collapse" aria-labelledby="flush-headingReason" data-bs-parent="#accordionFlushReason">
-                            <div class="accordion-body">{!! nl2br(e($reason->content)) !!}</div>
+                            <a href="{{ route('user.reasons.edit') }}" class="text-decoration-none text-black">
+                                <div class="accordion-body">
+                                    {!! nl2br(e($reason->content)) !!}
+                                </div>
+                            </a>
                         </div>
                     @endif
                     @if ($tip && $tip->content !== null)
@@ -50,7 +54,9 @@
                             </button>
                             </h2>
                             <div id="flush-tip" class="accordion-collapse collapse" aria-labelledby="flush-headingTip" data-bs-parent="#accordionFlushReason">
-                            <div class="accordion-body">{!! nl2br(e($tip->content)) !!}</div>
+                            <a href="{{ route('user.tips.edit') }}" class="text-decoration-none text-black">
+                                <div class="accordion-body">{!! nl2br(e($tip->content)) !!}</div>
+                            </a>
                         </div>
                     @endif
                     @if ($reward && $reward->content !== null)
