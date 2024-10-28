@@ -34,7 +34,7 @@ class ChallengingLogController extends Controller
         $challengingLog = \DB::transaction(function () use ($request) {
             $challengingLog = $this->challengingLogService->store($request->daily_run_goal_ids);
 
-            $this->homeService->store($request->daily_run_goal_ids);
+            $this->homeService->store($request->daily_run_goal_ids, $request->diary);
             
             // 敵を倒した場合、challengingテーブルを更新
             $opponentInfos = $this->challengingLogService->getOpponentInfo($challengingLog->id);

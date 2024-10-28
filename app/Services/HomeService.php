@@ -6,7 +6,7 @@ use App\Models\DailyScore;
 
 class HomeService
 {
-    public function store(array $dailyRunGoalIds): void
+    public function store(array $dailyRunGoalIds, string $diary): void
     {
         // ユーザーのインスパイア回数を更新
         auth()->user()->increment('inspire_count');
@@ -16,8 +16,9 @@ class HomeService
         $score = round($archiveDailyRunGoals / $allDailyRunGoals * 100);
         // 今日の点数を登録
         $dailyScore = DailyScore::create([
-            'score' => $score,
             'user_id' => auth()->id(),
+            'diary' => $diary,
+            'score' => $score,
         ]);
 
         // 今日の点数に紐づく今日の目標を登録
