@@ -62,7 +62,7 @@ class HomeController extends Controller
     public function store(StoreRequest $request): RedirectResponse
     {        
         \DB::transaction(function () use ($request) {
-            $this->homeService->store($request->daily_run_goal_ids);
+            $this->homeService->store($request->daily_run_goal_ids, $request->diary);
         });
 
         return to_route('user.home.show_good_job');

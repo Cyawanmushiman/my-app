@@ -67,7 +67,9 @@
                             </button>
                             </h2>
                             <div id="flush-reward" class="accordion-collapse collapse" aria-labelledby="flush-headingReward" data-bs-parent="#accordionFlushReason">
-                            <div class="accordion-body">{!! nl2br(e($reward->content)) !!}</div>
+                            <a href="{{ route('user.rewards.edit') }}" class="text-decoration-none text-black">
+                                <div class="accordion-body">{!! nl2br(e($reward->content)) !!}</div>
+                            </a>
                         </div>
                     @endif
                 </div>

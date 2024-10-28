@@ -34,6 +34,7 @@ class StoreRequest extends FormRequest
     public function substitutable()
     {
         return $this->only([
+            'daily_run_goal_ids',
             'diary',
         ]);
     }
