@@ -6,7 +6,7 @@ use App\Models\DailyScore;
 
 class HomeService
 {
-    public function store(array $dailyRunGoalIds, string $diary): void
+    public function store(array $dailyRunGoalIds, string $diary = null): void
     {
         // ユーザーのインスパイア回数を更新
         auth()->user()->increment('inspire_count');
