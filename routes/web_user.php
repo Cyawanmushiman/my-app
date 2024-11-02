@@ -130,7 +130,6 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     Route::post('challenging_logs/store', [ChallengingLogController::class, 'store'])->name('challenging_logs.store');
     Route::get('challenging_logs/display_battle/{challenging_log_id}', [ChallengingLogController::class, 'displayBattle'])->name('challenging_logs.display_battle');
     
-    
     Route::get('test-battle', function () {
         return view('user.test-battle');
     });

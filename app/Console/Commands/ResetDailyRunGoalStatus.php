@@ -24,7 +24,7 @@ class ResetDailyRunGoalStatus extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         \Log::info('Reset daily run goal status');
         $dailyRunGoals = DailyRunGoal::where('is_finished', true)->get();

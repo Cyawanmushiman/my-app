@@ -19,7 +19,9 @@ class Challenging extends Model
     ];
     
     const FIGHTING = 10;
+
     const WIN = 20;
+
     const LOSE = 30;
     
     const FIGHTING_STATUS = [

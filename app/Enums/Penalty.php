@@ -12,17 +12,4 @@ enum Penalty: string
     case RetryWithReset = 'ボスのHPと自分のHPをリセットして再挑戦';
     case RetryWithCurrentStatus = '引き続きこのまま再挑戦';
     
-    public static function toSelectArray(): array
-    {
-        return [
-            self::RetryWithReadjustment => self::RetryWithReadjustment,
-            self::RetryWithReset => self::RetryWithReset,
-            self::RetryWithCurrentStatus => self::RetryWithCurrentStatus,
-        ];
-    }
-    
-    public static function toSelectArrayWithEmpty(): array
-    {
-        return ['' => ''] + self::toSelectArray();
-    }
 }
