@@ -47,7 +47,7 @@ class ChallengingLogController extends Controller
             
             // 勇者が倒れた場合、challengingテーブルを更新
             $userInfos = $this->challengingLogService->getUserInfo($challengingLog->id);
-            if ($userInfos['resultUserHitPoint'] <= 0) {
+            if ($userInfos['resultUserHitPoint'] <= 0 && $opponentInfos['resultOpHitPoint'] > 0) {
                 $challengingLog->challenging->update([
                     'result_status' => Challenging::LOSE,
                     'archived_on' => now(),

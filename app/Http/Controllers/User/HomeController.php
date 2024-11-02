@@ -42,7 +42,11 @@ class HomeController extends Controller
         
         // 今日すでに挑戦している場合は、そのログを取得
         $todayChallengingLogId = null;
-        $challenging = auth()->user()->challengings->where('result_status', Challenging::FIGHTING)->first();
+        $challenging = auth()->user()->challengings()
+                        ->where('result_status', Challenging::FIGHTING)
+                        ->orWhere('archived_on', now()->startOfDay()->format('Y-m-d'))
+                        ->first();
+        
         if ($challenging) {  
             $todayChallengingLogId = $challenging->challengingLogs->where('created_at', '>=', now()->startOfDay())->first()?->id;
         }
