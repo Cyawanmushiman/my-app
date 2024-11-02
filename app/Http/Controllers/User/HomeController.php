@@ -32,7 +32,7 @@ class HomeController extends Controller
             return to_route('user.set_ups.create_first_goal');
         }
         
-        $goals = auth()->user()->dailyRunGoals->map(function($goal) {
+        $goals = auth()->user()->dailyRunGoals->map(function ($goal) {
             return [
                 'id' => $goal->id,
                 'title' => $goal->title,
@@ -43,9 +43,9 @@ class HomeController extends Controller
         // 今日すでに挑戦している場合は、そのログを取得
         $todayChallengingLogId = null;
         $challenging = auth()->user()->challengings()
-                        ->where('result_status', Challenging::FIGHTING)
-                        ->orWhere('archived_on', now()->startOfDay()->format('Y-m-d'))
-                        ->first();
+            ->where('result_status', Challenging::FIGHTING)
+            ->orWhere('archived_on', now()->startOfDay()->format('Y-m-d'))
+            ->first();
         
         if ($challenging) {  
             $todayChallengingLogId = $challenging->challengingLogs->where('created_at', '>=', now()->startOfDay())->first()?->id;

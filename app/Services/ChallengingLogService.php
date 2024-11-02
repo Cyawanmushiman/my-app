@@ -10,7 +10,7 @@ class ChallengingLogService
     public function store(array $dailyRunGoalIds): ChallengingLog
     {
         // 達成できた目標の数
-        $archivedCount= count($dailyRunGoalIds);
+        $archivedCount= \count($dailyRunGoalIds);
         // 達成できなかった目標の数
         $unArchivedCount = auth()->user()->dailyRunGoals()->count() - $archivedCount;
         
