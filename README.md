@@ -11,6 +11,10 @@
 ---
 
 ## 2. 主な機能 (Features)
+- ホーム画面（目的・目標progressバー、毎日することリスト、今日の日記登録）
+![ホーム画面](public/images/readme/home.jpg)
+
+
 - 目的登録機能
 - 長期目標登録機能
 - 中期目標登録機能
@@ -35,6 +39,10 @@
 - プチRPG風景品獲得チャンス機能
   （ドラクエみたいにボスにダメージを与えていって、倒すと景品が手に入る機能）
   ![プチRPG風景品獲得チャンス機能](public/images/readme/rpg-fight.jpg)
+  
+
+- mindMap機能
+![mindMap機能](public/images/readme/mind-map.jpg)
   
   
 - 毎日の記録一覧
