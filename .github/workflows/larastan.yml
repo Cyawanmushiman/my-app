@@ -1,0 +1,35 @@
+name: PHP Static Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  larastan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' #各プロジェクトのバージョンに合わせてください
+      - name: OS Version
+        run: cat /etc/os-release
+      - name: PHP, Composer Version
+        run: |
+          php --version
+          composer --version
+      - name: Composer Install Larastan
+      # ここでインストールするバージョンを指定してください。Laravel10の場合は2.4です。
+        run: |
+          composer require --dev nunomaduro/larastan=2.4
+      - name: PHP Analyse
+        run: php ./vendor/bin/phpstan analyze --memory-limit=2G
