@@ -15,16 +15,36 @@
 - 長期目標登録機能
 - 中期目標登録機能
 ![目的登録機能](public/images/readme/purpose.jpg)
+
+
+- 今日の結果登録機能
+![今日の結果登録機能](public/images/readme/result-record.jpg)
+
+
 - 毎日すること設定機能
-- 今日の結果報告機能
 - 動機登録機能（なぜこれをやろうと思ったのか原点を忘れないようにするため）
 - コツ登録機能（達成するためのコツをメモする機能）
 - 欲望登録機能（達成できたら何が欲しいか・どうなりたいかをメモする機能）
+![毎日すること設定機能](public/images/readme/daily-goal.jpg)
+
+
 - 応援メッセージ登録機能（毎日の目標を達成した際に自分を励ます言葉を設定できる）
+![毎日すること設定機能](public/images/readme/inspire.jpg)
+
+
 - プチRPG風景品獲得チャンス機能
   （ドラクエみたいにボスにダメージを与えていって、倒すと景品が手に入る機能）
+  ![プチRPG風景品獲得チャンス機能](public/images/readme/rpg-fight.jpg)
+  
+  
 - 毎日の記録一覧
+![毎日の記録一覧](public/images/readme/history.jpg)
+
+
 - 応援メッセージ通知機能
+![応援メッセージ通知機能](public/images/readme/notification.jpg)
+
+
 - ログイン（メールアドレスログイン・Lineログイン）
 - ログアウト
 
