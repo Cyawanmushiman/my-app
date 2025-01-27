@@ -22,8 +22,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'daily_run_goal_ids' => ['nullable', 'array'],
-            'daily_run_goal_ids.*' => ['nullable', 'integer'],
+            'daily_run_goal_ids' => ['required', 'array'],
+            'daily_run_goal_ids.*' => ['required', 'integer'],
             'diary' => ['nullable', 'string', 'max:3000'],
         ];
     }

@@ -94,19 +94,19 @@
                         </a>
                     </div>
                 @endif
-                @if ($latestDailyScore->created_at->isToday() && $todayChallengingLogId)
+                @if ($latestDailyScore && $latestDailyScore->created_at->isToday() && $todayChallengingLogId)
                     <div class="text-center my-4">
                         <a href="{{ route('user.challenging_logs.display_battle', $todayChallengingLogId) }}" class="btn btn-info text-white">
                             today's result
                         </a>
                     </div>
-                @elseif ($latestDailyScore->created_at->isToday() && $todayChallengingLogId === null)
+                @elseif ($latestDailyScore && $latestDailyScore->created_at->isToday() && $todayChallengingLogId === null)
                     <div class="text-center my-4">
                         <a href="{{ route('user.home.show_good_job') }}" class="btn btn-info text-white">
                             today's result
                         </a>
                     </div>
-                @elseif ($latestDailyScore->created_at->isToday() === false)
+                @elseif (!$latestDailyScore || !$latestDailyScore->created_at->isToday())
                     <div class="text-center my-4">
                         <button type="submit" class="btn btn-primary text-white">
                             Update today's record
@@ -114,9 +114,10 @@
                     </div>
                 @else
                     <div class="text-center my-4">
-                        
+                        <!-- その他のケース -->
                     </div>
                 @endif
+            
             </form>
         </div>
     </div>
