@@ -27,7 +27,7 @@ class NotificationMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'MyAppです',
+            subject: 'MyApp',
         );
     }
 
