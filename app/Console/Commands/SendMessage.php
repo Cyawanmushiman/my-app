@@ -36,6 +36,7 @@ class SendMessage extends Command
             ->get();
         
         if ($notificationSettings->isEmpty()) {
+            \Log::info('送信するメッセージがありません');
             $this->info('送信するメッセージがありません');
             return;
         }
@@ -44,13 +45,13 @@ class SendMessage extends Command
             $this->info($notificationSetting->user->name . 'さんにメッセージを送信します');
             if ($notificationSetting->isSendEmail()) {
                 $this->info('メールを送信します');
-                
+                \Log::info('メールを送信します');
                 // メール送信処理
                 \Mail::to($notificationSetting->user->email)->send(new NotificationMail($notificationSetting->content));
             }
             if ($notificationSetting->isSendLine()) {
                 $this->info('LINEを送信します');
-                
+                \Log::info('LINEを送信します');
                 // LINE送信処理
                 LineMessageApiLibrary::sendLineMessage($notificationSetting->content, $notificationSetting->user_id);
             }
