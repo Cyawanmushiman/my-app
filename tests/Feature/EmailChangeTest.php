@@ -98,6 +98,6 @@ class EmailChangeTest extends TestCase
             'new_email' => 'existing@example.com',
         ]);
 
-        $response->assertSessionHasErrors(['new_email' => 'そのメールアドレスはすでに使用されています。']);
+        $response->assertSessionHasErrors(['new_email' => 'このメールアドレスは既に使用されています。']);
     }
 }

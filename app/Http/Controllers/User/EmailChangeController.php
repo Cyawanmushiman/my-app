@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\User\EmailChangeVerification;
+use App\Http\Requests\User\EmailChangeController\SendVerificationEmailRequest;
 
 class EmailChangeController extends Controller
 {
@@ -16,7 +17,7 @@ class EmailChangeController extends Controller
     }
 
     // ② 確認メール送信処理
-    public function sendVerificationEmail(Request $request)
+    public function sendVerificationEmail(SendVerificationEmailRequest $request)
     {
         $user = \Auth::user();
         $token = \Str::random(60);
