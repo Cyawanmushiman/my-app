@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             UserSeeder::class,
-            LongRunGoalSeeder::class,
             DailyRunGoalSeeder::class,
             DailyScoreSeeder::class,
             InspireSeeder::class,

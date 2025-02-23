@@ -3,29 +3,33 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\User;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Mail\User\EmailChangeVerification;
 use App\Http\Requests\User\EmailChangeController\SendVerificationEmailRequest;
 
 class EmailChangeController extends Controller
 {
     // ① メールアドレス変更フォーム表示
-    public function showChangeForm()
+    public function showChangeForm(): View
     {
         return view('user.email_changes.change');
     }
 
     // ② 確認メール送信処理
-    public function sendVerificationEmail(SendVerificationEmailRequest $request)
+    public function sendVerificationEmail(SendVerificationEmailRequest $request): RedirectResponse
     {
+        /** @var \App\Models\User|null $user */
         $user = \Auth::user();
         $token = \Str::random(60);
 
         // ユーザー情報に一時的なメールとトークンを保存
-        $user->pending_email = $request->new_email;
-        $user->email_verification_token = $token;
-        $user->save();
+        $user->update([
+            'pending_email' => $request->new_email,
+            'email_verification_token' => $token,
+        ]);
 
         // 確認メール送信
         \Mail::to($user->pending_email)->send(new EmailChangeVerification($user));
@@ -34,7 +38,7 @@ class EmailChangeController extends Controller
     }
 
     // ③ メールリンクの検証とメールアドレスの更新
-    public function verifyNewEmail($token)
+    public function verifyNewEmail(string $token): RedirectResponse
     {
         $user = User::where('email_verification_token', $token)->first();
 
@@ -43,10 +47,11 @@ class EmailChangeController extends Controller
         }
 
         // メールアドレスの更新
-        $user->email = $user->pending_email;
-        $user->pending_email = null;
-        $user->email_verification_token = null;
-        $user->save();
+        $user->update([
+            'email' => $user->pending_email,
+            'pending_email' => null,
+            'email_verification_token' => null,
+        ]);
 
         return redirect()->route('user.email.change.form')->with('status', 'メールアドレスが正常に変更されました。');
     }

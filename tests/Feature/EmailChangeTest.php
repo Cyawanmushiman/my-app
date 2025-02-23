@@ -9,8 +9,7 @@ use App\Mail\User\EmailChangeVerification;
 
 class EmailChangeTest extends TestCase
 {
-    /** @test */
-    public function ユーザーは新しいメールアドレスへの確認メールを受け取る()
+    public function testユーザーは新しいメールアドレスへの確認メールを受け取る(): void
     {
         Mail::fake();
 
@@ -35,8 +34,7 @@ class EmailChangeTest extends TestCase
         });
     }
 
-    /** @test */
-    public function 確認メールのリンクをクリックするとメールアドレスが更新される()
+    public function test確認メールのリンクをクリックするとメールアドレスが更新される(): void
     {
         // ユーザー作成 & トークン付与 & 認証
         $user = User::factory()->create([
@@ -60,8 +58,7 @@ class EmailChangeTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function 無効なトークンではメールアドレスは変更されない()
+    public function test無効なトークンではメールアドレスは変更されない(): void
     {
         $user = User::factory()->create([
             'pending_email' => 'newemail@example.com',
@@ -83,8 +80,7 @@ class EmailChangeTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function 既に使用されているメールアドレスには変更できない()
+    public function test既に使用されているメールアドレスには変更できない(): void
     {
         User::factory()->create([
             'email' => 'existing@example.com',
