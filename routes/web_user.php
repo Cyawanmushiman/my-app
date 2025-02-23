@@ -137,9 +137,11 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     })->name('settings');
     
     // メール変更
-    Route::get('/email/change', [EmailChangeController::class, 'showChangeForm'])->name('email.change.form');
-    Route::post('/email/change', [EmailChangeController::class, 'sendVerificationEmail'])->name('email.change.send');
-    Route::get('/email/change/verify/{token}', [EmailChangeController::class, 'verifyNewEmail'])->name('email.change.verify');
+    Route::prefix('email.change')->name('email.change.')->group(function () {
+        Route::get('/', [EmailChangeController::class, 'showChangeForm'])->name('form');
+        Route::post('send', [EmailChangeController::class, 'sendVerificationEmail'])->name('send');
+        Route::get('verify/{token}', [EmailChangeController::class, 'verifyNewEmail'])->name('verify');
+    });
     
     Route::get('test-battle', function () {
         return view('user.test-battle');
