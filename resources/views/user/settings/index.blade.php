@@ -13,7 +13,6 @@
                         <x-slot name="thead">
                             <tr>
                                 <th scope="col" class="text-nowrap">terms</th>
-                                <th scope="col" class="text-nowrap"></th>
                             </tr>
                         </x-slot>
                         <x-slot name="tbody">
