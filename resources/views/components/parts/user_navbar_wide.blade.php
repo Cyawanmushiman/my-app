@@ -128,6 +128,17 @@
                             @endif
                         </li>
                     @endif
+                    <li class="nav-item">
+                        @if (Str::contains(request()->url(), '/settings'))
+                            <a class="nav-link text-info" href="{{ route('user.settings') }}">
+                                Settings<i class="fa-solid fa-gear ms-2"></i>
+                            </a>
+                        @else
+                            <a class="nav-link js-scroll-trigger" href="{{ route('user.settings') }}">
+                                Settings<i class="fa-solid fa-gear ms-2"></i>
+                            </a>
+                        @endif
+                    </li>
                 @endif
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ url('user/logout') }}"
