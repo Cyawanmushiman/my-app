@@ -36,7 +36,6 @@ class SendMessage extends Command
             ->get();
         
         if ($notificationSettings->isEmpty()) {
-            \Log::info('送信するメッセージがありません');
             $this->info('送信するメッセージがありません');
             return;
         }
