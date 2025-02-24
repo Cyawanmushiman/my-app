@@ -21,6 +21,11 @@
                                     <a href="{{ route('user.email.change.form') }}">change your email</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="text-nowrap px-2">
+                                    <a href="{{ route('user.passwords.edit') }}">change your password</a>
+                                </td>
+                            </tr>
                         </x-slot>
                     </x-parts.basic_table_layout>
                 </div>

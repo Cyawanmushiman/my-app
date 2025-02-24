@@ -11,6 +11,7 @@ use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\PurposeController;
+use App\Http\Controllers\User\PasswordController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\ChallengingController;
@@ -141,6 +142,12 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
         Route::get('/', [EmailChangeController::class, 'showChangeForm'])->name('form');
         Route::post('send', [EmailChangeController::class, 'sendVerificationEmail'])->name('send');
         Route::get('verify/{token}', [EmailChangeController::class, 'verifyNewEmail'])->name('verify');
+    });
+    
+    // パスワード変更
+    Route::prefix('passwords')->name('passwords.')->group(function () {
+        Route::get('edit', [PasswordController::class, 'edit'])->name('edit');
+        Route::put('update', [PasswordController::class, 'update'])->name('update');
     });
     
     Route::get('test-battle', function () {
