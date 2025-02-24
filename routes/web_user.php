@@ -11,9 +11,11 @@ use App\Http\Controllers\User\HistoryController;
 use App\Http\Controllers\User\InspireController;
 use App\Http\Controllers\User\MindMapController;
 use App\Http\Controllers\User\PurposeController;
+use App\Http\Controllers\User\PasswordController;
 use App\Http\Controllers\User\LineLoginController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\ChallengingController;
+use App\Http\Controllers\User\EmailChangeController;
 use App\Http\Controllers\User\LongRunGoalController;
 use App\Http\Controllers\User\DailyRunGoalController;
 use App\Http\Controllers\User\ShortRunGoalController;
@@ -39,7 +41,7 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 // ログアウト
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+// lineログイン
 Route::get('linelogin', [LineLoginController::class, 'lineLogin'])->name('linelogin');
 Route::get('callback', [LineLoginController::class, 'callback'])->name('callback');
 
@@ -129,6 +131,24 @@ Route::middleware(['auth:user', 'verified'])->group(function () {
     // 挑戦ログ管理
     Route::post('challenging_logs/store', [ChallengingLogController::class, 'store'])->name('challenging_logs.store');
     Route::get('challenging_logs/display_battle/{challenging_log_id}', [ChallengingLogController::class, 'displayBattle'])->name('challenging_logs.display_battle');
+    
+    // セッティング画面
+    Route::get('settings', function () {
+        return view('user.settings.index');
+    })->name('settings');
+    
+    // メール変更
+    Route::prefix('email.change')->name('email.change.')->group(function () {
+        Route::get('/', [EmailChangeController::class, 'showChangeForm'])->name('form');
+        Route::post('send', [EmailChangeController::class, 'sendVerificationEmail'])->name('send');
+        Route::get('verify/{token}', [EmailChangeController::class, 'verifyNewEmail'])->name('verify');
+    });
+    
+    // パスワード変更
+    Route::prefix('passwords')->name('passwords.')->group(function () {
+        Route::get('edit', [PasswordController::class, 'edit'])->name('edit');
+        Route::put('update', [PasswordController::class, 'update'])->name('update');
+    });
     
     Route::get('test-battle', function () {
         return view('user.test-battle');
