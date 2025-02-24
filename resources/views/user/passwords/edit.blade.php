@@ -14,19 +14,20 @@
 
                     <div class="col-md-8 mb-3 mx-auto">
                         <label class="" for="current_password">current password</label>
-                        @include('components.form.password', ['name' => 'current_password', 'required' => true])
+                        @include('components.form.password_show_toggle', ['name' => 'current_password', 'required' => true, 'id' => 'current_password'])
                         @include('components.form.error', ['name' => 'current_password'])
                     </div>
 
                     <div class="col-md-8 mb-3 mx-auto">
                         <label class="" for="new_password">new password</label>
-                        @include('components.form.password', ['name' => 'new_password', 'required' => true])
+                        @include('components.form.password_show_toggle', ['name' => 'new_password', 'required' => true, 'id' => 'new_password'])
                         @include('components.form.error', ['name' => 'new_password'])
                     </div>
 
                     <div class="col-md-8 mb-3 mx-auto">
                         <label class="" for="new_password_confirmation">new password confirmation</label>
-                        @include('components.form.password', ['name' => 'new_password_confirmation', 'required' => true])
+                        {{-- @include('components.form.password', ['name' => 'new_password_confirmation', 'required' => true]) --}}
+                        @include('components.form.password_show_toggle', ['name' => 'new_password_confirmation', 'required' => true, 'id' => 'new_password_confirmation'])
                         @include('components.form.error', ['name' => 'new_password_confirmation'])
                     </div>
 
@@ -43,3 +44,25 @@
     </div>
 </section>
 @endsection
+
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function () {
+                const targetInputId = this.dataset.target;
+                const input = document.getElementById(targetInputId);
+
+                if (input) {
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    this.innerHTML = isPassword 
+                        ? '<i class="fa-solid fa-eye-slash"></i>' 
+                        : '<i class="fa-solid fa-eye"></i>';
+                }
+            });
+        });
+    });
+</script>
+@endsection
+
